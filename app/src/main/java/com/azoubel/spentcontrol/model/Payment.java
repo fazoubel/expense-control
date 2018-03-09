@@ -8,13 +8,16 @@ import android.arch.persistence.room.PrimaryKey;
 public class Payment {
 
     @PrimaryKey
+    private int paymentId;
+
+    @ColumnInfo(name = "spent_id")
     private int spentId;
 
-    @PrimaryKey
+    @ColumnInfo(name = "user_id")
     private int userId;
 
-    @ColumnInfo(name = "paymant_way_id")
-    private int paymantWayId;
+    @ColumnInfo(name = "payment_way_id")
+    private int paymentWayId;
 
     @ColumnInfo(name = "value")
     private float value;
@@ -38,12 +41,12 @@ public class Payment {
         this.userId = userId;
     }
 
-    public int getPaymantWayId() {
-        return paymantWayId;
+    public int getPaymentWayId() {
+        return paymentWayId;
     }
 
-    public void setPaymantWayId(int paymantWayId) {
-        this.paymantWayId = paymantWayId;
+    public void setPaymentWayId(int paymentWayId) {
+        this.paymentWayId = paymentWayId;
     }
 
     public float getValue() {

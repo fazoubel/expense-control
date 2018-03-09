@@ -3,14 +3,16 @@ package com.azoubel.spentcontrol.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class CreditCard {
 
     @PrimaryKey
+    @NonNull
     private String number;
 
-    @PrimaryKey
+    @ColumnInfo(name = "user_id")
     private int userId;
 
     @ColumnInfo(name = "expiration_date")

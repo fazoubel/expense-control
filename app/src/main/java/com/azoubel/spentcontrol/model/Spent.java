@@ -4,8 +4,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity
 public class Spent {
 
@@ -16,7 +14,7 @@ public class Spent {
     private float initialValue;
 
     @ColumnInfo(name = "expiration_date")
-    private Date expirationDate;
+    private Long expirationDate;
 
     @ColumnInfo(name = "description")
     private String name;
@@ -28,7 +26,7 @@ public class Spent {
     private int storyId;
 
     @ColumnInfo(name = "last_paymant_date")
-    private Date lastPaymentDate;
+    private Long lastPaymentDate;
 
     @ColumnInfo(name = "assessment")
     private float assessment;
@@ -52,11 +50,11 @@ public class Spent {
         this.initialValue = initialValue;
     }
 
-    public Date getExpirationDate() {
+    public Long getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(Long expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -84,11 +82,11 @@ public class Spent {
         this.storyId = storyId;
     }
 
-    public Date getLastPaymentDate() {
+    public Long getLastPaymentDate() {
         return lastPaymentDate;
     }
 
-    public void setLastPaymentDate(Date lastPaymentDate) {
+    public void setLastPaymentDate(Long lastPaymentDate) {
         this.lastPaymentDate = lastPaymentDate;
     }
 

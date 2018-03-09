@@ -10,7 +10,7 @@ public class Store {
     @PrimaryKey
     private int storeId;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "store_name")
     private String name;
 
     @ColumnInfo(name = "address_id")
