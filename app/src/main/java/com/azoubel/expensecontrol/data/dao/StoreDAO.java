@@ -26,5 +26,5 @@ public interface StoreDAO {
     Store findStoreByName(String storeName);
 
     @Delete
-    void delete(Store purchase);
+    void delete(Store store);
 }

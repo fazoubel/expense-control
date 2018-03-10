@@ -11,7 +11,7 @@ public class Store {
     private int storeId;
 
     @ColumnInfo(name = "store_name")
-    private String name;
+    private String storeName;
 
     @ColumnInfo(name = "address_id")
     private int addressId;
@@ -30,12 +30,12 @@ public class Store {
         this.storeId = storeId;
     }
 
-    public String getName() {
-        return name;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public int getAddressId() {

@@ -10,10 +10,11 @@ import com.azoubel.expensecontrol.data.dao.ExpenseDAO;
 import com.azoubel.expensecontrol.data.dao.UserDAO;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
+import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User;
 import com.azoubel.expensecontrol.data.dao.StoreDAO;
 
-@Database(entities = {User.class, Expense.class, CreditCard.class}, version = 1)
+@Database(entities = {User.class, Expense.class, Store.class, CreditCard.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
