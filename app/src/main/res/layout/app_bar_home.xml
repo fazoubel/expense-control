@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.azoubel.expensecontrol.com.azoubel.expensecontrol.HomeActivity">
+    tools:context="com.azoubel.expensecontrol.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,14 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <include layout="@layout/home_users_content"
+        android:id="@+id/home_users" />
+
+    <include layout="@layout/home_expenses_content"
+        android:id="@+id/home_expenses"/>
+
+    <include layout="@layout/home_payments_content"
+        android:id="@+id/home_payments"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
