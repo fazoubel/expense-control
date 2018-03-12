@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.data.model.User;
 
 import java.util.List;
 

@@ -1,12 +1,11 @@
 package com.azoubel.expensecontrol.controller;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import com.azoubel.expensecontrol.model.Expense;
-import com.azoubel.expensecontrol.model.ExpenseCategory;
-import com.azoubel.expensecontrol.model.PaymentWay;
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.data.model.Expense;
+import com.azoubel.expensecontrol.data.model.ExpenseCategory;
+import com.azoubel.expensecontrol.data.model.PaymentWay;
+import com.azoubel.expensecontrol.data.model.User;
 import com.azoubel.expensecontrol.data.AppDatabase;
 
 import java.util.List;

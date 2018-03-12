@@ -1,52 +1,49 @@
 package com.azoubel.expensecontrol.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
-@Entity
 public class Payment {
 
-    @PrimaryKey(autoGenerate = true)
     private int paymentId;
 
-    @ColumnInfo(name = "expense_id")
-    private int expenseId;
+    private Expense expense;
 
-    @ColumnInfo(name = "user_id")
-    private int userId;
+    private User user;
 
-    @ColumnInfo(name = "payment_way_id")
-    private int paymentWayId;
+    private PaymentWay paymentWay;
 
-    @ColumnInfo(name = "value")
     private float value;
 
-    @ColumnInfo(name = "creditCardNumber")
-    private float creditCardNumber;
+    private CreditCard creditCard;
 
-    public int getExpenseId() {
-        return expenseId;
+    public int getPaymentId() {
+        return paymentId;
     }
 
-    public void setExpenseId(int expenseId) {
-        this.expenseId = expenseId;
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
     }
 
-    public int getUserId() {
-        return userId;
+    public Expense getExpense() {
+        return expense;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setExpense(Expense expense) {
+        this.expense = expense;
     }
 
-    public int getPaymentWayId() {
-        return paymentWayId;
+    public User getUser() {
+        return user;
     }
 
-    public void setPaymentWayId(int paymentWayId) {
-        this.paymentWayId = paymentWayId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public PaymentWay getPaymentWay() {
+        return paymentWay;
+    }
+
+    public void setPaymentWay(PaymentWay paymentWay) {
+        this.paymentWay = paymentWay;
     }
 
     public float getValue() {
@@ -57,11 +54,11 @@ public class Payment {
         this.value = value;
     }
 
-    public float getCreditCardNumber() {
-        return creditCardNumber;
+    public CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public void setCreditCardNumber(float creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 }

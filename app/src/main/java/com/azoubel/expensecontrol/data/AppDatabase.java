@@ -8,10 +8,10 @@ import android.content.Context;
 import com.azoubel.expensecontrol.data.dao.CreditCardDAO;
 import com.azoubel.expensecontrol.data.dao.ExpenseDAO;
 import com.azoubel.expensecontrol.data.dao.UserDAO;
-import com.azoubel.expensecontrol.model.CreditCard;
-import com.azoubel.expensecontrol.model.Expense;
-import com.azoubel.expensecontrol.model.Store;
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.data.model.CreditCard;
+import com.azoubel.expensecontrol.data.model.Expense;
+import com.azoubel.expensecontrol.data.model.Store;
+import com.azoubel.expensecontrol.data.model.User;
 import com.azoubel.expensecontrol.data.dao.StoreDAO;
 
 @Database(entities = {User.class, Expense.class, Store.class, CreditCard.class}, version = 1)

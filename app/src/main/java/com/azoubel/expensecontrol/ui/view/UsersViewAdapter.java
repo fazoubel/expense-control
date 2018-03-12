@@ -1,4 +1,4 @@
-package com.azoubel.expensecontrol.ui;
+package com.azoubel.expensecontrol.ui.view;
 
 import android.app.Activity;
 import android.view.View;
@@ -39,7 +39,7 @@ public class UsersViewAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null) {
-            view = activity.getLayoutInflater().inflate(R.layout.user_list_item, viewGroup, false);
+            view = activity.getLayoutInflater().inflate(R.layout.list_item_user_, viewGroup, false);
 
             TextView userNameView = view.findViewById(R.id.userNameItem);
             userNameView.setText(users.get(i).getName());

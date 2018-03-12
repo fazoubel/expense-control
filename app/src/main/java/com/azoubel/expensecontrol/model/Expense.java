@@ -1,40 +1,27 @@
 package com.azoubel.expensecontrol.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import java.util.Date;
 
-@Entity
-public class Expense {
+public class Expense{
 
-    @PrimaryKey(autoGenerate = true)
     private int expenseId;
 
-    @ColumnInfo(name = "user_id")
-    private int userId;
+    private User user;
 
-    @ColumnInfo(name = "initial_value")
     private float initialValue;
 
-    @ColumnInfo(name = "expiration_date")
-    private Long expirationDate;
+    private Date expirationDate;
 
-    @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name = "category_id")
-    private int categoryId;
+    private ExpenseCategory category;
 
-    @ColumnInfo(name = "store_id")
-    private int storeId;
+    private Store store;
 
-    @ColumnInfo(name = "last_payment_date")
-    private Long lastPaymentDate;
+    private Date lastPaymentDate;
 
-    @ColumnInfo(name = "assessment")
     private float assessment;
 
-    @ColumnInfo(name = "final_value")
     private float finalValue;
 
     public int getExpenseId() {
@@ -45,12 +32,12 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public float getInitialValue() {
@@ -61,11 +48,11 @@ public class Expense {
         this.initialValue = initialValue;
     }
 
-    public Long getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Long expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -77,27 +64,27 @@ public class Expense {
         this.description = description;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public ExpenseCategory getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(ExpenseCategory category) {
+        this.category = category;
     }
 
-    public int getStoreId() {
-        return storeId;
+    public Store getStore() {
+        return store;
     }
 
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
+    public void setStore(Store store) {
+        this.store = store;
     }
 
-    public Long getLastPaymentDate() {
+    public Date getLastPaymentDate() {
         return lastPaymentDate;
     }
 
-    public void setLastPaymentDate(Long lastPaymentDate) {
+    public void setLastPaymentDate(Date lastPaymentDate) {
         this.lastPaymentDate = lastPaymentDate;
     }
 

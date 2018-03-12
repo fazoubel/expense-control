@@ -33,7 +33,7 @@
 
     </com.azoubel.expensecontrol.ui.view.UsersView>
 
-    <include layout="@layout/home_expenses_content"
+    <include layout="@layout/view_expenses"
         android:id="@+id/home_expenses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:visibility="gone"/>
 
-    <include layout="@layout/home_payments_content"
+    <include layout="@layout/view_payments"
         android:id="@+id/home_payments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

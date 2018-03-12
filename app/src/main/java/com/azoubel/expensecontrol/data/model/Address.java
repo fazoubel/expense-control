@@ -1,19 +1,31 @@
-package com.azoubel.expensecontrol.model;
+package com.azoubel.expensecontrol.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class Address {
 
+    @PrimaryKey(autoGenerate = true)
     private int addressId;
 
+    @ColumnInfo(name = "street")
     private String street;
 
+    @ColumnInfo(name = "number")
     private int number;
 
+    @ColumnInfo(name = "city")
     private String city;
 
+    @ColumnInfo(name = "state")
     private String state;
 
+    @ColumnInfo(name = "country")
     private String country;
 
+    @ColumnInfo(name = "zip_code")
     private String zipCode;
 
     public int getAddressId() {

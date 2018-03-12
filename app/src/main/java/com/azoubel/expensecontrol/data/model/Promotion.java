@@ -1,21 +1,33 @@
-package com.azoubel.expensecontrol.model;
+package com.azoubel.expensecontrol.data.model;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
+@Entity
 public class Promotion {
 
+    @PrimaryKey(autoGenerate = true)
     private int promotionId;
 
+    @ColumnInfo(name = "name")
     private String name;
 
+    @ColumnInfo(name = "description")
     private String description;
 
+    @ColumnInfo(name = "value")
     private float value;
 
+    @ColumnInfo(name = "start_date")
     private Date startDate;
 
+    @ColumnInfo(name = "end_date")
     private Date endDate;
 
+    @ColumnInfo(name = "store_id")
     private int storeId;
 
     public int getPromotionId() {

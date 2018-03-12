@@ -10,4 +10,8 @@
     tools:showIn="@layout/app_bar_home"
     android:visibility="gone">
 
+    <ListView
+        android:id="@+id/paymentsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 </android.support.constraint.ConstraintLayout>

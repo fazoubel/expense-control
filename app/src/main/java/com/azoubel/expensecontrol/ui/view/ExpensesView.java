@@ -7,37 +7,37 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.azoubel.expensecontrol.R;
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.model.Expense;
 
 import java.util.List;
 
-public class UsersView extends ConstraintLayout{
+public class ExpensesView extends ConstraintLayout {
 
     private ListView listView;
-    private UsersViewAdapter adapter;
+    private ExpensesViewAdapter adapter;
 
-    public UsersView(Context context) {
+    public ExpensesView(Context context) {
         super(context);
         init();
     }
 
-    public UsersView(Context context, AttributeSet attrs) {
+    public ExpensesView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     public void init() {
         inflate(getContext(), R.layout.view_users, this);
-        listView = findViewById(R.id.usersListView);
+        listView = findViewById(R.id.expensesListView);
     }
 
-    public void setData(List<User> users, Activity activity) {
+    public void setData(List<Expense> expenses, Activity activity) {
         if(adapter == null) {
-            adapter = new UsersViewAdapter(users, activity);
+            adapter = new ExpensesViewAdapter(expenses, activity);
             listView.setAdapter(adapter);
         }
         else {
-            adapter.setUsers(users);
+            adapter.setExpenses(expenses);
             adapter.setActivity(activity);
             adapter.notifyDataSetChanged();
         }

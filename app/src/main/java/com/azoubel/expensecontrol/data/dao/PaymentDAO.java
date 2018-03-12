@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.model.Payment;
+import com.azoubel.expensecontrol.data.model.Payment;
 
 @Dao
 public interface PaymentDAO {

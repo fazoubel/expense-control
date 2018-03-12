@@ -2,7 +2,6 @@ package com.azoubel.expensecontrol;
 
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,11 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.azoubel.expensecontrol.controller.HomeController;
-import com.azoubel.expensecontrol.model.Expense;
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.data.model.Expense;
+import com.azoubel.expensecontrol.data.model.User;
 import com.azoubel.expensecontrol.ui.view.UsersView;
 
 import java.util.Calendar;
@@ -36,12 +34,10 @@ public class HomeActivity extends AppCompatActivity
     ConstraintLayout expensesLayout;
     ConstraintLayout paymentsLayout;
 
-    private static final int usersMenuId = 0;
-    private static final int expensesMenuId = 1;
-    private static final int paymentsMenuId = 2;
-
     FloatingActionButton actionButton;
     Menu navigationMenu;
+
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,7 @@ public class HomeActivity extends AppCompatActivity
 
         actionButton = (FloatingActionButton) findViewById(R.id.fab);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -153,7 +149,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -161,54 +157,24 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }*/
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
 
         CharSequence title = item.getTitle();
 
-        Toast.makeText(this, "clicked on item!!", Toast.LENGTH_SHORT).show();
-        /*int id = item.getItemId();
+        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_users) {
+        } else if (id == R.id.nav_expenses) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_payments) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else {
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

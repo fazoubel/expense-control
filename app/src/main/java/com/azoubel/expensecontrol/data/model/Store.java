@@ -1,15 +1,25 @@
-package com.azoubel.expensecontrol.model;
+package com.azoubel.expensecontrol.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class Store {
 
+    @PrimaryKey(autoGenerate = true)
     private int storeId;
 
+    @ColumnInfo(name = "store_name")
     private String storeName;
 
-    private Address address;
+    @ColumnInfo(name = "address_id")
+    private int addressId;
 
+    @ColumnInfo(name = "site")
     private String site;
 
+    @ColumnInfo(name = "description")
     private String description;
 
     public int getStoreId() {
@@ -28,12 +38,12 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public Address getAddress() {
-        return address;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public String getSite() {

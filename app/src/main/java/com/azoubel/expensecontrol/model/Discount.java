@@ -1,30 +1,24 @@
 package com.azoubel.expensecontrol.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
-@Entity
 public class Discount {
 
-    @PrimaryKey
-    private int expenseId;
+    private Expense expense;
 
-    @PrimaryKey
-    private int promotionId;
+    private Promotion promotion;
 
-    public int getExpenseId() {
-        return expenseId;
+    public Expense getExpense() {
+        return expense;
     }
 
-    public void setExpenseId(int expenseId) {
-        this.expenseId = expenseId;
+    public void setExpense(Expense expense) {
+        this.expense = expense;
     }
 
-    public int getPromotionId() {
-        return promotionId;
+    public Promotion getPromotion() {
+        return promotion;
     }
 
-    public void setPromotionId(int promotionId) {
-        this.promotionId = promotionId;
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 }
