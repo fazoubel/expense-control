@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Address {
+public class AddressData {
 
     @PrimaryKey(autoGenerate = true)
     private int addressId;

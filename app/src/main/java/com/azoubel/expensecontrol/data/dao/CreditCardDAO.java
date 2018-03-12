@@ -6,20 +6,20 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.CreditCard;
+import com.azoubel.expensecontrol.data.model.CreditCardData;
 
 @Dao
 public interface CreditCardDAO {
 
     @Insert
-    void insertAll(CreditCard... creditCards);
+    void insertAll(CreditCardData... creditCardData);
 
     @Update
-    void update(CreditCard address);
+    void update(CreditCardData address);
 
-    @Query("SELECT * FROM creditcard WHERE number LIKE :creditCardNumber")
-    CreditCard getCreditCard(String creditCardNumber);
+    @Query("SELECT * FROM CreditCardData WHERE number LIKE :creditCardNumber")
+    CreditCardData getCreditCard(String creditCardNumber);
 
     @Delete
-    void delete(CreditCard creditCard);
+    void delete(CreditCardData creditCardData);
 }

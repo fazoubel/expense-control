@@ -4,14 +4,14 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 
-import com.azoubel.expensecontrol.data.model.Discount;
+import com.azoubel.expensecontrol.data.model.DiscountData;
 
 @Dao
 public interface DiscountDAO {
 
     @Insert
-    void insertAll(Discount... discounts);
+    void insertAll(DiscountData... discountData);
 
     @Delete
-    void delete(Discount discount);
+    void delete(DiscountData discountData);
 }

@@ -5,20 +5,20 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class PaymentWay {
+public class ExpenseCategoryData {
 
     @PrimaryKey(autoGenerate = true)
-    private int PaymentWayId;
+    private String expenseCategoryId;
 
     @ColumnInfo(name = "name")
     private String name;
 
-    public int getPaymentWayId() {
-        return PaymentWayId;
+    public String getExpenseCategoryId() {
+        return expenseCategoryId;
     }
 
-    public void setPaymentWayId(int paymentWayId) {
-        PaymentWayId = paymentWayId;
+    public void setExpenseCategoryId(String expenseCategoryId) {
+        this.expenseCategoryId = expenseCategoryId;
     }
 
     public String getName() {

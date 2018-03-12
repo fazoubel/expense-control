@@ -6,21 +6,21 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.Address;
+import com.azoubel.expensecontrol.data.model.AddressData;
 
 
 @Dao
 public interface AddressDAO {
 
     @Insert
-    void insertAll(Address... addresses);
+    void insertAll(AddressData... addressData);
 
     @Update
-    void update(Address address);
+    void update(AddressData addressData);
 
-    @Query("SELECT * FROM address WHERE address_id  IN (:addressIds)")
-    Address getAddress(int[] addressIds);
+    @Query("SELECT * FROM AddressData WHERE addressId = :addressId")
+    AddressData getAddress(int addressId);
 
     @Delete
-    void delete(Address address);
+    void delete(AddressData addressData);
 }

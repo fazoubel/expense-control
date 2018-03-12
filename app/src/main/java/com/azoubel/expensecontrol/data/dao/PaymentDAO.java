@@ -6,20 +6,20 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.Payment;
+import com.azoubel.expensecontrol.data.model.PaymentData;
 
 @Dao
 public interface PaymentDAO {
 
     @Insert
-    void insertAll(Payment... payments);
+    void insertAll(PaymentData... paymentData);
 
     @Update
-    void update(Payment payment);
+    void update(PaymentData paymentData);
 
-    @Query("SELECT * FROM payment WHERE paymentId = :paymentId")
-    Payment getPayment(int paymentId);
+    @Query("SELECT * FROM PaymentData WHERE paymentId = :paymentId")
+    PaymentData getPayment(int paymentId);
 
     @Delete
-    void delete(Payment payment);
+    void delete(PaymentData paymentData);
 }

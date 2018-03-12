@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import java.util.Date;
 
 @Entity
-public class Promotion {
+public class PromotionData {
 
     @PrimaryKey(autoGenerate = true)
     private int promotionId;

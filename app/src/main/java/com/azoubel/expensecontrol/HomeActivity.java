@@ -15,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.azoubel.expensecontrol.controller.HomeController;
-import com.azoubel.expensecontrol.data.model.Expense;
-import com.azoubel.expensecontrol.data.model.User;
+import com.azoubel.expensecontrol.model.Expense;
+import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.ui.view.ExpensesView;
+import com.azoubel.expensecontrol.ui.view.PaymentsView;
 import com.azoubel.expensecontrol.ui.view.UsersView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,13 +34,17 @@ public class HomeActivity extends AppCompatActivity
     HomeController controller;
 
     UsersView usersView;
-    ConstraintLayout expensesLayout;
-    ConstraintLayout paymentsLayout;
+    ExpensesView expensesView;
+    PaymentsView paymentsView;
 
     FloatingActionButton actionButton;
     Menu navigationMenu;
 
     DrawerLayout drawer;
+
+    private static final int SHOW_USERS_VIEW = 0;
+    private static final int SHOW_EXPENSES_VIEW = 1;
+    private static final int SHOW_PAYMENTS_VIEW = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +64,11 @@ public class HomeActivity extends AppCompatActivity
 
         ConstraintLayout appBarHome = findViewById(R.id.app_bar);
 
-        usersView = appBarHome.findViewById(R.id.home_users);
+        usersView = appBarHome.findViewById(R.id.users_view_layout);
 
-        expensesLayout = appBarHome.findViewById(R.id.home_expenses);
+        expensesView = appBarHome.findViewById(R.id.expenses_view_layout);
 
-        paymentsLayout = appBarHome.findViewById(R.id.home_payments);
+        paymentsView = appBarHome.findViewById(R.id.payments_view_layout);
 
         if(controller == null) {
             controller = HomeController.getInstance();
@@ -71,7 +78,7 @@ public class HomeActivity extends AppCompatActivity
 
         usersView.setData(users, this);
 
-        usersView.setVisibility(View.VISIBLE);
+        showView(SHOW_USERS_VIEW);
 
         if(users == null || users.isEmpty()) {
 
@@ -85,13 +92,14 @@ public class HomeActivity extends AppCompatActivity
 
             usersView.setData(users, this);
 
-            usersView.setVisibility(View.VISIBLE);
+            showView(SHOW_USERS_VIEW);
+
         }
         else {
             long startDate = getStartDate();
             long endDate = getEndDate();
             expenses = controller.findExpenseByUser(this, users.get(0).getUserId(), startDate, endDate);
-            expensesLayout.setVisibility(View.VISIBLE);
+            showView(SHOW_EXPENSES_VIEW);
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -122,7 +130,7 @@ public class HomeActivity extends AppCompatActivity
 
      private void addUsersMenu(Menu naviMenu) {
         if(users != null && !users.isEmpty()) {
-            for (User user : users) {
+            for (User user : this.users) {
                 MenuItem usersItem = naviMenu.add( R.id.menuUsers, user.getUserId(), Menu.NONE, user.getName());
                 usersItem.setIcon(getUserIcon(user.getImage()));
                 usersItem.setCheckable(true);
@@ -133,7 +141,7 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-   private int getUserIcon(int userImage) {
+    private int getUserIcon(int userImage) {
         return R.drawable.ic_menu_share;
     }
 
@@ -161,21 +169,50 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        CharSequence title = item.getTitle();
-
         int id = item.getItemId();
 
         if (id == R.id.nav_users) {
-        } else if (id == R.id.nav_expenses) {
+            showView(SHOW_USERS_VIEW);
+        } /*else if (id == R.id.nav_expenses) {
 
         } else if (id == R.id.nav_payments) {
 
-        } else {
+        }*/ else {
+            for (User user : users) {
+                if(id == user.getUserId()) {
+                    List<Expense> expenseList = controller.findExpenseByUser(this, user.getUserId(),
+                            getStartDate(), getEndDate());
 
+                    expensesView.setData(expenseList, this);
+
+                    showView(SHOW_EXPENSES_VIEW);
+                    break;
+                }
+            }
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showView(int view) {
+
+        //show users view
+        if(view == SHOW_USERS_VIEW) {
+            usersView.setVisibility(View.VISIBLE);
+            expensesView.setVisibility(View.GONE);
+            paymentsView.setVisibility(View.GONE);
+        }
+        else if(view == SHOW_EXPENSES_VIEW) {
+            usersView.setVisibility(View.GONE);
+            expensesView.setVisibility(View.VISIBLE);
+            paymentsView.setVisibility(View.GONE);
+        }
+        else {
+            usersView.setVisibility(View.GONE);
+            expensesView.setVisibility(View.GONE);
+            paymentsView.setVisibility(View.VISIBLE);
+        }
     }
 
 }

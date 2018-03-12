@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.Expense;
+import com.azoubel.expensecontrol.data.model.ExpenseData;
 
 import java.util.List;
 
@@ -14,20 +14,20 @@ import java.util.List;
 public interface ExpenseDAO {
 
     @Insert
-    void insertAll(Expense... expenses);
+    void insertAll(ExpenseData... expens);
 
     @Update
-    void update(Expense expense);
+    void update(ExpenseData expenseData);
 
-    @Query("SELECT * FROM Expense WHERE expenseId = :expenseId")
-    Expense getExpense(int expenseId);
+    @Query("SELECT * FROM ExpenseData WHERE expenseId = :expenseId")
+    ExpenseData getExpense(int expenseId);
 
-    @Query("SELECT * FROM Expense WHERE user_id = :userId")
-    List<Expense> findByUser(int userId);
+    @Query("SELECT * FROM ExpenseData WHERE user_id = :userId")
+    List<ExpenseData> findByUser(int userId);
 
-    @Query("SELECT * FROM Expense WHERE user_id = :userId AND expiration_date >= :startDate AND expiration_date <= :endDate")
-    List<Expense> findByUser(int userId, long startDate, long endDate);
+    @Query("SELECT * FROM ExpenseData WHERE user_id = :userId AND expiration_date >= :startDate AND expiration_date <= :endDate")
+    List<ExpenseData> findByUser(int userId, long startDate, long endDate);
 
     @Delete
-    void delete(Expense Expense);
+    void delete(ExpenseData ExpenseData);
 }

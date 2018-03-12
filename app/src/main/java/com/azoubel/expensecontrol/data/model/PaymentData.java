@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Payment {
+public class PaymentData {
 
     @PrimaryKey(autoGenerate = true)
     private int paymentId;

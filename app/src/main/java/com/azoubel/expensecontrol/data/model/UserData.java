@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class User {
+public class UserData {
 
     @PrimaryKey(autoGenerate = true)
     private int userId;
@@ -22,7 +22,7 @@ public class User {
     @ColumnInfo(name = "image")
     private int image;
 
-    public User(String name, String phoneNumber, byte sex, int image) {
+    public UserData(String name, String phoneNumber, byte sex, int image) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.sex = sex;

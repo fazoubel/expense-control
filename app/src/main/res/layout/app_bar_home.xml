@@ -23,7 +23,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <com.azoubel.expensecontrol.ui.view.UsersView
-        android:id="@+id/home_users"
+        android:id="@+id/users_view_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,8 +33,8 @@
 
     </com.azoubel.expensecontrol.ui.view.UsersView>
 
-    <include layout="@layout/view_expenses"
-        android:id="@+id/home_expenses"
+    <com.azoubel.expensecontrol.ui.view.ExpensesView
+        android:id="@+id/expenses_view_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,15 +42,14 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:visibility="gone"/>
 
-    <include layout="@layout/view_payments"
-        android:id="@+id/home_payments"
+    <com.azoubel.expensecontrol.ui.view.PaymentsView
+        android:id="@+id/payments_view_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:visibility="gone"/>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

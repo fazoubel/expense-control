@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Expense {
+public class ExpenseData {
 
     @PrimaryKey(autoGenerate = true)
     private int expenseId;
@@ -23,7 +23,7 @@ public class Expense {
     private String description;
 
     @ColumnInfo(name = "category_id")
-    private int categoryId;
+    private String category;
 
     @ColumnInfo(name = "store_id")
     private int storeId;
@@ -77,12 +77,12 @@ public class Expense {
         this.description = description;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getStoreId() {

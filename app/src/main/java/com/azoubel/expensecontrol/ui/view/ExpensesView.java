@@ -27,7 +27,7 @@ public class ExpensesView extends ConstraintLayout {
     }
 
     public void init() {
-        inflate(getContext(), R.layout.view_users, this);
+        inflate(getContext(), R.layout.view_expenses, this);
         listView = findViewById(R.id.expensesListView);
     }
 

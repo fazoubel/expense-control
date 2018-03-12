@@ -6,20 +6,20 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.Promotion;
+import com.azoubel.expensecontrol.data.model.PromotionData;
 
 @Dao
 public interface PromotionDAO {
 
     @Insert
-    void insertAll(Promotion... promotions);
+    void insertAll(PromotionData... promotionData);
 
     @Update
-    void update(Promotion promotion);
+    void update(PromotionData promotionData);
 
-    @Query("SELECT * FROM promotion WHERE promotionId = :promotionId")
-    Promotion getPromotion(int promotionId);
+    @Query("SELECT * FROM PromotionData WHERE promotionId = :promotionId")
+    PromotionData getPromotion(int promotionId);
 
     @Delete
-    void delete(Promotion promotion);
+    void delete(PromotionData promotionData);
 }

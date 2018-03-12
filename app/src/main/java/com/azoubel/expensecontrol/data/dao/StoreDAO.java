@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.Store;
+import com.azoubel.expensecontrol.data.model.StoreData;
 
 import java.util.List;
 
@@ -14,17 +14,20 @@ import java.util.List;
 public interface StoreDAO {
 
     @Insert
-    void insertAll(Store... stores);
+    void insertAll(StoreData... storeData);
 
     @Update
-    void update(Store store);
+    void update(StoreData storeData);
 
-    @Query("SELECT * FROM store")
-    List<Store> getAll();
+    @Query("SELECT * FROM StoreData")
+    List<StoreData> getAll();
 
-    @Query("SELECT * FROM store WHERE store_name LIKE :storeName")
-    Store findStoreByName(String storeName);
+    @Query("SELECT * FROM StoreData WHERE storeId = :storeId")
+    StoreData getStore(int storeId);
+
+    @Query("SELECT * FROM StoreData WHERE store_name LIKE :storeName")
+    StoreData findStoreByName(String storeName);
 
     @Delete
-    void delete(Store store);
+    void delete(StoreData storeData);
 }

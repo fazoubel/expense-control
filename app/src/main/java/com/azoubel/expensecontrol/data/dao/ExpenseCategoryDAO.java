@@ -3,13 +3,13 @@ package com.azoubel.expensecontrol.data.dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 
-import com.azoubel.expensecontrol.data.model.ExpenseCategory;
+import com.azoubel.expensecontrol.data.model.ExpenseCategoryData;
 
 public interface ExpenseCategoryDAO {
 
     @Insert
-    void insertAll(ExpenseCategory... purchaseCategories);
+    void insertAll(ExpenseCategoryData... purchaseCategories);
 
     @Delete
-    void delete(ExpenseCategory expenseCategory);
+    void delete(ExpenseCategoryData expenseCategoryData);
 }

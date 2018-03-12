@@ -3,26 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/menuOptions">
-        <item
-            android:id="@+id/nav_users"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Usuários" />
-        <item
-            android:id="@+id/nav_expenses"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gastos" />
-        <item
-            android:id="@+id/nav_payments"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Pagamentos" />
-            </group>
+    <item
+        android:id="@+id/nav_users"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Novo" />
 
-    <item android:title="Cadastrados" >
-        <group android:checkableBehavior="single"
-            android:id="@+id/menuUsers">
-        </group>
-    </item>
+    <group android:checkableBehavior="single"
+        android:id="@+id/menuUsers">
+    </group>
 
 </menu>

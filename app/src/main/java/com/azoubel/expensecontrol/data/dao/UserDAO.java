@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.azoubel.expensecontrol.data.model.User;
+import com.azoubel.expensecontrol.data.model.UserData;
 
 import java.util.List;
 
@@ -14,23 +14,23 @@ import java.util.List;
 public interface UserDAO {
 
     @Insert
-    void insertAll(User... users);
+    void insertAll(UserData... userData);
 
     @Update
-    void update(User user);
+    void update(UserData userData);
 
-    @Query("SELECT * FROM user")
-    List<User> getAll();
+    @Query("SELECT * FROM UserData")
+    List<UserData> getAll();
 
-    @Query("SELECT * FROM user WHERE userId = :userId")
-    List<User> getUser(int userId);
+    @Query("SELECT * FROM UserData WHERE userId = :userId")
+    UserData getUser(int userId);
 
-    @Query("SELECT * FROM user WHERE userId IN (:userIds)")
-    List<User> getAllUsersById(int[] userIds);
+    @Query("SELECT * FROM UserData WHERE userId IN (:userIds)")
+    List<UserData> getAllUsersById(int[] userIds);
 
-    @Query("SELECT * FROM user WHERE name LIKE :name LIMIT 1")
-    User findByName(String name);
+    @Query("SELECT * FROM UserData WHERE name LIKE :name LIMIT 1")
+    UserData findByName(String name);
 
     @Delete
-    void delete(User user);
+    void delete(UserData userData);
 }
