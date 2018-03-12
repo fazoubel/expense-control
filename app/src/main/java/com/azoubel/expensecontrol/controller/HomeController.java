@@ -53,12 +53,9 @@ public class HomeController {
 
     }
 
-    /*public List<Expense> findExpenseByUser(Context context, int userId, long startDate, long endDate) {
+    public List<Expense> findExpenseByUser(Context context, int userId, long startDate, long endDate) {
         return AppDatabase.getInstance(context).expenseDAO().findByUser(userId, startDate, endDate);
     }
 
-    public Store findStoreByName(Context context, String storeName) {
-        // TODO - return store
-        return null;
-    }*/
+
 }

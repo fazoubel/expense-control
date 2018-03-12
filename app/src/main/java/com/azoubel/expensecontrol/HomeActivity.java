@@ -17,17 +17,22 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.azoubel.expensecontrol.controller.HomeController;
+import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.ui.view.UsersView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     List<User> users;
+    List<Expense> expenses;
     HomeController controller;
 
-    ConstraintLayout usersLayout;
+    UsersView usersView;
     ConstraintLayout expensesLayout;
     ConstraintLayout paymentsLayout;
 
@@ -54,9 +59,9 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        CoordinatorLayout appBarHome = findViewById(R.id.app_bar);
+        ConstraintLayout appBarHome = findViewById(R.id.app_bar);
 
-        usersLayout = appBarHome.findViewById(R.id.home_users);
+        usersView = appBarHome.findViewById(R.id.home_users);
 
         expensesLayout = appBarHome.findViewById(R.id.home_expenses);
 
@@ -68,8 +73,29 @@ public class HomeActivity extends AppCompatActivity
 
         users = controller.loadUsers(this);
 
+        usersView.setData(users, this);
+
+        usersView.setVisibility(View.VISIBLE);
+
         if(users == null || users.isEmpty()) {
-            usersLayout.setVisibility(View.VISIBLE);
+
+            controller.insertUser(this, "fernando oliveira", "11111111111", (byte) 0, 0);
+
+            controller.insertUser(this, "Suelene Maria", "11111111111", (byte) 0, 0);
+
+            controller.insertUser(this, "Edipo Araujo", "11111111111", (byte) 0, 0);
+
+            users = controller.loadUsers(this);
+
+            usersView.setData(users, this);
+
+            usersView.setVisibility(View.VISIBLE);
+        }
+        else {
+            long startDate = getStartDate();
+            long endDate = getEndDate();
+            expenses = controller.findExpenseByUser(this, users.get(0).getUserId(), startDate, endDate);
+            expensesLayout.setVisibility(View.VISIBLE);
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -78,30 +104,32 @@ public class HomeActivity extends AppCompatActivity
 
         navigationMenu = navigationView.getMenu();
 
-        addMenuItens(navigationMenu);
+        addUsersMenu(navigationMenu);
         updateFloatButton();
     }
 
-    private void addMenuItens(Menu naviMenu) {
-
-        MenuItem usersItem = naviMenu.add( R.id.menuOptions, Menu.NONE, usersMenuId,"usuários");
-        usersItem.setIcon(R.drawable.ic_menu_camera);
-
-        MenuItem expensesItem = naviMenu.add( R.id.menuOptions, Menu.NONE, expensesMenuId,"gastos");
-        expensesItem.setIcon(R.drawable.ic_menu_camera);
-
-        MenuItem paymentsItem = naviMenu.add( R.id.menuOptions, Menu.NONE, paymentsMenuId,"pagamentos");
-        paymentsItem.setIcon(R.drawable.ic_menu_camera);
-
-        addUsersMenu(naviMenu);
-
+    private long getStartDate() {
+        Calendar calendar = Calendar.getInstance();
+        Date now  = new Date();
+        now.setDate(calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+        long startDate = now.getTime();
+        return startDate;
     }
 
-    private void addUsersMenu(Menu naviMenu) {
+    private long getEndDate() {
+        Calendar calendar = Calendar.getInstance();
+        Date now  = new Date();
+        now.setDate(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        long endDate = now.getTime();
+        return endDate;
+    }
+
+     private void addUsersMenu(Menu naviMenu) {
         if(users != null && !users.isEmpty()) {
             for (User user : users) {
-                MenuItem usersItem = naviMenu.add( R.id.menuUsers, Menu.NONE, user.getUserId(), user.getName());
+                MenuItem usersItem = naviMenu.add( R.id.menuUsers, user.getUserId(), Menu.NONE, user.getName());
                 usersItem.setIcon(getUserIcon(user.getImage()));
+                usersItem.setCheckable(true);
             }
         }
         else {
@@ -162,9 +190,7 @@ public class HomeActivity extends AppCompatActivity
 
         CharSequence title = item.getTitle();
 
-        if(title.equals("dead")) {
-            Toast.makeText(this, "clicked on dead item!!", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, "clicked on item!!", Toast.LENGTH_SHORT).show();
         /*int id = item.getItemId();
 
         if (id == R.id.nav_camera) {

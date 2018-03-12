@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Address {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int addressId;
 
     @ColumnInfo(name = "street")

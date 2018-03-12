@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Expense {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int expenseId;
 
     @ColumnInfo(name = "user_id")

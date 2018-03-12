@@ -11,7 +11,7 @@ public class PaymentWay {
         credit_card, money, other
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int PaymentWayId;
 
     @ColumnInfo(name = "name")

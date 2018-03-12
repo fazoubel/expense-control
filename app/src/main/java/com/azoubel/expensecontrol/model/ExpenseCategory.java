@@ -11,7 +11,7 @@ public class ExpenseCategory {
         purchase, bill, other
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int expenseCategoryId;
 
     @ColumnInfo(name = "name")

@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class Promotion {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int promotionId;
 
     @ColumnInfo(name = "name")
