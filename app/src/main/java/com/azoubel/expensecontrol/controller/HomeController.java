@@ -68,6 +68,9 @@ public class HomeController {
         paymentData.setValue(value);
         paymentData.setPaymentWay(paymentWay.name());
         AppDatabase.getInstance(context).paymentDAO().insertPayment(paymentData);
+        ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expenseId);
+        expenseData.setLastPaymentDate(new Date().getTime());
+        AppDatabase.getInstance(context).expenseDAO().update(expenseData);
     }
 
     public List<Payment> findPaymentsByExpense(Context context, int expenseId) {
@@ -202,8 +205,10 @@ public class HomeController {
         payment.setPaymentId(paymentData.getPaymentId());
 
         CreditCardData creditCardData = AppDatabase.getInstance(context).creditCardDAO().getCreditCard(paymentData.getCreditCardNumber());
-        CreditCard creditCard = buildCreditCard(context, creditCardData);
-        payment.setCreditCard(creditCard);
+        if(creditCardData != null) {
+            CreditCard creditCard = buildCreditCard(context, creditCardData);
+            payment.setCreditCard(creditCard);
+        }
 
         ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(paymentData.getExpenseId());
         Expense expense = buildExpense(context, expenseData);

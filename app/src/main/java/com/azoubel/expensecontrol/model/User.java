@@ -2,6 +2,9 @@ package com.azoubel.expensecontrol.model;
 
 public class User {
 
+    public static final int SEX_MALE = 0;
+    public static final int SEX_FEMALE = 1;
+
     private int userId;
 
     private String name;
@@ -50,5 +53,16 @@ public class User {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + "\n"
+                + "telefone: " + this.phoneNumber+ "\n"
+                + "sexo: " + this.getSexString();
+    }
+
+    private String getSexString() {
+        return this.sex == SEX_MALE ? "masculino" : "feminino";
     }
 }

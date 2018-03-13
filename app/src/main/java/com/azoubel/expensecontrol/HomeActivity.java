@@ -15,9 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.azoubel.expensecontrol.controller.HomeController;
-import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
+import com.azoubel.expensecontrol.model.Payment;
+import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.User;
 import com.azoubel.expensecontrol.ui.view.ExpensesView;
 import com.azoubel.expensecontrol.ui.view.PaymentsView;
@@ -28,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ExpensesView.ExpenseClickListener, UsersView.UserClickListener {
 
     List<User> users;
     List<Expense> expenses;
@@ -79,19 +80,23 @@ public class HomeActivity extends AppCompatActivity
 
         usersView.setData(users, this);
 
+        usersView.setUserClickListener(this);
+
         showView(SHOW_USERS_VIEW);
 
         if(users == null || users.isEmpty()) {
 
             controller.addUser(this, "fernando oliveira", "11111111111", (byte) 0, 0);
 
-            controller.addUser(this, "Suelene Maria", "11111111111", (byte) 0, 0);
+            controller.addUser(this, "Suelene Maria", "2222222222", (byte) 0, 0);
 
-            controller.addUser(this, "Edipo Araujo", "11111111111", (byte) 0, 0);
+            controller.addUser(this, "Edipo Araujo", "3333333333", (byte) 0, 0);
 
             users = controller.loadUsers(this);
 
             usersView.setData(users, this);
+
+            usersView.setUserClickListener(this);
 
             showView(SHOW_USERS_VIEW);
 
@@ -122,13 +127,18 @@ public class HomeActivity extends AppCompatActivity
             controller.addExpense(this, users.get(1).getUserId(), 1, 105.00f, expirationDate2.getTime(),
                     "compra de um cágado", ExpenseCategory.purchase, 5.5f);
 
+            List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
+
+            controller.addPayment(this, users.get(0).getUserId(), expenseList.get(0).getExpenseId(), PaymentWay.money,
+                    expenseList.get(0).getInitialValue(), "");
+
         }
-        else {
+        /*else {
             long startDate = getStartDate();
             long endDate = getEndDate();
             expenses = controller.findExpenseByUser(this, users.get(0).getUserId(), startDate, endDate);
             showView(SHOW_EXPENSES_VIEW);
-        }
+        }*/
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
@@ -164,9 +174,6 @@ public class HomeActivity extends AppCompatActivity
                 usersItem.setCheckable(true);
             }
         }
-        else {
-
-        }
     }
 
     private int getUserIcon(int userImage) {
@@ -189,7 +196,15 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(paymentsView.getVisibility() == View.VISIBLE) {
+                showView(SHOW_EXPENSES_VIEW);
+            }
+            else if(expensesView.getVisibility() == View.VISIBLE) {
+                showView(SHOW_USERS_VIEW);
+            }
+            else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -201,9 +216,9 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_users) {
             showView(SHOW_USERS_VIEW);
-        } /*else if (id == R.id.nav_expenses) {
+        } else if (id == R.id.nav_stores) {
 
-        } else if (id == R.id.nav_payments) {
+        } /* else if (id == R.id.nav_payments) {
 
         }*/ else {
             for (User user : users) {
@@ -212,6 +227,7 @@ public class HomeActivity extends AppCompatActivity
                             getStartDate(), getEndDate());
 
                     expensesView.setData(expenseList, this);
+                    expensesView.setExpenseClickListener(this);
 
                     showView(SHOW_EXPENSES_VIEW);
                     break;
@@ -243,4 +259,18 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onExpenseClicked(int expenseId) {
+        List<Payment> paymentList = controller.findPaymentsByExpense(this, expenseId);
+        paymentsView.setData(paymentList, this);
+        showView(SHOW_PAYMENTS_VIEW);
+    }
+
+    @Override
+    public void onUserClicked(int userId) {
+        List<Expense> expenseList = controller.findExpenseByUser(this, userId, getStartDate(), getEndDate());
+        expensesView.setData(expenseList, this);
+        expensesView.setExpenseClickListener(this);
+        showView(SHOW_EXPENSES_VIEW);
+    }
 }

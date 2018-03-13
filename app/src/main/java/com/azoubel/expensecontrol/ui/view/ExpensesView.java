@@ -13,8 +13,13 @@ import java.util.List;
 
 public class ExpensesView extends ConstraintLayout {
 
+    public interface ExpenseClickListener {
+        void onExpenseClicked(int expenseId);
+    }
+
     private ListView listView;
     private ExpensesViewAdapter adapter;
+
 
     public ExpensesView(Context context) {
         super(context);
@@ -40,6 +45,12 @@ public class ExpensesView extends ConstraintLayout {
             adapter.setExpenses(expenses);
             adapter.setActivity(activity);
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setExpenseClickListener(ExpensesView.ExpenseClickListener listener) {
+        if(adapter != null) {
+            adapter.setExpenseClickListener(listener);
         }
     }
 }

@@ -15,6 +15,7 @@ public class ExpensesViewAdapter extends BaseAdapter {
 
     private List<Expense> expenses;
     private Activity activity;
+    private ExpensesView.ExpenseClickListener listener;
 
     public ExpensesViewAdapter(List<Expense> expenses, Activity activity) {
         this.expenses = expenses;
@@ -37,16 +38,24 @@ public class ExpensesViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         if(view == null) {
             view = activity.getLayoutInflater().inflate(R.layout.list_item_expense, viewGroup, false);
         }
 
         TextView userNameView = view.findViewById(R.id.expenseDescriptionItem);
-        userNameView.setText(expenses.get(i).getDescription());
+        userNameView.setText(expenses.get(i).toString());
 
-        TextView userPhoneView = view.findViewById(R.id.expenseUserNameItem);
-        userPhoneView.setText(expenses.get(i).getUser().getName());
+        /*userPhoneView.setText(expenses.get(i).getUser().getName());*/
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) {
+                    listener.onExpenseClicked(getItem(i).getExpenseId());
+                }
+            }
+        });
 
         return view;
     }
@@ -57,6 +66,10 @@ public class ExpensesViewAdapter extends BaseAdapter {
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
+    }
+
+    public void setExpenseClickListener(ExpensesView.ExpenseClickListener listener) {
+        this.listener = listener;
     }
 
  }

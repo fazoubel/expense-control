@@ -15,6 +15,7 @@ public class UsersViewAdapter extends BaseAdapter {
 
     List<User> users;
     private Activity activity;
+    private UsersView.UserClickListener listener;
 
     public UsersViewAdapter(List<User> users, Activity activity) {
         this.users = users;
@@ -27,7 +28,7 @@ public class UsersViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public User getItem(int i) {
         return users.get(i);
     }
 
@@ -37,16 +38,23 @@ public class UsersViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         if(view == null) {
             view = activity.getLayoutInflater().inflate(R.layout.list_item_user_, viewGroup, false);
         }
 
-        TextView userNameView = view.findViewById(R.id.userNameItem);
-        userNameView.setText(users.get(i).getName());
+        TextView userNameView = view.findViewById(R.id.userItem);
+        userNameView.setText(users.get(i).toString());
 
-        TextView userPhoneView = view.findViewById(R.id.userphoneItem);
-        userPhoneView.setText(users.get(i).getPhoneNumber());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) {
+                    listener.onUserClicked(getItem(i).getUserId());
+                }
+            }
+        });
+
         return view;
     }
 
@@ -56,5 +64,9 @@ public class UsersViewAdapter extends BaseAdapter {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public void setUserClickListener(UsersView.UserClickListener listener) {
+        this.listener = listener;
     }
 }

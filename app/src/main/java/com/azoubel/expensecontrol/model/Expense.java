@@ -103,4 +103,13 @@ public class Expense{
     public void setFinalValue(float finalValue) {
         this.finalValue = finalValue;
     }
+
+    @Override
+    public String toString() {
+        return String.format(this.description + "\n"
+                + "loja: " + this.store.getStoreName() + "\n"
+                + "categoria: " + this.getCategory().name() + "\n"
+                + "valor da compra: R$ " + this.initialValue + "\n"
+                + "data de vencimento: " + this.expirationDate);
+    }
 }

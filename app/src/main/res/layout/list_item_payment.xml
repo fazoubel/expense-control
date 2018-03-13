@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/userNameItem"
+        android:id="@+id/expenseItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
