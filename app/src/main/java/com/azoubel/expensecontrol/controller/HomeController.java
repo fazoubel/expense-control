@@ -35,7 +35,7 @@ public class HomeController {
         return instance;
     }
 
-    public void insertUser(final Context context, String name, String phoneNumber, byte sex, int image) {
+    public void addUser(final Context context, String name, String phoneNumber, byte sex, int image) {
         final UserData userData = new UserData(name, phoneNumber, sex, image);
         AppDatabase.getInstance(context).userDAO().insertAll(userData);
     }
@@ -70,8 +70,8 @@ public class HomeController {
         AppDatabase.getInstance(context).paymentDAO().insertPayment(paymentData);
     }
 
-    public List<Payment> findPaymentsByExpense(Context context, int expenseId, long startDate, long endDate) {
-        List<PaymentData> paymentDataList = AppDatabase.getInstance(context).paymentDAO().findPaymentsByExpense(expenseId, startDate, endDate);
+    public List<Payment> findPaymentsByExpense(Context context, int expenseId) {
+        List<PaymentData> paymentDataList = AppDatabase.getInstance(context).paymentDAO().findPaymentsByExpense(expenseId);
         List<Payment> payments = buildPayments(context, paymentDataList);
         return payments;
     }
@@ -79,6 +79,26 @@ public class HomeController {
     public List<Expense> findExpenseByUser(Context context, int userId, long startDate, long endDate) {
         List<ExpenseData> expenseDataList = AppDatabase.getInstance(context).expenseDAO().findByUser(userId, startDate, endDate);
         return buildExpenses(context, expenseDataList);
+    }
+
+    public void addAddress(Context context, String street, int number, String city, String state, String country, String zipCpde) {
+        AddressData addressData = new AddressData();
+        addressData.setStreet(street);
+        addressData.setNumber(number);
+        addressData.setCity(city);
+        addressData.setState(state);
+        addressData.setCountry(country);
+        addressData.setZipCode(zipCpde);
+        AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+    }
+
+    public void addStore(Context context, String storeName, int addressId, String site, String description) {
+        StoreData storeData = new StoreData();
+        storeData.setStoreName(storeName);
+        storeData.setAddressId(addressId);
+        storeData.setSite(site);
+        storeData.setDescription(description);
+        AppDatabase.getInstance(context).storeDAO().insertStore(storeData);
     }
 
     private List<User> buildUsers(List<UserData> userDataList) {
@@ -134,8 +154,10 @@ public class HomeController {
 
         expense.setFinalValue(expenseData.getFinalValue());
 
-        Date lastPaymentDate = new Date(expenseData.getLastPaymentDate());
-        expense.setLastPaymentDate(lastPaymentDate);
+        if(expenseData.getLastPaymentDate() != null) {
+            Date lastPaymentDate = new Date(expenseData.getLastPaymentDate());
+            expense.setLastPaymentDate(lastPaymentDate);
+        }
 
         expense.setAssessment(expenseData.getAssessment());
 

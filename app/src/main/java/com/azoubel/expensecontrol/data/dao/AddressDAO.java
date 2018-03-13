@@ -15,6 +15,9 @@ public interface AddressDAO {
     @Insert
     void insertAll(AddressData... addressData);
 
+    @Insert
+    void insertAddress(AddressData addressData);
+
     @Update
     void update(AddressData addressData);
 

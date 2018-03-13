@@ -25,8 +25,8 @@ public interface PaymentDAO {
     @Query("SELECT * FROM PaymentData WHERE paymentId = :paymentId")
     PaymentData getPayment(int paymentId);
 
-    @Query("SELECT * FROM PaymentData WHERE expense_id = :expenseId AND start_date >= :startDate AND end_date <= :endDate")
-    List<PaymentData> findPaymentsByExpense(int expenseId, long startDate, long endDate);
+    @Query("SELECT * FROM PaymentData WHERE expense_id = :expenseId")
+    List<PaymentData> findPaymentsByExpense(int expenseId);
 
     @Delete
     void delete(PaymentData paymentData);

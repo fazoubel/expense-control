@@ -40,13 +40,14 @@ public class ExpensesViewAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null) {
             view = activity.getLayoutInflater().inflate(R.layout.list_item_expense, viewGroup, false);
-
-            TextView userNameView = view.findViewById(R.id.expenseDescriptionItem);
-            userNameView.setText(expenses.get(i).getDescription());
-
-            TextView userPhoneView = view.findViewById(R.id.expenseUserNameItem);
-            userPhoneView.setText(expenses.get(i).getUser().getName());
         }
+
+        TextView userNameView = view.findViewById(R.id.expenseDescriptionItem);
+        userNameView.setText(expenses.get(i).getDescription());
+
+        TextView userPhoneView = view.findViewById(R.id.expenseUserNameItem);
+        userPhoneView.setText(expenses.get(i).getUser().getName());
+
         return view;
     }
 

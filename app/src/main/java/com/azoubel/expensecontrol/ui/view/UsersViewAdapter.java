@@ -40,13 +40,13 @@ public class UsersViewAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null) {
             view = activity.getLayoutInflater().inflate(R.layout.list_item_user_, viewGroup, false);
-
-            TextView userNameView = view.findViewById(R.id.userNameItem);
-            userNameView.setText(users.get(i).getName());
-
-            TextView userPhoneView = view.findViewById(R.id.userphoneItem);
-            userPhoneView.setText(users.get(i).getPhoneNumber());
         }
+
+        TextView userNameView = view.findViewById(R.id.userNameItem);
+        userNameView.setText(users.get(i).getName());
+
+        TextView userPhoneView = view.findViewById(R.id.userphoneItem);
+        userPhoneView.setText(users.get(i).getPhoneNumber());
         return view;
     }
 

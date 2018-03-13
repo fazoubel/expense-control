@@ -16,6 +16,9 @@ public interface StoreDAO {
     @Insert
     void insertAll(StoreData... storeData);
 
+    @Insert
+    void insertStore(StoreData storeData);
+
     @Update
     void update(StoreData storeData);
 

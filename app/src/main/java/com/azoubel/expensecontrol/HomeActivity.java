@@ -15,13 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.azoubel.expensecontrol.controller.HomeController;
+import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.Expense;
+import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.User;
 import com.azoubel.expensecontrol.ui.view.ExpensesView;
 import com.azoubel.expensecontrol.ui.view.PaymentsView;
 import com.azoubel.expensecontrol.ui.view.UsersView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -82,17 +83,44 @@ public class HomeActivity extends AppCompatActivity
 
         if(users == null || users.isEmpty()) {
 
-            controller.insertUser(this, "fernando oliveira", "11111111111", (byte) 0, 0);
+            controller.addUser(this, "fernando oliveira", "11111111111", (byte) 0, 0);
 
-            controller.insertUser(this, "Suelene Maria", "11111111111", (byte) 0, 0);
+            controller.addUser(this, "Suelene Maria", "11111111111", (byte) 0, 0);
 
-            controller.insertUser(this, "Edipo Araujo", "11111111111", (byte) 0, 0);
+            controller.addUser(this, "Edipo Araujo", "11111111111", (byte) 0, 0);
 
             users = controller.loadUsers(this);
 
             usersView.setData(users, this);
 
             showView(SHOW_USERS_VIEW);
+
+            controller.addAddress(this, "rua alemanha", 102, "olinda", "pernambuco", "brazil", "11111-111");
+
+            controller.addAddress(this, "rua chicago", 102, "camaragibe", "pernambuco", "brazil", "22222-222");
+
+            controller.addAddress(this, "avenida mexico", 102, "paulista", "pernambuco", "brazil", "33333-333");
+
+
+            controller.addStore(this, "loja tartaruga", 1, "tartaruga.com", "loja sobre tartarugas");
+
+            controller.addStore(this, "loja suelene", 2, "suelene.com", "loja sobre babozeiras");
+
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.add(Calendar.DATE, 2);
+
+            Date expirationDate = calendar.getTime();
+
+            controller.addExpense(this, users.get(0).getUserId(), 1, 55.04f, expirationDate.getTime(),
+                    "compra de uma tartaruga ninja", ExpenseCategory.purchase, 0);
+
+            calendar.add(Calendar.DATE, 5);
+
+            Date expirationDate2 = calendar.getTime();
+
+            controller.addExpense(this, users.get(1).getUserId(), 1, 105.00f, expirationDate2.getTime(),
+                    "compra de um cágado", ExpenseCategory.purchase, 5.5f);
 
         }
         else {
