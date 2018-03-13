@@ -17,13 +17,21 @@ public class PaymentData {
     private int userId;
 
     @ColumnInfo(name = "payment_way_id")
-    private int paymentWayId;
+    private String paymentWay;
 
     @ColumnInfo(name = "value")
     private float value;
 
     @ColumnInfo(name = "creditCardNumber")
-    private float creditCardNumber;
+    private String creditCardNumber;
+
+    public int getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
 
     public int getExpenseId() {
         return expenseId;
@@ -41,12 +49,12 @@ public class PaymentData {
         this.userId = userId;
     }
 
-    public int getPaymentWayId() {
-        return paymentWayId;
+    public String getPaymentWay() {
+        return paymentWay;
     }
 
-    public void setPaymentWayId(int paymentWayId) {
-        this.paymentWayId = paymentWayId;
+    public void setPaymentWay(String paymentWay) {
+        this.paymentWay = paymentWay;
     }
 
     public float getValue() {
@@ -57,11 +65,11 @@ public class PaymentData {
         this.value = value;
     }
 
-    public float getCreditCardNumber() {
+    public String getCreditCardNumber() {
         return creditCardNumber;
     }
 
-    public void setCreditCardNumber(float creditCardNumber) {
+    public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
     }
 }

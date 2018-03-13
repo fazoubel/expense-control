@@ -4,7 +4,7 @@ public class CreditCard {
 
     private String number;
 
-    private int userId;
+    private User  user;
 
     private String expiration_date;
 
@@ -18,12 +18,12 @@ public class CreditCard {
         this.number = number;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getExpiration_date() {

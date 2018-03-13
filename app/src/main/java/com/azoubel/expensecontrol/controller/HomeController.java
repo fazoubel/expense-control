@@ -3,14 +3,17 @@ package com.azoubel.expensecontrol.controller;
 import android.content.Context;
 
 import com.azoubel.expensecontrol.data.model.AddressData;
+import com.azoubel.expensecontrol.data.model.CreditCardData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
-import com.azoubel.expensecontrol.data.model.ExpenseCategoryData;
+import com.azoubel.expensecontrol.data.model.PaymentData;
 import com.azoubel.expensecontrol.data.model.StoreData;
 import com.azoubel.expensecontrol.data.model.UserData;
 import com.azoubel.expensecontrol.data.AppDatabase;
 import com.azoubel.expensecontrol.model.Address;
+import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
+import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User;
@@ -57,13 +60,25 @@ public class HomeController {
 
     }
 
-    public void addPayment(Context context, int userId, PaymentWay paymentWay, float value, String creditCardNumber) {
+    public void addPayment(Context context, int userId, int expenseId, PaymentWay paymentWay, float value, String creditCardNumber) {
+        PaymentData paymentData = new PaymentData();
+        paymentData.setCreditCardNumber(creditCardNumber);
+        paymentData.setExpenseId(expenseId);
+        paymentData.setUserId(userId);
+        paymentData.setValue(value);
+        paymentData.setPaymentWay(paymentWay.name());
+        AppDatabase.getInstance(context).paymentDAO().insertPayment(paymentData);
+    }
 
+    public List<Payment> findPaymentsByExpense(Context context, int expenseId, long startDate, long endDate) {
+        List<PaymentData> paymentDataList = AppDatabase.getInstance(context).paymentDAO().findPaymentsByExpense(expenseId, startDate, endDate);
+        List<Payment> payments = buildPayments(context, paymentDataList);
+        return payments;
     }
 
     public List<Expense> findExpenseByUser(Context context, int userId, long startDate, long endDate) {
         List<ExpenseData> expenseDataList = AppDatabase.getInstance(context).expenseDAO().findByUser(userId, startDate, endDate);
-        return buildExpense(context, expenseDataList);
+        return buildExpenses(context, expenseDataList);
     }
 
     private List<User> buildUsers(List<UserData> userDataList) {
@@ -85,40 +100,46 @@ public class HomeController {
         return user;
     }
 
-    private List<Expense> buildExpense(Context context, List<ExpenseData> expenseDataList) {
+    private List<Expense> buildExpenses(Context context, List<ExpenseData> expenseDataList) {
         List<Expense> expenseList = new ArrayList<>();
         for (ExpenseData expenseData : expenseDataList) {
-            Expense expense = new Expense();
-
-            expense.setExpenseId(expenseData.getExpenseId());
-
-            UserData userData = AppDatabase.getInstance(context).userDAO().getUser(expenseData.getUserId());
-            User user = buildUser(userData);
-            expense.setUser(user);
-
-            expense.setDescription(expenseData.getDescription());
-
-            StoreData storeData = AppDatabase.getInstance(context).storeDAO().getStore(expenseData.getStoreId());
-            Store store = buildStore(context, storeData);
-            expense.setStore(store);
-
-            expense.setCategory(ExpenseCategory.valueOf(expenseData.getCategory()));
-
-            Date expirationDate = new Date(expenseData.getExpirationDate());
-            expense.setExpirationDate(expirationDate);
-
-            expense.setInitialValue(expenseData.getInitialValue());
-
-            expense.setFinalValue(expenseData.getFinalValue());
-
-            Date lastPaymentDate = new Date(expenseData.getLastPaymentDate());
-            expense.setLastPaymentDate(lastPaymentDate);
-
-            expense.setAssessment(expenseData.getAssessment());
-
+            Expense expense = buildExpense(context, expenseData);
+            expenseList.add(expense);
         }
 
         return expenseList;
+    }
+
+    private Expense buildExpense(Context context, ExpenseData expenseData) {
+        Expense expense = new Expense();
+
+        expense.setExpenseId(expenseData.getExpenseId());
+
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(expenseData.getUserId());
+        User user = buildUser(userData);
+        expense.setUser(user);
+
+        expense.setDescription(expenseData.getDescription());
+
+        StoreData storeData = AppDatabase.getInstance(context).storeDAO().getStore(expenseData.getStoreId());
+        Store store = buildStore(context, storeData);
+        expense.setStore(store);
+
+        expense.setCategory(ExpenseCategory.valueOf(expenseData.getCategory()));
+
+        Date expirationDate = new Date(expenseData.getExpirationDate());
+        expense.setExpirationDate(expirationDate);
+
+        expense.setInitialValue(expenseData.getInitialValue());
+
+        expense.setFinalValue(expenseData.getFinalValue());
+
+        Date lastPaymentDate = new Date(expenseData.getLastPaymentDate());
+        expense.setLastPaymentDate(lastPaymentDate);
+
+        expense.setAssessment(expenseData.getAssessment());
+
+        return expense;
     }
 
     private Store buildStore(Context context, StoreData storeData) {
@@ -143,5 +164,50 @@ public class HomeController {
         address.setCountry(addressData.getCountry());
         address.setZipCode(addressData.getZipCode());
         return address;
+    }
+
+    private List<Payment> buildPayments(Context context, List<PaymentData> paymentDataList) {
+        List<Payment> paymentList = new ArrayList<>();
+        for (PaymentData paymentData : paymentDataList) {
+            Payment payment = buildPayment(context, paymentData);
+            paymentList.add(payment);
+        }
+        return paymentList;
+    }
+
+    private Payment buildPayment(Context context, PaymentData paymentData) {
+        Payment payment = new Payment();
+        payment.setPaymentId(paymentData.getPaymentId());
+
+        CreditCardData creditCardData = AppDatabase.getInstance(context).creditCardDAO().getCreditCard(paymentData.getCreditCardNumber());
+        CreditCard creditCard = buildCreditCard(context, creditCardData);
+        payment.setCreditCard(creditCard);
+
+        ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(paymentData.getExpenseId());
+        Expense expense = buildExpense(context, expenseData);
+        payment.setExpense(expense);
+
+        payment.setPaymentWay(PaymentWay.valueOf(paymentData.getPaymentWay()));
+
+        payment.setValue(paymentData.getValue());
+
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(paymentData.getUserId());
+        User user = buildUser(userData);
+        payment.setUser(user);
+
+        return payment;
+    }
+
+    private CreditCard buildCreditCard(Context context, CreditCardData creditCardData) {
+        CreditCard creditCard = new CreditCard();
+        creditCard.setNumber(creditCard.getNumber());
+
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(creditCardData.getUserId());
+        User user = buildUser(userData);
+        creditCard.setUser(user);
+
+        creditCard.setExpiration_date(creditCardData.getExpiration_date());
+        creditCard.setFlag(creditCardData.getFlag());
+        return creditCard;
     }
 }

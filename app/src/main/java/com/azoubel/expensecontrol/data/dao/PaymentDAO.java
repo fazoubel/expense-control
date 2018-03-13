@@ -8,17 +8,25 @@ import android.arch.persistence.room.Update;
 
 import com.azoubel.expensecontrol.data.model.PaymentData;
 
+import java.util.List;
+
 @Dao
 public interface PaymentDAO {
 
     @Insert
     void insertAll(PaymentData... paymentData);
 
+    @Insert
+    void insertPayment(PaymentData paymentData);
+
     @Update
     void update(PaymentData paymentData);
 
     @Query("SELECT * FROM PaymentData WHERE paymentId = :paymentId")
     PaymentData getPayment(int paymentId);
+
+    @Query("SELECT * FROM PaymentData WHERE expense_id = :expenseId AND start_date >= :startDate AND end_date <= :endDate")
+    List<PaymentData> findPaymentsByExpense(int expenseId, long startDate, long endDate);
 
     @Delete
     void delete(PaymentData paymentData);

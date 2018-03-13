@@ -8,15 +8,17 @@ import android.content.Context;
 import com.azoubel.expensecontrol.data.dao.AddressDAO;
 import com.azoubel.expensecontrol.data.dao.CreditCardDAO;
 import com.azoubel.expensecontrol.data.dao.ExpenseDAO;
+import com.azoubel.expensecontrol.data.dao.PaymentDAO;
 import com.azoubel.expensecontrol.data.dao.UserDAO;
 import com.azoubel.expensecontrol.data.model.AddressData;
 import com.azoubel.expensecontrol.data.model.CreditCardData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
+import com.azoubel.expensecontrol.data.model.PaymentData;
 import com.azoubel.expensecontrol.data.model.StoreData;
 import com.azoubel.expensecontrol.data.model.UserData;
 import com.azoubel.expensecontrol.data.dao.StoreDAO;
 
-@Database(entities = {UserData.class, ExpenseData.class, StoreData.class, AddressData.class, CreditCardData.class}, version = 1)
+@Database(entities = {UserData.class, ExpenseData.class, StoreData.class, AddressData.class, CreditCardData.class, PaymentData.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
@@ -42,4 +44,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract StoreDAO storeDAO();
 
     public abstract AddressDAO addressDAO();
+
+    public abstract PaymentDAO paymentDAO();
 }
