@@ -7,13 +7,9 @@ public class User {
 
     private int userId;
 
-    private String name;
-
-    private String phoneNumber;
-
-    private byte sex;
-
     private int image;
+
+    private float expectedExpensesValue;
 
     public int getUserId() {
         return userId;
@@ -21,30 +17,6 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public byte getSex() {
-        return sex;
-    }
-
-    public void setSex(byte sex) {
-        this.sex = sex;
     }
 
     public int getImage() {
@@ -55,14 +27,15 @@ public class User {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return this.name + "\n"
-                + "telefone: " + this.phoneNumber+ "\n"
-                + "sexo: " + this.getSexString();
+    public float getExpectedExpensesValue() {
+        return expectedExpensesValue;
     }
 
-    private String getSexString() {
-        return this.sex == SEX_MALE ? "masculino" : "feminino";
+    public void setExpectedExpensesValue(float expectedExpensesValue) {
+        this.expectedExpensesValue = expectedExpensesValue;
     }
+
+    /*private String getSexString() {
+        return this.sex == SEX_MALE ? "masculino" : "feminino";
+    }*/
 }

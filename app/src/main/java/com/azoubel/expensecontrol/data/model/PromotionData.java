@@ -22,10 +22,10 @@ public class PromotionData {
     private float discountInPercent;
 
     @ColumnInfo(name = "start_date")
-    private Date startDate;
+    private Long startDate;
 
     @ColumnInfo(name = "end_date")
-    private Date endDate;
+    private Long endDate;
 
     @ColumnInfo(name = "store_id")
     private int storeId;
@@ -37,7 +37,7 @@ public class PromotionData {
     private String prize;
 
     @ColumnInfo(name = "prize_lottery_date")
-    private Date prizeLotteryDate;
+    private Long prizeLotteryDate;
 
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
@@ -77,19 +77,19 @@ public class PromotionData {
         this.discountInPercent = discountInPercent;
     }
 
-    public Date getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Long endDate) {
         this.endDate = endDate;
     }
 
@@ -117,11 +117,11 @@ public class PromotionData {
         this.prize = prize;
     }
 
-    public Date getPrizeLotteryDate() {
+    public Long getPrizeLotteryDate() {
         return prizeLotteryDate;
     }
 
-    public void setPrizeLotteryDate(Date prizeLotteryDate) {
+    public void setPrizeLotteryDate(Long prizeLotteryDate) {
         this.prizeLotteryDate = prizeLotteryDate;
     }
 

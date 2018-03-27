@@ -16,13 +16,13 @@ public class ExpenseData {
     private float initialValue;
 
     @ColumnInfo(name = "expiration_date")
-    private Date expirationDate;
+    private Long expirationDate;
 
     @ColumnInfo(name = "description")
     private String description;
 
     @ColumnInfo(name = "last_payment_date")
-    private Date lastPaymentDate;
+    private Long lastPaymentDate;
 
     @ColumnInfo(name = "assessment")
     private float assessment;
@@ -34,7 +34,7 @@ public class ExpenseData {
     private int userId;
 
     @ColumnInfo(name = "expense_date")
-    private Date expenseDate;
+    private long expenseDate;
 
     @ColumnInfo(name = "store_id")
     private int storeId;
@@ -66,11 +66,11 @@ public class ExpenseData {
         this.initialValue = initialValue;
     }
 
-    public Date getExpirationDate() {
+    public long getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(long expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -98,11 +98,11 @@ public class ExpenseData {
         this.storeId = storeId;
     }
 
-    public Date getLastPaymentDate() {
+    public Long getLastPaymentDate() {
         return lastPaymentDate;
     }
 
-    public void setLastPaymentDate(Date lastPaymentDate) {
+    public void setLastPaymentDate(Long lastPaymentDate) {
         this.lastPaymentDate = lastPaymentDate;
     }
 
@@ -123,11 +123,11 @@ public class ExpenseData {
     }
 
 
-    public Date getExpenseDate() {
+    public Long getExpenseDate() {
         return expenseDate;
     }
 
-    public void setExpenseDate(Date expenseDate) {
+    public void setExpenseDate(long expenseDate) {
         this.expenseDate = expenseDate;
     }
 }

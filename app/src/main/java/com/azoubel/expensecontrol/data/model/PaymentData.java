@@ -28,7 +28,7 @@ public class PaymentData {
     private String creditCardNumber;
 
     @ColumnInfo(name = "payment_date")
-    private Date paymentDate;
+    private Long paymentDate;
 
     public int getPaymentId() {
         return paymentId;
@@ -78,11 +78,11 @@ public class PaymentData {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public Date getPaymentDate() {
+    public Long getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(Long paymentDate) {
         this.paymentDate = paymentDate;
     }
 }

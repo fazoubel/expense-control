@@ -28,8 +28,8 @@ public interface UserDAO {
     @Query("SELECT * FROM UserData WHERE userId IN (:userIds)")
     List<UserData> getAllUsersById(int[] userIds);
 
-    @Query("SELECT * FROM UserData WHERE name LIKE :name LIMIT 1")
-    UserData findByName(String name);
+    /*@Query("SELECT * FROM UserData WHERE name LIKE :name LIMIT 1")
+    UserData findByName(String name);*/
 
     @Delete
     void delete(UserData userData);

@@ -3,19 +3,20 @@ package com.azoubel.expensecontrol.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-@Entity
+@Entity (primaryKeys = {"street", "number", "neighborhood"})
 public class AddressData {
 
-    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "street")
     private String street;
 
-    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "number")
     private int number;
 
-    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "neighborhood")
     private String neighborhood;
 

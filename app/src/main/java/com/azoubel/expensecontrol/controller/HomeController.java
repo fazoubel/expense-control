@@ -6,6 +6,7 @@ import com.azoubel.expensecontrol.data.model.AddressData;
 import com.azoubel.expensecontrol.data.model.CreditCardData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
 import com.azoubel.expensecontrol.data.model.PaymentData;
+import com.azoubel.expensecontrol.data.model.PersonData;
 import com.azoubel.expensecontrol.data.model.StoreData;
 import com.azoubel.expensecontrol.data.model.UserData;
 import com.azoubel.expensecontrol.data.AppDatabase;
@@ -15,6 +16,7 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
+import com.azoubel.expensecontrol.model.Person;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User;
 
@@ -35,9 +37,26 @@ public class HomeController {
         return instance;
     }
 
-    public void addUser(final Context context, String name, String phoneNumber, byte sex, int image) {
-        final UserData userData = new UserData(name, phoneNumber, sex, image);
+    /*public void addUser(final Context context, String name, String phoneNumber, byte sex, int image) {
+        final UserData userData = new UserData();
+        userData.setImage(image);
         AppDatabase.getInstance(context).userDAO().insertAll(userData);
+    }*/
+
+    public void addPerson() {
+
+    }
+
+    public void addPet() {
+
+    }
+
+    public void addHouse() {
+
+    }
+
+    public void addCar() {
+
     }
 
     public List<User> loadUsers(final Context context) {
@@ -113,7 +132,7 @@ public class HomeController {
         return userList;
     }
 
-    private User buildUser(UserData userData) {
+    /*private User buildUser(UserData userData) {
         User user = new User();
         user.setUserId(userData.getUserId());
         user.setName(userData.getName());
@@ -121,6 +140,10 @@ public class HomeController {
         user.setSex(userData.getSex());
         user.setImage(userData.getImage());
         return user;
+    }*/
+
+    private Person buildPerson(PersonData personData) {
+        return null;
     }
 
     private List<Expense> buildExpenses(Context context, List<ExpenseData> expenseDataList) {
@@ -181,7 +204,6 @@ public class HomeController {
 
     private Address buildAddress(AddressData addressData) {
         Address address = new Address();
-        address.setAddressId(addressData.getAddressId());
         address.setStreet(addressData.getStreet());
         address.setNumber(addressData.getNumber());
         address.setCity(addressData.getCity());
