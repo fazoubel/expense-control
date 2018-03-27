@@ -2,6 +2,8 @@ package com.azoubel.expensecontrol.model;
 
 public class Address {
 
+    private int addressId;
+
     private String street;
 
     private int number;
@@ -23,6 +25,14 @@ public class Address {
     private int apartment;
 
     private String apartmentBlock;
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
 
     public String getStreet() {
         return street;

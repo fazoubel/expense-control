@@ -5,8 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity (primaryKeys = {"street", "number", "neighborhood"})
+@Entity
 public class AddressData {
+
+    @PrimaryKey (autoGenerate = true)
+    private int addressId;
 
     @NonNull
     @ColumnInfo(name = "street")
@@ -43,6 +46,14 @@ public class AddressData {
 
     @ColumnInfo(name = "apartment_block")
     private String apartmentBlock;
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
 
     public String getStreet() {
         return street;
