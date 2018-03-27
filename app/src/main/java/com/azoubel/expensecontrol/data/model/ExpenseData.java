@@ -4,38 +4,43 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity
 public class ExpenseData {
 
     @PrimaryKey(autoGenerate = true)
     private int expenseId;
 
-    @ColumnInfo(name = "user_id")
-    private int userId;
-
     @ColumnInfo(name = "initial_value")
     private float initialValue;
 
     @ColumnInfo(name = "expiration_date")
-    private Long expirationDate;
+    private Date expirationDate;
 
     @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name = "category_id")
-    private String category;
-
-    @ColumnInfo(name = "store_id")
-    private int storeId;
-
     @ColumnInfo(name = "last_payment_date")
-    private Long lastPaymentDate;
+    private Date lastPaymentDate;
 
     @ColumnInfo(name = "assessment")
     private float assessment;
 
     @ColumnInfo(name = "final_value")
     private float finalValue;
+
+    @ColumnInfo(name = "user_id")
+    private int userId;
+
+    @ColumnInfo(name = "expense_date")
+    private Date expenseDate;
+
+    @ColumnInfo(name = "store_id")
+    private int storeId;
+
+    @ColumnInfo(name = "category")
+    private String category;
 
     public int getExpenseId() {
         return expenseId;
@@ -61,11 +66,11 @@ public class ExpenseData {
         this.initialValue = initialValue;
     }
 
-    public Long getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Long expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -93,11 +98,11 @@ public class ExpenseData {
         this.storeId = storeId;
     }
 
-    public Long getLastPaymentDate() {
+    public Date getLastPaymentDate() {
         return lastPaymentDate;
     }
 
-    public void setLastPaymentDate(Long lastPaymentDate) {
+    public void setLastPaymentDate(Date lastPaymentDate) {
         this.lastPaymentDate = lastPaymentDate;
     }
 
@@ -115,5 +120,14 @@ public class ExpenseData {
 
     public void setFinalValue(float finalValue) {
         this.finalValue = finalValue;
+    }
+
+
+    public Date getExpenseDate() {
+        return expenseDate;
+    }
+
+    public void setExpenseDate(Date expenseDate) {
+        this.expenseDate = expenseDate;
     }
 }

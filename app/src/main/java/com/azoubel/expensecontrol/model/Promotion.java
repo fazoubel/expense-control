@@ -10,13 +10,23 @@ public class Promotion {
 
     private String description;
 
-    private float value;
+    private float discountInPercent;
 
     private Date startDate;
 
     private Date endDate;
 
     private int storeId;
+
+    private String paymentWayRestriction;
+
+    private String prize;
+
+    private Date prizeLotteryDate;
+
+    private String phoneNumber;
+
+    private String brand;
 
     public int getPromotionId() {
         return promotionId;
@@ -42,12 +52,12 @@ public class Promotion {
         this.description = description;
     }
 
-    public float getValue() {
-        return value;
+    public float getDiscountInPercent() {
+        return discountInPercent;
     }
 
-    public void setValue(float value) {
-        this.value = value;
+    public void setDiscountInPercent(float discountInPercent) {
+        this.discountInPercent = discountInPercent;
     }
 
     public Date getStartDate() {
@@ -72,5 +82,45 @@ public class Promotion {
 
     public void setStoreId(int storeId) {
         this.storeId = storeId;
+    }
+
+    public String getPaymentWayRestriction() {
+        return paymentWayRestriction;
+    }
+
+    public void setPaymentWayRestriction(String paymentWayRestriction) {
+        this.paymentWayRestriction = paymentWayRestriction;
+    }
+
+    public String getPrize() {
+        return prize;
+    }
+
+    public void setPrize(String prize) {
+        this.prize = prize;
+    }
+
+    public Date getPrizeLotteryDate() {
+        return prizeLotteryDate;
+    }
+
+    public void setPrizeLotteryDate(Date prizeLotteryDate) {
+        this.prizeLotteryDate = prizeLotteryDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

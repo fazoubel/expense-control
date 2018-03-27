@@ -18,8 +18,8 @@ public class PromotionData {
     @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name = "value")
-    private float value;
+    @ColumnInfo(name = "discount_in_percent")
+    private float discountInPercent;
 
     @ColumnInfo(name = "start_date")
     private Date startDate;
@@ -29,6 +29,21 @@ public class PromotionData {
 
     @ColumnInfo(name = "store_id")
     private int storeId;
+
+    @ColumnInfo(name = "payment_way_restriction")
+    private String paymentWayRestriction;
+
+    @ColumnInfo(name = "prize")
+    private String prize;
+
+    @ColumnInfo(name = "prize_lottery_date")
+    private Date prizeLotteryDate;
+
+    @ColumnInfo(name = "phone_number")
+    private String phoneNumber;
+
+    @ColumnInfo(name = "brand")
+    private String brand;
 
     public int getPromotionId() {
         return promotionId;
@@ -54,12 +69,12 @@ public class PromotionData {
         this.description = description;
     }
 
-    public float getValue() {
-        return value;
+    public float getDiscountInPercent() {
+        return discountInPercent;
     }
 
-    public void setValue(float value) {
-        this.value = value;
+    public void setDiscountInPercent(float discountInPercent) {
+        this.discountInPercent = discountInPercent;
     }
 
     public Date getStartDate() {
@@ -85,4 +100,45 @@ public class PromotionData {
     public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
+
+    public String getPaymentWayRestriction() {
+        return paymentWayRestriction;
+    }
+
+    public void setPaymentWayRestriction(String paymentWayRestriction) {
+        this.paymentWayRestriction = paymentWayRestriction;
+    }
+
+    public String getPrize() {
+        return prize;
+    }
+
+    public void setPrize(String prize) {
+        this.prize = prize;
+    }
+
+    public Date getPrizeLotteryDate() {
+        return prizeLotteryDate;
+    }
+
+    public void setPrizeLotteryDate(Date prizeLotteryDate) {
+        this.prizeLotteryDate = prizeLotteryDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
 }

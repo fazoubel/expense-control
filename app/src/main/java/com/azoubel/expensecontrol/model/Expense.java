@@ -6,23 +6,25 @@ public class Expense{
 
     private int expenseId;
 
-    private User user;
-
     private float initialValue;
 
     private Date expirationDate;
 
     private String description;
 
-    private ExpenseCategory category;
-
-    private Store store;
-
     private Date lastPaymentDate;
 
     private float assessment;
 
     private float finalValue;
+
+    private Date expenseDate;
+
+    private Store store;
+
+    private User user;
+
+    private ExpenseCategory category;
 
     public int getExpenseId() {
         return expenseId;
@@ -102,6 +104,14 @@ public class Expense{
 
     public void setFinalValue(float finalValue) {
         this.finalValue = finalValue;
+    }
+
+    public Date getExpenseDate() {
+        return expenseDate;
+    }
+
+    public void setExpenseDate(Date expenseDate) {
+        this.expenseDate = expenseDate;
     }
 
     @Override

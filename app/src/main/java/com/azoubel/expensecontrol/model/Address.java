@@ -2,11 +2,11 @@ package com.azoubel.expensecontrol.model;
 
 public class Address {
 
-    private int addressId;
-
     private String street;
 
     private int number;
+
+    private String neighborhood;
 
     private String city;
 
@@ -14,15 +14,15 @@ public class Address {
 
     private String country;
 
+    private String complement;
+
     private String zipCode;
 
-    public int getAddressId() {
-        return addressId;
-    }
+    private String reference;
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
+    private int apartment;
+
+    private String apartmentBlock;
 
     public String getStreet() {
         return street;
@@ -38,6 +38,14 @@ public class Address {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public String getCity() {
@@ -64,11 +72,43 @@ public class Address {
         this.country = country;
     }
 
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
     public String getZipCode() {
         return zipCode;
     }
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public int getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(int apartment) {
+        this.apartment = apartment;
+    }
+
+    public String getApartmentBlock() {
+        return apartmentBlock;
+    }
+
+    public void setApartmentBlock(String apartmentBlock) {
+        this.apartmentBlock = apartmentBlock;
     }
 }

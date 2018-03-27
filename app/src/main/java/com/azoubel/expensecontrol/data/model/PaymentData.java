@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity
 public class PaymentData {
 
@@ -16,7 +18,7 @@ public class PaymentData {
     @ColumnInfo(name = "user_id")
     private int userId;
 
-    @ColumnInfo(name = "payment_way_id")
+    @ColumnInfo(name = "payment_way")
     private String paymentWay;
 
     @ColumnInfo(name = "value")
@@ -24,6 +26,9 @@ public class PaymentData {
 
     @ColumnInfo(name = "creditCardNumber")
     private String creditCardNumber;
+
+    @ColumnInfo(name = "payment_date")
+    private Date paymentDate;
 
     public int getPaymentId() {
         return paymentId;
@@ -71,5 +76,13 @@ public class PaymentData {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

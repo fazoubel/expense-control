@@ -4,8 +4,6 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 
-import com.azoubel.expensecontrol.data.model.PaymentWayData;
-
 @Dao
 public interface PaymentWayDAO {
 

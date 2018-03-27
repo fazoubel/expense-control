@@ -7,14 +7,17 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class AddressData {
 
-    @PrimaryKey(autoGenerate = true)
-    private int addressId;
-
+    @PrimaryKey
     @ColumnInfo(name = "street")
     private String street;
 
+    @PrimaryKey
     @ColumnInfo(name = "number")
     private int number;
+
+    @PrimaryKey
+    @ColumnInfo(name = "neighborhood")
+    private String neighborhood;
 
     @ColumnInfo(name = "city")
     private String city;
@@ -25,16 +28,20 @@ public class AddressData {
     @ColumnInfo(name = "country")
     private String country;
 
+    @ColumnInfo(name = "complement")
+    private String complement;
+
     @ColumnInfo(name = "zip_code")
     private String zipCode;
 
-    public int getAddressId() {
-        return addressId;
-    }
+    @ColumnInfo(name = "reference")
+    private String reference;
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
+    @ColumnInfo(name = "apartment")
+    private int apartment;
+
+    @ColumnInfo(name = "apartment_block")
+    private String apartmentBlock;
 
     public String getStreet() {
         return street;
@@ -50,6 +57,14 @@ public class AddressData {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public String getCity() {
@@ -76,11 +91,43 @@ public class AddressData {
         this.country = country;
     }
 
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
     public String getZipCode() {
         return zipCode;
     }
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public int getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(int apartment) {
+        this.apartment = apartment;
+    }
+
+    public String getApartmentBlock() {
+        return apartmentBlock;
+    }
+
+    public void setApartmentBlock(String apartmentBlock) {
+        this.apartmentBlock = apartmentBlock;
     }
 }
