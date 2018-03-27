@@ -1,5 +1,7 @@
 package com.azoubel.expensecontrol.model;
 
+import com.azoubel.expensecontrol.model.User.User;
+
 import java.util.Date;
 
 public class Expense{

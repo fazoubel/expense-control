@@ -2,6 +2,7 @@ package com.azoubel.expensecontrol.data.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -12,6 +13,7 @@ public class CreditCardData {
     @NonNull
     private String number;
 
+    @NonNull
     @ColumnInfo(name = "user_id")
     private int userId;
 

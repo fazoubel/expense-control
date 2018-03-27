@@ -19,7 +19,7 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.model.User.User;
 import com.azoubel.expensecontrol.ui.view.ExpensesView;
 import com.azoubel.expensecontrol.ui.view.PaymentsView;
 import com.azoubel.expensecontrol.ui.view.UsersView;
@@ -31,22 +31,23 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ExpensesView.ExpenseClickListener, UsersView.UserClickListener {
 
-    List<User> users;
-    List<Expense> expenses;
-    HomeController controller;
-
-    UsersView usersView;
-    ExpensesView expensesView;
-    PaymentsView paymentsView;
-
-    FloatingActionButton actionButton;
-    Menu navigationMenu;
-
-    DrawerLayout drawer;
-
     private static final int SHOW_USERS_VIEW = 0;
     private static final int SHOW_EXPENSES_VIEW = 1;
     private static final int SHOW_PAYMENTS_VIEW = 2;
+
+    private static HomeController controller;
+    private List<User> users;
+
+    private List<Expense> expenses;
+    private UsersView usersView;
+    private ExpensesView expensesView;
+
+    private PaymentsView paymentsView;
+    private FloatingActionButton actionButton;
+
+    private Menu navigationMenu;
+
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class HomeActivity extends AppCompatActivity
         paymentsView = appBarHome.findViewById(R.id.payments_view_layout);
 
         if(controller == null) {
-            controller = HomeController.getInstance();
+            controller = new HomeController();
         }
 
         users = controller.loadUsers(this);
@@ -118,18 +119,18 @@ public class HomeActivity extends AppCompatActivity
             Date expirationDate = calendar.getTime();
 
             controller.addExpense(this, users.get(0).getUserId(), 1, 55.04f, expirationDate.getTime(),
-                    "compra de uma tartaruga ninja", ExpenseCategory.purchase, 0);
+                    "compra de uma tartaruga ninja", ExpenseCategory.compra, 0);
 
             calendar.add(Calendar.DATE, 5);
 
             Date expirationDate2 = calendar.getTime();
 
             controller.addExpense(this, users.get(1).getUserId(), 1, 105.00f, expirationDate2.getTime(),
-                    "compra de um cágado", ExpenseCategory.purchase, 5.5f);
+                    "compra de um cágado", ExpenseCategory.compra, 5.5f);
 
             List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
 
-            controller.addPayment(this, users.get(0).getUserId(), expenseList.get(0).getExpenseId(), PaymentWay.money,
+            controller.addPayment(this, users.get(0).getUserId(), expenseList.get(0).getExpenseId(), PaymentWay.dinheiro,
                     expenseList.get(0).getInitialValue(), "");
 
         }

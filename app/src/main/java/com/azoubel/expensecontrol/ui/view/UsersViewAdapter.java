@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.azoubel.expensecontrol.R;
-import com.azoubel.expensecontrol.model.User;
+import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.List;
 

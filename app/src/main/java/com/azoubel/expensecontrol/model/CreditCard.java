@@ -1,10 +1,12 @@
 package com.azoubel.expensecontrol.model;
 
+import com.azoubel.expensecontrol.model.User.User;
+
 public class CreditCard {
 
     private String number;
 
-    private User  user;
+    private User user;
 
     private String expiration_date;
 

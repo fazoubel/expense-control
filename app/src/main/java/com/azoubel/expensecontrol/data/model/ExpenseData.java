@@ -3,8 +3,7 @@ package com.azoubel.expensecontrol.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-
-import java.util.Date;
+import android.support.annotation.NonNull;
 
 @Entity
 public class ExpenseData {
@@ -12,12 +11,14 @@ public class ExpenseData {
     @PrimaryKey(autoGenerate = true)
     private int expenseId;
 
+    @NonNull
     @ColumnInfo(name = "initial_value")
     private float initialValue;
 
     @ColumnInfo(name = "expiration_date")
     private Long expirationDate;
 
+    @NonNull
     @ColumnInfo(name = "description")
     private String description;
 
@@ -30,15 +31,18 @@ public class ExpenseData {
     @ColumnInfo(name = "final_value")
     private float finalValue;
 
+    @NonNull
     @ColumnInfo(name = "user_id")
     private int userId;
 
-    @ColumnInfo(name = "expense_date")
-    private long expenseDate;
+    @NonNull
+    @ColumnInfo(name = "buying_date")
+    private long buyingDate;
 
     @ColumnInfo(name = "store_id")
     private int storeId;
 
+    @NonNull
     @ColumnInfo(name = "category")
     private String category;
 
@@ -123,11 +127,11 @@ public class ExpenseData {
     }
 
 
-    public Long getExpenseDate() {
-        return expenseDate;
+    public Long getBuyingDate() {
+        return buyingDate;
     }
 
-    public void setExpenseDate(long expenseDate) {
-        this.expenseDate = expenseDate;
+    public void setBuyingDate(long buyingDate) {
+        this.buyingDate = buyingDate;
     }
 }

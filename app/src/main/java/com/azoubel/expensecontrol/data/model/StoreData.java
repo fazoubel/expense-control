@@ -3,6 +3,7 @@ package com.azoubel.expensecontrol.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class StoreData {
@@ -10,6 +11,7 @@ public class StoreData {
     @PrimaryKey(autoGenerate = true)
     private int storeId;
 
+    @NonNull
     @ColumnInfo(name = "store_name")
     private String storeName;
 
@@ -37,7 +39,8 @@ public class StoreData {
     @ColumnInfo(name = "manager_email")
     private String managerEmail;
 
-    @ColumnInfo(name = "address")
+    @NonNull
+    @ColumnInfo(name = "address_id")
     private int addressId;
 
     public int getStoreId() {

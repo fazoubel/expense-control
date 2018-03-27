@@ -1,14 +1,19 @@
-package com.azoubel.expensecontrol.model;
+package com.azoubel.expensecontrol.data.model.UserData;
 
-public class User {
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
-    public static final int SEX_MALE = 0;
-    public static final int SEX_FEMALE = 1;
+@Entity
+public class UserData {
 
+    @PrimaryKey(autoGenerate = true)
     private int userId;
 
+    @ColumnInfo(name = "image")
     private int image;
 
+    @ColumnInfo(name = "expected_expenses_value")
     private float expectedExpensesValue;
 
     public int getUserId() {
@@ -34,8 +39,4 @@ public class User {
     public void setExpectedExpensesValue(float expectedExpensesValue) {
         this.expectedExpensesValue = expectedExpensesValue;
     }
-
-    /*private String getSexString() {
-        return this.sex == SEX_MALE ? "masculino" : "feminino";
-    }*/
 }

@@ -3,6 +3,7 @@ package com.azoubel.expensecontrol.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 
@@ -12,21 +13,25 @@ public class PaymentData {
     @PrimaryKey(autoGenerate = true)
     private int paymentId;
 
+    @NonNull
     @ColumnInfo(name = "expense_id")
     private int expenseId;
 
+    @NonNull
     @ColumnInfo(name = "user_id")
     private int userId;
 
     @ColumnInfo(name = "payment_way")
     private String paymentWay;
 
+    @NonNull
     @ColumnInfo(name = "value")
     private float value;
 
     @ColumnInfo(name = "creditCardNumber")
     private String creditCardNumber;
 
+    @NonNull
     @ColumnInfo(name = "payment_date")
     private Long paymentDate;
 

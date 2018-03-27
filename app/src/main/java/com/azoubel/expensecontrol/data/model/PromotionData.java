@@ -3,6 +3,7 @@ package com.azoubel.expensecontrol.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 
@@ -12,15 +13,18 @@ public class PromotionData {
     @PrimaryKey(autoGenerate = true)
     private int promotionId;
 
+    @NonNull
     @ColumnInfo(name = "name")
     private String name;
 
     @ColumnInfo(name = "description")
     private String description;
 
+    @NonNull
     @ColumnInfo(name = "discount_in_percent")
     private float discountInPercent;
 
+    @NonNull
     @ColumnInfo(name = "start_date")
     private Long startDate;
 
