@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/firstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="nome:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Fernando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toEndOf="@+id/firstNameLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/lastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="sobrenome:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameLabel" />
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Fernando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toEndOf="@+id/firstNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+    <EditText
+        android:id="@+id/nicknameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="apelido:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastNameLabel" />
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Fernando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toEndOf="@+id/nicknameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+
+    <EditText
+        android:id="@+id/phoneNumberLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="telefone:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nicknameLabel" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Fernando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toEndOf="@+id/phoneNumberLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+
+    <EditText
+        android:id="@+id/birthdateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="data de nascimento:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberLabel" />
+
+    <EditText
+        android:id="@+id/birthdate"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Fernando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toEndOf="@+id/birthdateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <EditText
+        android:id="@+id/expenseLimitLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="limite de gastos:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birthdateLabel" />
+
+    <EditText
+        android:id="@+id/expenseLimit"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Fernando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toEndOf="@+id/expenseLimitLabel"
+        app:layout_constraintTop_toBottomOf="@+id/birthdate" />
+
+    <EditText
+        android:id="@+id/addressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="endereço:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expenseLimitLabel" />
+
+    <Button
+        android:id="@+id/findAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="mesmo endereço que"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintStart_toEndOf="@+id/addressLabel"
+        app:layout_constraintTop_toBottomOf="@+id/expenseLimit" />
+
+</android.support.constraint.ConstraintLayout>

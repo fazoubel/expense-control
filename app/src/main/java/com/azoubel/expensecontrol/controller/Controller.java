@@ -20,15 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HomeController extends BuilderController{
+public class Controller extends BuilderController{
 
-    public HomeController(){}
-
-    /*public void addUser(final Context context, String name, String phoneNumber, byte sex, int image) {
-        final UserData userData = new UserData();
-        userData.setImage(image);
-        AppDatabase.getInstance(context).userDAO().insertAll(userData);
-    }*/
+    public Controller(){}
 
     public void addPerson(Context context, String firstName, String phoneNumber, int sex, int image) {
         PersonData personData = new PersonData();
@@ -118,17 +112,5 @@ public class HomeController extends BuilderController{
         storeData.setDescription(description);
         AppDatabase.getInstance(context).storeDAO().insertStore(storeData);
     }
-
-    private List<User> buildUsers(Context context, List<UserData> userDataList) {
-        List<User> userList = new ArrayList<>();
-        for (UserData userData : userDataList) {
-            User user = buildUser(context, userData);
-            userList.add(user);
-        }
-        return userList;
-    }
-
-
-
 
 }

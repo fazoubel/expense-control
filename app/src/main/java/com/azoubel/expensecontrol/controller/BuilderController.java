@@ -32,6 +32,15 @@ import java.util.List;
 
 public class BuilderController {
 
+    protected List<User> buildUsers(Context context, List<UserData> userDataList) {
+        List<User> userList = new ArrayList<>();
+        for (UserData userData : userDataList) {
+            User user = buildUser(context, userData);
+            userList.add(user);
+        }
+        return userList;
+    }
+
     protected User buildUser(Context context, UserData userData) {
 
         User user;

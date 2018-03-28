@@ -14,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.azoubel.expensecontrol.controller.HomeController;
+import com.azoubel.expensecontrol.controller.Controller;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity
     private static final int SHOW_EXPENSES_VIEW = 1;
     private static final int SHOW_PAYMENTS_VIEW = 2;
 
-    private static HomeController controller;
+    private static Controller controller;
     private List<User> users;
 
     private List<Expense> expenses;
@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity
         paymentsView = appBarHome.findViewById(R.id.payments_view_layout);
 
         if(controller == null) {
-            controller = new HomeController();
+            controller = new Controller();
         }
 
         users = controller.loadUsers(this);
