@@ -46,7 +46,7 @@ public class ExpensesViewAdapter extends BaseAdapter {
         TextView userNameView = view.findViewById(R.id.expenseDescriptionItem);
         userNameView.setText(expenses.get(i).toString());
 
-        /*userPhoneView.setText(expenses.get(i).getUser().getName());*/
+        /*userPhoneView.setText(expenses.get(i).getPerson().getName());*/
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

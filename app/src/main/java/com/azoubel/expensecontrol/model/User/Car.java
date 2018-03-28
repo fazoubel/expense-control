@@ -14,7 +14,7 @@ public class Car extends User {
 
     private String type;
 
-    private int ownerId;
+    private Person owner;
 
     public String getModel() {
         return model;
@@ -64,11 +64,11 @@ public class Car extends User {
         this.type = type;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public Person getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 }

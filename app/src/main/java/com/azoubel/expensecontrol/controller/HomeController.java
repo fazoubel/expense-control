@@ -3,27 +3,17 @@ package com.azoubel.expensecontrol.controller;
 import android.content.Context;
 
 import com.azoubel.expensecontrol.data.model.AddressData;
-import com.azoubel.expensecontrol.data.model.CreditCardData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
 import com.azoubel.expensecontrol.data.model.PaymentData;
-import com.azoubel.expensecontrol.data.model.UserData.CarData;
-import com.azoubel.expensecontrol.data.model.UserData.HouseData;
-import com.azoubel.expensecontrol.data.model.UserData.PersonData;
 import com.azoubel.expensecontrol.data.model.StoreData;
-import com.azoubel.expensecontrol.data.model.UserData.PetData;
+import com.azoubel.expensecontrol.data.model.UserData.PersonData;
 import com.azoubel.expensecontrol.data.model.UserData.UserData;
 import com.azoubel.expensecontrol.data.AppDatabase;
-import com.azoubel.expensecontrol.model.Address;
-import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
-import com.azoubel.expensecontrol.model.User.Car;
-import com.azoubel.expensecontrol.model.User.House;
 import com.azoubel.expensecontrol.model.User.Person;
-import com.azoubel.expensecontrol.model.Store;
-import com.azoubel.expensecontrol.model.User.Pet;
 import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.ArrayList;
@@ -32,16 +22,7 @@ import java.util.List;
 
 public class HomeController extends BuilderController{
 
-    //private static HomeController instance;
-
     public HomeController(){}
-
-   /* public static HomeController getInstance() {
-        if(instance == null) {
-            instance = new HomeController();
-        }
-        return instance;
-    }*/
 
     /*public void addUser(final Context context, String name, String phoneNumber, byte sex, int image) {
         final UserData userData = new UserData();
@@ -49,8 +30,13 @@ public class HomeController extends BuilderController{
         AppDatabase.getInstance(context).userDAO().insertAll(userData);
     }*/
 
-    public void addPerson() {
-
+    public void addPerson(Context context, String firstName, String phoneNumber, int sex, int image) {
+        PersonData personData = new PersonData();
+        personData.setFirstName(firstName);
+        personData.setPhoneNumber(phoneNumber);
+        personData.setSex(sex);
+        personData.setImage(image);
+        AppDatabase.getInstance(context).userDAO().insertAll(personData);
     }
 
     public void addPet() {
@@ -66,8 +52,10 @@ public class HomeController extends BuilderController{
     }
 
     public List<User> loadUsers(final Context context) {
-        List<UserData> userDataList = AppDatabase.getInstance(context).userDAO().getAll();
-        return buildUsers(userDataList);
+        List<PersonData> personDataList = AppDatabase.getInstance(context).userDAO().getAllPersons();
+        List<UserData> userDataList = new ArrayList<>();
+        userDataList.addAll(personDataList);
+        return buildUsers(context, userDataList);
     }
 
     public void addExpense(Context context, int userId, int storeId, float initialValue, long expirationDate, String description,
@@ -87,6 +75,7 @@ public class HomeController extends BuilderController{
 
     public void addPayment(Context context, int userId, int expenseId, PaymentWay paymentWay, float value, String creditCardNumber) {
         PaymentData paymentData = new PaymentData();
+        paymentData.setPaymentDate(new Date().getTime());
         paymentData.setCreditCardNumber(creditCardNumber);
         paymentData.setExpenseId(expenseId);
         paymentData.setUserId(userId);
@@ -109,10 +98,11 @@ public class HomeController extends BuilderController{
         return buildExpenses(context, expenseDataList);
     }
 
-    public void addAddress(Context context, String street, int number, String city, String state, String country, String zipCpde) {
+    public void addAddress(Context context, String street, int number, String neighborhood, String city, String state, String country, String zipCpde) {
         AddressData addressData = new AddressData();
         addressData.setStreet(street);
         addressData.setNumber(number);
+        addressData.setNeighborhood(neighborhood);
         addressData.setCity(city);
         addressData.setState(state);
         addressData.setCountry(country);
@@ -129,12 +119,10 @@ public class HomeController extends BuilderController{
         AppDatabase.getInstance(context).storeDAO().insertStore(storeData);
     }
 
-    private List<User> buildUsers(List<UserData> userDataList) {
+    private List<User> buildUsers(Context context, List<UserData> userDataList) {
         List<User> userList = new ArrayList<>();
         for (UserData userData : userDataList) {
-            User user = buildUser(userData);
-
-
+            User user = buildUser(context, userData);
             userList.add(user);
         }
         return userList;

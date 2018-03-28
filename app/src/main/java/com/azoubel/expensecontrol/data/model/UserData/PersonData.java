@@ -11,7 +11,7 @@ public class PersonData extends UserData{
     private long birthday;
 
     @ColumnInfo(name = "sex")
-    private byte sex;
+    private int sex;
 
     @NonNull
     @ColumnInfo(name = "first_name")
@@ -37,11 +37,11 @@ public class PersonData extends UserData{
         this.birthday = birthday;
     }
 
-    public byte getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

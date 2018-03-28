@@ -1,5 +1,7 @@
 package com.azoubel.expensecontrol.model.User;
 
+import com.azoubel.expensecontrol.model.Address;
+
 public class House extends User {
 
     private String type;
@@ -12,11 +14,11 @@ public class House extends User {
 
     private int square;
 
-    private byte isRented;
+    private int isRented;
 
-    private int tenantId;
+    private Person tenant;
 
-    private int addressId;
+    private Address address;
 
     public String getType() {
         return type;
@@ -58,27 +60,27 @@ public class House extends User {
         this.square = square;
     }
 
-    public byte getIsRented() {
+    public int getIsRented() {
         return isRented;
     }
 
-    public void setIsRented(byte isRented) {
+    public void setIsRented(int isRented) {
         this.isRented = isRented;
     }
 
-    public int getTenantId() {
-        return tenantId;
+    public Person getTenant() {
+        return tenant;
     }
 
-    public void setTenantId(int tenantId) {
-        this.tenantId = tenantId;
+    public void setTenant(Person tenant) {
+        this.tenant = tenant;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

@@ -19,6 +19,7 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
+import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
 import com.azoubel.expensecontrol.ui.view.ExpensesView;
 import com.azoubel.expensecontrol.ui.view.PaymentsView;
@@ -87,11 +88,11 @@ public class HomeActivity extends AppCompatActivity
 
         if(users == null || users.isEmpty()) {
 
-            controller.addUser(this, "fernando oliveira", "11111111111", (byte) 0, 0);
+            controller.addPerson(this, "fernando oliveira", "11111111111", 0, 0);
 
-            controller.addUser(this, "Suelene Maria", "2222222222", (byte) 0, 0);
+            controller.addPerson(this, "Suelene Maria", "2222222222", 0, 0);
 
-            controller.addUser(this, "Edipo Araujo", "3333333333", (byte) 0, 0);
+            controller.addPerson(this, "Edipo Araujo", "3333333333", 0, 0);
 
             users = controller.loadUsers(this);
 
@@ -101,11 +102,11 @@ public class HomeActivity extends AppCompatActivity
 
             showView(SHOW_USERS_VIEW);
 
-            controller.addAddress(this, "rua alemanha", 102, "olinda", "pernambuco", "brazil", "11111-111");
+            controller.addAddress(this, "rua alemanha", 102, "rio doce","olinda", "pernambuco", "brazil", "11111-111");
 
-            controller.addAddress(this, "rua chicago", 102, "camaragibe", "pernambuco", "brazil", "22222-222");
+            controller.addAddress(this, "rua chicago", 102, "rio doce","camaragibe", "pernambuco", "brazil", "22222-222");
 
-            controller.addAddress(this, "avenida mexico", 102, "paulista", "pernambuco", "brazil", "33333-333");
+            controller.addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
 
 
             controller.addStore(this, "loja tartaruga", 1, "tartaruga.com", "loja sobre tartarugas");
@@ -121,7 +122,7 @@ public class HomeActivity extends AppCompatActivity
             controller.addExpense(this, users.get(0).getUserId(), 1, 55.04f, expirationDate.getTime(),
                     "compra de uma tartaruga ninja", ExpenseCategory.compra, 0);
 
-            calendar.add(Calendar.DATE, 5);
+            calendar.add(Calendar.DATE, 1);
 
             Date expirationDate2 = calendar.getTime();
 
@@ -170,9 +171,12 @@ public class HomeActivity extends AppCompatActivity
      private void addUsersMenu(Menu naviMenu) {
         if(users != null && !users.isEmpty()) {
             for (User user : this.users) {
-                MenuItem usersItem = naviMenu.add( R.id.menuUsers, user.getUserId(), Menu.NONE, user.getName());
-                usersItem.setIcon(getUserIcon(user.getImage()));
-                usersItem.setCheckable(true);
+                if(user instanceof Person) {
+                    Person person = (Person) user;
+                    MenuItem usersItem = naviMenu.add( R.id.menuUsers, user.getUserId(), Menu.NONE, person.getFirstName());
+                    usersItem.setIcon(getUserIcon(user.getImage()));
+                    usersItem.setCheckable(true);
+                }
             }
         }
     }

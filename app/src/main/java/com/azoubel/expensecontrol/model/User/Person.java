@@ -1,12 +1,14 @@
 package com.azoubel.expensecontrol.model.User;
 
+import com.azoubel.expensecontrol.model.Address;
+
 import java.util.Date;
 
 public class Person extends User {
 
     private Date birthday;
 
-    private byte sex;
+    private int sex;
 
     private String firstName;
 
@@ -16,7 +18,7 @@ public class Person extends User {
 
     private String phoneNumber;
 
-    private int addressId;
+    private Address address;
 
     public Date getBirthday() {
         return birthday;
@@ -26,11 +28,11 @@ public class Person extends User {
         this.birthday = birthday;
     }
 
-    public byte getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -66,11 +68,11 @@ public class Person extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

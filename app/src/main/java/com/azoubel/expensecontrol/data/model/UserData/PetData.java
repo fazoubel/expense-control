@@ -1,7 +1,9 @@
 package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
 
+@Entity
 public class PetData extends UserData {
 
     @ColumnInfo(name = "age")
@@ -14,7 +16,7 @@ public class PetData extends UserData {
     private String kind;
 
     @ColumnInfo(name = "sex")
-    private byte sex;
+    private int sex;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -49,11 +51,11 @@ public class PetData extends UserData {
         this.kind = kind;
     }
 
-    public byte getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

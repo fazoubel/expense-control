@@ -15,10 +15,14 @@ import com.azoubel.expensecontrol.data.model.CreditCardData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
 import com.azoubel.expensecontrol.data.model.PaymentData;
 import com.azoubel.expensecontrol.data.model.StoreData;
+import com.azoubel.expensecontrol.data.model.UserData.CarData;
+import com.azoubel.expensecontrol.data.model.UserData.HouseData;
+import com.azoubel.expensecontrol.data.model.UserData.PersonData;
+import com.azoubel.expensecontrol.data.model.UserData.PetData;
 import com.azoubel.expensecontrol.data.model.UserData.UserData;
 import com.azoubel.expensecontrol.data.dao.StoreDAO;
 
-@Database(entities = {UserData.class, ExpenseData.class, StoreData.class, AddressData.class, CreditCardData.class, PaymentData.class}, version = 1)
+@Database(entities = {PersonData.class, PetData.class, CarData.class, HouseData.class, ExpenseData.class, StoreData.class, AddressData.class, CreditCardData.class, PaymentData.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

@@ -8,13 +8,13 @@ public class Pet extends User {
 
     private String kind;
 
-    private byte sex;
+    private int sex;
 
     private String name;
 
     private String nickName;
 
-    private int ownerId;
+    private Person owner;
 
     public int getAge() {
         return age;
@@ -40,11 +40,11 @@ public class Pet extends User {
         this.kind = kind;
     }
 
-    public byte getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -64,11 +64,11 @@ public class Pet extends User {
         this.nickName = nickName;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public Person getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 }

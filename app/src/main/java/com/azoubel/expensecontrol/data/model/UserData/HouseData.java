@@ -1,7 +1,9 @@
 package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
 
+@Entity
 public class HouseData extends UserData {
 
     @ColumnInfo(name = "type")
@@ -20,7 +22,7 @@ public class HouseData extends UserData {
     private int square;
 
     @ColumnInfo(name = "is_rented")
-    private byte isRented;
+    private int isRented;
 
     @ColumnInfo(name = "tenant")
     private int tenantId;
@@ -68,11 +70,11 @@ public class HouseData extends UserData {
         this.square = square;
     }
 
-    public byte getIsRented() {
+    public int getIsRented() {
         return isRented;
     }
 
-    public void setIsRented(byte isRented) {
+    public void setIsRented(int isRented) {
         this.isRented = isRented;
     }
 

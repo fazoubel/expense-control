@@ -1,7 +1,9 @@
 package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
 
+@Entity
 public class CarData extends UserData {
 
     @ColumnInfo(name = "model")
