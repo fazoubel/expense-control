@@ -9,6 +9,7 @@ import com.azoubel.expensecontrol.data.model.StoreData;
 import com.azoubel.expensecontrol.data.model.UserData.PersonData;
 import com.azoubel.expensecontrol.data.model.UserData.UserData;
 import com.azoubel.expensecontrol.data.AppDatabase;
+import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
@@ -24,9 +25,29 @@ public class Controller extends BuilderController{
 
     public Controller(){}
 
-    public void addPerson(Context context, String firstName, String phoneNumber, int sex, int image) {
+    public void addPerson(Context context, String firstName, String lastName, String nickname, String phoneNumber,
+                          long birthDate ,int sex, float expenseLimit, int image, Address address) {
+
         PersonData personData = new PersonData();
+
+        if(address != null) {
+            AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+            if(addressData != null) {
+                personData.setAddressId(addressData.getAddressId());
+            }
+            else {
+                AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+                AddressData insertedAddress = AppDatabase.getInstance(context).addressDAO()
+                        .getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                personData.setAddressId(insertedAddress.getAddressId());
+            }
+        }
+
         personData.setFirstName(firstName);
+        personData.setLastName(lastName);
+        personData.setNickName(nickname);
+        personData.setBirthday(birthDate);
+        personData.setExpectedExpensesValue(expenseLimit);
         personData.setPhoneNumber(phoneNumber);
         personData.setSex(sex);
         personData.setImage(image);
@@ -102,6 +123,16 @@ public class Controller extends BuilderController{
         addressData.setCountry(country);
         addressData.setZipCode(zipCpde);
         AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+    }
+
+
+    public Address findAddress(Context context, String street, int number, String neighborhood) {
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(street, number, neighborhood);
+        Address address=null;
+        if(addressData != null) {
+            address = buildAddress(addressData);
+        }
+        return address;
     }
 
     public void addStore(Context context, String storeName, int addressId, String site, String description) {

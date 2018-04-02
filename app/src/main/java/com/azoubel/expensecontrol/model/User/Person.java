@@ -12,9 +12,9 @@ public class Person extends User {
 
     private String firstName;
 
-    private long lastName;
+    private String lastName;
 
-    private long nickName;
+    private String nickName;
 
     private String phoneNumber;
 
@@ -44,19 +44,19 @@ public class Person extends User {
         this.firstName = firstName;
     }
 
-    public long getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(long lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public long getNickName() {
+    public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(long nickName) {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 

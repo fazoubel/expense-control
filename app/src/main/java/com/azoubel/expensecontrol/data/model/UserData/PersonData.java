@@ -18,10 +18,10 @@ public class PersonData extends UserData{
     private String firstName;
 
     @ColumnInfo(name = "last_name")
-    private long lastName;
+    private String lastName;
 
     @ColumnInfo(name = "nick_name")
-    private long nickName;
+    private String nickName;
 
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
@@ -54,19 +54,19 @@ public class PersonData extends UserData{
         this.firstName = firstName;
     }
 
-    public long getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(long lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public long getNickName() {
+    public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(long nickName) {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
