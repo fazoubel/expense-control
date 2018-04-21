@@ -3,7 +3,7 @@ package com.azoubel.expensecontrol.model.User;
 import android.arch.persistence.room.Entity;
 
 @Entity
-public class User {
+public class User{
 
     public static final int SEX_MALE = 0;
     public static final int SEX_FEMALE = 1;

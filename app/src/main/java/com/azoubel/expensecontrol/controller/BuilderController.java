@@ -211,11 +211,16 @@ public class BuilderController {
     protected Address buildAddress(AddressData addressData) {
         Address address = new Address();
         address.setStreet(addressData.getStreet());
+        address.setNeighborhood(addressData.getNeighborhood());
         address.setNumber(addressData.getNumber());
         address.setCity(addressData.getCity());
         address.setState(addressData.getState());
         address.setCountry(addressData.getCountry());
         address.setZipCode(addressData.getZipCode());
+        address.setApartment(addressData.getApartment());
+        address.setApartmentBlock(addressData.getApartmentBlock());
+        address.setComplement(addressData.getComplement());
+        address.setReference(addressData.getReference());
         return address;
     }
 

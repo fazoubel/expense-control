@@ -14,7 +14,10 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
+import com.azoubel.expensecontrol.model.User.Car;
+import com.azoubel.expensecontrol.model.User.House;
 import com.azoubel.expensecontrol.model.User.Person;
+import com.azoubel.expensecontrol.model.User.Pet;
 import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.ArrayList;
@@ -54,16 +57,37 @@ public class Controller extends BuilderController{
         AppDatabase.getInstance(context).userDAO().insertAll(personData);
     }
 
+    public Person getPerson(Context context, int id) {
+        Person person = null;
+        PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(id);
+        if(personData != null) {
+            person = buildPerson(context, personData);
+        }
+        return person;
+    }
+
     public void addPet() {
 
+    }
+
+    public Pet getPet(Context context, int id) {
+        return null;
     }
 
     public void addHouse() {
 
     }
 
+    public House getHouse() {
+        return null;
+    }
+
     public void addCar() {
 
+    }
+
+    public Car getCar() {
+        return null;
     }
 
     public List<User> loadUsers(final Context context) {

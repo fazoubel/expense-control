@@ -4,7 +4,7 @@ import com.azoubel.expensecontrol.model.Address;
 
 import java.util.Date;
 
-public class Person extends User {
+public class Person extends User{
 
     private Date birthday;
 
@@ -74,5 +74,10 @@ public class Person extends User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s (%s)", firstName, lastName, nickName);
     }
 }

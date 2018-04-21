@@ -21,7 +21,7 @@ public interface AddressDAO {
     @Update
     void update(AddressData addressData);
 
-    @Query("SELECT * FROM AddressData WHERE (street = :street AND number = :number AND neighborhood = :neighborhood)")
+    @Query("SELECT * FROM AddressData WHERE street = :street AND number = :number AND neighborhood = :neighborhood")
     AddressData getAddress(String street, int number, String neighborhood);
 
     @Query("SELECT * FROM AddressData WHERE (addressId = :addressId)")

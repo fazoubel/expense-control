@@ -3,6 +3,7 @@ package com.azoubel.expensecontrol.ui.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -69,7 +70,24 @@ public class AddressView extends ConstraintLayout{
                     if(!TextUtils.isEmpty(streetOnClick)
                             && !TextUtils.isEmpty(numberStringOnClick)
                             && !TextUtils.isEmpty(neighborhoodOnClick)) {
-                        addressSearcher.findAddress(streetOnClick, Integer.parseInt(numberStringOnClick), neighborhoodOnClick);
+
+                        Address address=null;
+                        try{
+                            address = addressSearcher.findAddress(streetOnClick, Integer.parseInt(numberStringOnClick), neighborhoodOnClick);
+                        }
+                        catch(Exception exception) {
+                            //passing an invalid number like a normal string will rise an exception
+                            //in this case the address will be null and the snackbar will be shown
+                        }
+
+
+                        if(address != null) {
+                            fillAddress(address);
+                        }
+                        else {
+                            Snackbar.make(view, "Endereço não encontrado", Snackbar.LENGTH_LONG)
+                                    .setAction("Busca de Endereço", null).show();
+                        }
                     }
                 }
 
@@ -117,5 +135,19 @@ public class AddressView extends ConstraintLayout{
 
     public void setAddressSearcher(AddressSearcher searcher) {
         this.addressSearcher = searcher;
+    }
+
+    public void fillAddress(Address address) {
+        streetET.setText(address.getStreet());
+        numberET.setText("" + address.getNumber());
+        neighborhoodET.setText(address.getNeighborhood());
+        cityET.setText(address.getCity());
+        stateET.setText(address.getState());
+        countryET.setText(address.getCountry());
+        zipET.setText(address.getZipCode());
+        complementET.setText(address.getComplement());
+        referenceET.setText(address.getReference());
+        apartmentET.setText("" + address.getApartment());
+        blockET.setText(address.getApartmentBlock());
     }
 }

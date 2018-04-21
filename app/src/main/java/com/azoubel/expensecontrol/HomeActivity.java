@@ -1,5 +1,6 @@
 package com.azoubel.expensecontrol;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,12 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.azoubel.expensecontrol.controller.Controller;
+import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
+import com.azoubel.expensecontrol.ui.UserActivity;
 import com.azoubel.expensecontrol.ui.view.ExpensesView;
 import com.azoubel.expensecontrol.ui.view.PaymentsView;
 import com.azoubel.expensecontrol.ui.view.UsersView;
@@ -44,7 +47,9 @@ public class HomeActivity extends AppCompatActivity
     private ExpensesView expensesView;
 
     private PaymentsView paymentsView;
-    private FloatingActionButton actionButton;
+    private FloatingActionButton addButton;
+    private FloatingActionButton editButton;
+    private FloatingActionButton openButton;
 
     private Menu navigationMenu;
 
@@ -57,7 +62,9 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        actionButton = (FloatingActionButton) findViewById(R.id.fab);
+        addButton = (FloatingActionButton) findViewById(R.id.add_button);
+        editButton = (FloatingActionButton) findViewById(R.id.edit_button);
+        openButton = (FloatingActionButton) findViewById(R.id.open_button);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -88,11 +95,24 @@ public class HomeActivity extends AppCompatActivity
 
         if(users == null || users.isEmpty()) {
 
-            controller.addPerson(this, "fernando oliveira", "11111111111", 0, 0);
+            controller.addAddress(this, "rua alemanha", 102, "rio doce","olinda", "pernambuco", "brazil", "11111-111");
 
-            controller.addPerson(this, "Suelene Maria", "2222222222", 0, 0);
+            controller.addAddress(this, "rua chicago", 102, "rio doce","camaragibe", "pernambuco", "brazil", "22222-222");
 
-            controller.addPerson(this, "Edipo Araujo", "3333333333", 0, 0);
+            controller.addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
+
+            Address address1 = controller.findAddress(this, "rua alemanha", 102, "rio doce");
+
+            Address address2 = controller.findAddress(this, "rua chicago", 102, "rio doce");
+
+            controller.addPerson(this, "fernando", "oliveira", "fernando",
+                    "111111111111", new Date().getTime(), 0, 1000, 0, address1);
+
+            controller.addPerson(this, "thiago", "lopes", "lopes",
+                    "222222222222", new Date().getTime(), 0, 1000, 0, address2);
+
+            controller.addPerson(this, "caliane", "figueredo", "caliane",
+                    "3333333333", new Date().getTime(), 0, 1000, 0, address2);
 
             users = controller.loadUsers(this);
 
@@ -101,13 +121,6 @@ public class HomeActivity extends AppCompatActivity
             usersView.setUserClickListener(this);
 
             showView(SHOW_USERS_VIEW);
-
-            controller.addAddress(this, "rua alemanha", 102, "rio doce","olinda", "pernambuco", "brazil", "11111-111");
-
-            controller.addAddress(this, "rua chicago", 102, "rio doce","camaragibe", "pernambuco", "brazil", "22222-222");
-
-            controller.addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
-
 
             controller.addStore(this, "loja tartaruga", 1, "tartaruga.com", "loja sobre tartarugas");
 
@@ -186,7 +199,27 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void updateFloatButton() {
-        actionButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startNewPersonActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
+                startActivity(startNewPersonActivityIntent);
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User selectedUser = usersView.getSelectedUser();
+                if(selectedUser != null) {
+                    Intent startNewPersonActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
+                    startNewPersonActivityIntent.putExtra("id", selectedUser.getUserId());
+                    startActivity(startNewPersonActivityIntent);
+                }
+            }
+        });
+
+        openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -273,9 +306,9 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onUserClicked(int userId) {
-        List<Expense> expenseList = controller.findExpenseByUser(this, userId, getStartDate(), getEndDate());
+        /*List<Expense> expenseList = controller.findExpenseByUser(this, userId, getStartDate(), getEndDate());
         expensesView.setData(expenseList, this);
         expensesView.setExpenseClickListener(this);
-        showView(SHOW_EXPENSES_VIEW);
+        showView(SHOW_EXPENSES_VIEW);*/
     }
 }

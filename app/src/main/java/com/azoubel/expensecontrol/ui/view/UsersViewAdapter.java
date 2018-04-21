@@ -1,6 +1,7 @@
 package com.azoubel.expensecontrol.ui.view;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,6 +17,8 @@ public class UsersViewAdapter extends BaseAdapter {
     List<User> users;
     private Activity activity;
     private UsersView.UserClickListener listener;
+    private User selectedUser;
+    private View selectedView;
 
     public UsersViewAdapter(List<User> users, Activity activity) {
         this.users = users;
@@ -49,6 +52,12 @@ public class UsersViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setBackgroundColor(Color.BLUE);
+                if(selectedView != null) {
+                    selectedView.setBackgroundColor(Color.TRANSPARENT);
+                }
+                selectedView = view;
+                selectedUser = getItem(i);
                 if(listener != null) {
                     listener.onUserClicked(getItem(i).getUserId());
                 }
@@ -68,5 +77,9 @@ public class UsersViewAdapter extends BaseAdapter {
 
     public void setUserClickListener(UsersView.UserClickListener listener) {
         this.listener = listener;
+    }
+
+    public User getSelectedUser() {
+        return selectedUser;
     }
 }

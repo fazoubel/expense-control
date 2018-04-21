@@ -1,6 +1,6 @@
 package com.azoubel.expensecontrol.model;
 
-public class Address {
+public class Address{
 
     private int addressId;
 

@@ -1,5 +1,6 @@
 package com.azoubel.expensecontrol.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -14,7 +15,7 @@ import com.azoubel.expensecontrol.ui.view.AddressView;
 
 import java.util.Date;
 
-public class NewPersonActivity extends GeneralActivity implements AddressView.AddressSearcher{
+public class UserActivity extends AbstractActivity implements AddressView.AddressSearcher{
 
     private AddressView addressView;
     private EditText firstNameET;
@@ -26,13 +27,23 @@ public class NewPersonActivity extends GeneralActivity implements AddressView.Ad
     private Button imageButton;
     private Button saveButton;
 
+    private Person person;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if(intent != null) {
+            if(intent.hasExtra("id")) {
+                int personID = intent.getIntExtra("id", -1);
+                person = controller.getPerson(this, personID);
+            }
+        }
         init();
     }
 
-    private void init() {
+    @Override
+    protected void init() {
         addressView = findViewById(R.id.addressView);
         addressView.setAddressSearcher(this);
         firstNameET = findViewById(R.id.firstName);
@@ -46,9 +57,12 @@ public class NewPersonActivity extends GeneralActivity implements AddressView.Ad
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                savePerson();
+                save();
             }
         });
+        if(person != null) {
+            fillPerson(person);
+        }
     }
 
     @Override
@@ -56,7 +70,8 @@ public class NewPersonActivity extends GeneralActivity implements AddressView.Ad
         return R.layout.activity_new_person;
     }
 
-    private void savePerson() {
+    @Override
+    protected void save() {
 
         String firstName = firstNameET.getText().toString();
         String lastName = lastNameET.getText().toString();
@@ -92,5 +107,18 @@ public class NewPersonActivity extends GeneralActivity implements AddressView.Ad
     @Override
     public Address findAddress(String street, int number, String neiborhood) {
         return controller.findAddress(this, street, number, neiborhood);
+    }
+
+    public void fillPerson(Person person) {
+        firstNameET.setText(person.getFirstName());
+        lastNameET.setText(person.getLastName());
+        nicknameET.setText(person.getNickName());
+        phoneNumberET.setText(person.getPhoneNumber());
+        birthDateET.setText("" + person.getBirthday());
+        expenseLimitET.setText("" + person.getExpectedExpensesValue());
+        Address address = person.getAddress();
+        if(address != null) {
+            addressView.fillAddress(person.getAddress());
+        }
     }
 }

@@ -52,4 +52,9 @@ public class UsersView extends ConstraintLayout{
             adapter.setUserClickListener(listener);
         }
     }
+
+    public User getSelectedUser() {
+        return adapter.getSelectedUser();
+    }
+
 }
