@@ -13,10 +13,6 @@ import java.util.List;
 
 public class ExpensesView extends ConstraintLayout {
 
-    public interface ExpenseClickListener {
-        void onExpenseClicked(int expenseId);
-    }
-
     private ListView listView;
     private ExpensesViewAdapter adapter;
 
@@ -48,9 +44,13 @@ public class ExpensesView extends ConstraintLayout {
         }
     }
 
-    public void setExpenseClickListener(ExpensesView.ExpenseClickListener listener) {
+    public Expense getSelectedExpense() {
+        return adapter.getSelectedExpense();
+    }
+
+    public void clearSelected() {
         if(adapter != null) {
-            adapter.setExpenseClickListener(listener);
+            adapter.clearSelected();
         }
     }
 }

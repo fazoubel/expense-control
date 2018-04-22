@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,11 +20,16 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
+import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
+import com.azoubel.expensecontrol.ui.ExpensesActivity;
+import com.azoubel.expensecontrol.ui.PaymentsActivity;
+import com.azoubel.expensecontrol.ui.StoreActivity;
 import com.azoubel.expensecontrol.ui.UserActivity;
 import com.azoubel.expensecontrol.ui.view.ExpensesView;
 import com.azoubel.expensecontrol.ui.view.PaymentsView;
+import com.azoubel.expensecontrol.ui.view.StoreView;
 import com.azoubel.expensecontrol.ui.view.UsersView;
 
 import java.util.Calendar;
@@ -33,18 +37,20 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ExpensesView.ExpenseClickListener, UsersView.UserClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int SHOW_USERS_VIEW = 0;
     private static final int SHOW_EXPENSES_VIEW = 1;
     private static final int SHOW_PAYMENTS_VIEW = 2;
+    private static final int SHOW_STORES_VIEW = 3;
+    private static final int SHOW_PROMOTIONS_VIEW = 4;
 
     private static Controller controller;
     private List<User> users;
 
-    private List<Expense> expenses;
     private UsersView usersView;
     private ExpensesView expensesView;
+    private StoreView storesView;
 
     private PaymentsView paymentsView;
     private FloatingActionButton addButton;
@@ -81,6 +87,8 @@ public class HomeActivity extends AppCompatActivity
 
         paymentsView = appBarHome.findViewById(R.id.payments_view_layout);
 
+        storesView = appBarHome.findViewById(R.id.stores_view_layout);
+
         if(controller == null) {
             controller = new Controller();
         }
@@ -89,9 +97,7 @@ public class HomeActivity extends AppCompatActivity
 
         usersView.setData(users, this);
 
-        usersView.setUserClickListener(this);
-
-        showView(SHOW_USERS_VIEW);
+        changeView(SHOW_USERS_VIEW);
 
         if(users == null || users.isEmpty()) {
 
@@ -118,13 +124,13 @@ public class HomeActivity extends AppCompatActivity
 
             usersView.setData(users, this);
 
-            usersView.setUserClickListener(this);
+            changeView(SHOW_USERS_VIEW);
 
-            showView(SHOW_USERS_VIEW);
+            controller.addStore(this, "loja tartaruga", "tartarugas.com.br","loja de tartarugas", "animais", "12321312312",
+                    "lojatartaruga@gmail.com", "Olavo","123123123", "olavogerente@gmail.com", address1);
 
-            controller.addStore(this, "loja tartaruga", 1, "tartaruga.com", "loja sobre tartarugas");
-
-            controller.addStore(this, "loja suelene", 2, "suelene.com", "loja sobre babozeiras");
+            controller.addStore(this, "loja abobrinha", "abobrinhas.com.br","loja de abobrinha", "abobrinhas", "12321312312",
+                    "lojaabobrinhas@gmail.com", "Gilmar","123123123", "gilmargerente@gmail.com", address2);
 
             Calendar calendar = Calendar.getInstance();
 
@@ -132,14 +138,25 @@ public class HomeActivity extends AppCompatActivity
 
             Date expirationDate = calendar.getTime();
 
-            controller.addExpense(this, users.get(0).getUserId(), 1, 55.04f, expirationDate.getTime(),
+            List<Store> stores = controller.getAllStores(this);
+
+            Store store1=null;
+            Store store2=null;
+
+            if(!stores.isEmpty() && stores.size() >=2) {
+                store1 = stores.get(0);
+                store2 = stores.get(1);
+            }
+
+
+            controller.addExpense(this, users.get(0).getUserId(), store1, 55.04f, expirationDate.getTime(),
                     "compra de uma tartaruga ninja", ExpenseCategory.compra, 0);
 
             calendar.add(Calendar.DATE, 1);
 
             Date expirationDate2 = calendar.getTime();
 
-            controller.addExpense(this, users.get(1).getUserId(), 1, 105.00f, expirationDate2.getTime(),
+            controller.addExpense(this, users.get(1).getUserId(), store2, 105.00f, expirationDate2.getTime(),
                     "compra de um cágado", ExpenseCategory.compra, 5.5f);
 
             List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
@@ -148,12 +165,6 @@ public class HomeActivity extends AppCompatActivity
                     expenseList.get(0).getInitialValue(), "");
 
         }
-        /*else {
-            long startDate = getStartDate();
-            long endDate = getEndDate();
-            expenses = controller.findExpenseByUser(this, users.get(0).getUserId(), startDate, endDate);
-            showView(SHOW_EXPENSES_VIEW);
-        }*/
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
@@ -202,14 +213,25 @@ public class HomeActivity extends AppCompatActivity
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startNewPersonActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
-                startActivity(startNewPersonActivityIntent);
+                if(usersView.getVisibility() == View.VISIBLE) {
+                    Intent startUserActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
+                    startActivity(startUserActivityIntent);
+                }
+                else if (expensesView.getVisibility() == View.VISIBLE) {
+                    Intent startExpensesActivityIntent = new Intent(HomeActivity.this, ExpensesActivity.class);
+                    startActivity(startExpensesActivityIntent);
+                }
+                else {
+                    Intent startPaymentsActivityIntent = new Intent(HomeActivity.this, PaymentsActivity.class);
+                    startActivity(startPaymentsActivityIntent);
+                }
             }
         });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            if(usersView.getVisibility() == View.VISIBLE) {
                 User selectedUser = usersView.getSelectedUser();
                 if(selectedUser != null) {
                     Intent startNewPersonActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
@@ -217,13 +239,55 @@ public class HomeActivity extends AppCompatActivity
                     startActivity(startNewPersonActivityIntent);
                 }
             }
+            else if (expensesView.getVisibility() == View.VISIBLE) {
+                Expense selectedExpense = expensesView.getSelectedExpense();
+                if(selectedExpense != null) {
+                    Intent expensesActivityIntent = new Intent(HomeActivity.this, ExpensesActivity.class);
+                    expensesActivityIntent.putExtra("id", selectedExpense.getExpenseId());
+                    startActivity(expensesActivityIntent);
+                }
+            }
+            else if (paymentsView.getVisibility() == View.VISIBLE) {
+                Payment selectedPayment = paymentsView.getSelectedPayment();
+                if(selectedPayment != null) {
+                    Intent paymentsActivityIntent = new Intent(HomeActivity.this, PaymentsActivity.class);
+                    paymentsActivityIntent.putExtra("id", selectedPayment.getPaymentId());
+                    startActivity(paymentsActivityIntent);
+                }
+            }
+            else if(storesView.getVisibility() == View.VISIBLE) {
+                Store selectedStore = storesView.getSelectedStore();
+                if(selectedStore != null) {
+                    Intent storeActivityIntent = new Intent(HomeActivity.this, StoreActivity.class);
+                    storeActivityIntent.putExtra("id", selectedStore.getStoreId());
+                    startActivity(storeActivityIntent);
+                }
+            }
+
+            }
         });
 
         openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            if(usersView.getVisibility() == View.VISIBLE) {
+                User selectedUser = usersView.getSelectedUser();
+                if(selectedUser != null) {
+                    List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, selectedUser.getUserId(),
+                            getStartDate(), getEndDate());
+
+                    expensesView.setData(expenseList, HomeActivity.this);
+                    changeView(SHOW_EXPENSES_VIEW);
+                }
+            }
+            else if (expensesView.getVisibility() == View.VISIBLE) {
+                Expense selectedExpense = expensesView.getSelectedExpense();
+                if(selectedExpense != null) {
+                    List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, selectedExpense.getExpenseId());
+                    paymentsView.setData(paymentList, HomeActivity.this);
+                    changeView(SHOW_PAYMENTS_VIEW);
+                }
+            }
             }
         });
     }
@@ -235,10 +299,10 @@ public class HomeActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if(paymentsView.getVisibility() == View.VISIBLE) {
-                showView(SHOW_EXPENSES_VIEW);
+                changeView(SHOW_EXPENSES_VIEW);
             }
             else if(expensesView.getVisibility() == View.VISIBLE) {
-                showView(SHOW_USERS_VIEW);
+                changeView(SHOW_USERS_VIEW);
             }
             else {
                 super.onBackPressed();
@@ -253,21 +317,31 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_users) {
-            showView(SHOW_USERS_VIEW);
-        } else if (id == R.id.nav_stores) {
-
-        } /* else if (id == R.id.nav_payments) {
-
-        }*/ else {
+            changeView(SHOW_USERS_VIEW);
+        }
+        else if (id == R.id.nav_expenses) {
+            changeView(SHOW_EXPENSES_VIEW);
+        }
+        else if (id == R.id.nav_payments) {
+            changeView(SHOW_PAYMENTS_VIEW);
+        }
+        else if (id == R.id.nav_stores) {
+            List<Store> storeList = controller.getAllStores(this);
+            storesView.setData(storeList, this);
+            changeView(SHOW_STORES_VIEW);
+        }
+        else if (id == R.id.nav_promotions) {
+            changeView(SHOW_PROMOTIONS_VIEW);
+        }
+        else {
             for (User user : users) {
                 if(id == user.getUserId()) {
                     List<Expense> expenseList = controller.findExpenseByUser(this, user.getUserId(),
                             getStartDate(), getEndDate());
 
                     expensesView.setData(expenseList, this);
-                    expensesView.setExpenseClickListener(this);
 
-                    showView(SHOW_EXPENSES_VIEW);
+                    changeView(SHOW_EXPENSES_VIEW);
                     break;
                 }
             }
@@ -277,38 +351,40 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    public void showView(int view) {
+    public void changeView(int view) {
 
-        //show users view
+        usersView.clearSelected();
+        expensesView.clearSelected();
+        paymentsView.clearSelected();
+        storesView.clearSelected();
+
         if(view == SHOW_USERS_VIEW) {
             usersView.setVisibility(View.VISIBLE);
             expensesView.setVisibility(View.GONE);
             paymentsView.setVisibility(View.GONE);
+            storesView.setVisibility(View.GONE);
         }
         else if(view == SHOW_EXPENSES_VIEW) {
             usersView.setVisibility(View.GONE);
             expensesView.setVisibility(View.VISIBLE);
             paymentsView.setVisibility(View.GONE);
+            storesView.setVisibility(View.GONE);
         }
-        else {
+        else if(view == SHOW_PAYMENTS_VIEW){
             usersView.setVisibility(View.GONE);
             expensesView.setVisibility(View.GONE);
             paymentsView.setVisibility(View.VISIBLE);
+            storesView.setVisibility(View.GONE);
+        }
+        else if(view == SHOW_STORES_VIEW){
+            usersView.setVisibility(View.GONE);
+            expensesView.setVisibility(View.GONE);
+            paymentsView.setVisibility(View.GONE);
+            storesView.setVisibility(View.VISIBLE);
+        }
+        else {
+            //promotions
         }
     }
 
-    @Override
-    public void onExpenseClicked(int expenseId) {
-        List<Payment> paymentList = controller.findPaymentsByExpense(this, expenseId);
-        paymentsView.setData(paymentList, this);
-        showView(SHOW_PAYMENTS_VIEW);
-    }
-
-    @Override
-    public void onUserClicked(int userId) {
-        /*List<Expense> expenseList = controller.findExpenseByUser(this, userId, getStartDate(), getEndDate());
-        expensesView.setData(expenseList, this);
-        expensesView.setExpenseClickListener(this);
-        showView(SHOW_EXPENSES_VIEW);*/
-    }
 }

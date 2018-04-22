@@ -63,4 +63,10 @@ public class Payment {
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
     }
+
+    @Override
+    public String toString() {
+        return String.format(expense.toString() + "\n"
+                +"R$ "+value + "\n");
+    }
 }

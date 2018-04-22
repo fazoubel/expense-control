@@ -122,6 +122,6 @@ public class Expense{
                 + "loja: " + this.store.getStoreName() + "\n"
                 + "categoria: " + this.getCategory().name() + "\n"
                 + "valor da compra: R$ " + this.initialValue + "\n"
-                + "data de vencimento: " + this.expirationDate);
+                + "data de vencimento: " + this.expirationDate + "\n");
     }
 }

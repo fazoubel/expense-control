@@ -121,4 +121,9 @@ public class Store {
     public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
+
+    @Override
+    public String toString() {
+        return String.format(storeName + ", "+site);
+    }
 }

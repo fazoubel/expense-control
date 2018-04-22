@@ -16,7 +16,6 @@ public class UsersViewAdapter extends BaseAdapter {
 
     List<User> users;
     private Activity activity;
-    private UsersView.UserClickListener listener;
     private User selectedUser;
     private View selectedView;
 
@@ -43,11 +42,11 @@ public class UsersViewAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         if(view == null) {
-            view = activity.getLayoutInflater().inflate(R.layout.list_item_user_, viewGroup, false);
+            view = activity.getLayoutInflater().inflate(R.layout.list_item, viewGroup, false);
         }
 
-        TextView userNameView = view.findViewById(R.id.userItem);
-        userNameView.setText(users.get(i).toString());
+        TextView userDescription = view.findViewById(R.id.listItemDescription);
+        userDescription.setText(users.get(i).toString());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,9 +57,6 @@ public class UsersViewAdapter extends BaseAdapter {
                 }
                 selectedView = view;
                 selectedUser = getItem(i);
-                if(listener != null) {
-                    listener.onUserClicked(getItem(i).getUserId());
-                }
             }
         });
 
@@ -75,11 +71,15 @@ public class UsersViewAdapter extends BaseAdapter {
         this.users = users;
     }
 
-    public void setUserClickListener(UsersView.UserClickListener listener) {
-        this.listener = listener;
-    }
-
     public User getSelectedUser() {
         return selectedUser;
+    }
+
+    public void clearSelected() {
+        selectedUser = null;
+        if(selectedView != null) {
+            selectedView.setBackgroundColor(Color.TRANSPARENT);
+            selectedView = null;
+        }
     }
 }

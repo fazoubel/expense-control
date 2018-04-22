@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/firstNameLabel"
+            android:id="@+id/nameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <EditText
-            android:id="@+id/firstName"
+            android:id="@+id/storeName"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -45,11 +45,11 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/firstNameLabel"
+            app:layout_constraintStart_toEndOf="@+id/nameLabel"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <EditText
-            android:id="@+id/lastNameLabel"
+            android:id="@+id/siteLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -59,10 +59,10 @@
             android:text="sobrenome:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstNameLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
 
         <EditText
-            android:id="@+id/lastName"
+            android:id="@+id/site"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -70,11 +70,11 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/firstNameLabel"
-            app:layout_constraintTop_toBottomOf="@+id/firstName" />
+            app:layout_constraintStart_toEndOf="@+id/nameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
         <EditText
-            android:id="@+id/nicknameLabel"
+            android:id="@+id/descriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -84,10 +84,10 @@
             android:text="apelido:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastNameLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/siteLabel" />
 
         <EditText
-            android:id="@+id/nickname"
+            android:id="@+id/description"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -95,11 +95,11 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/nicknameLabel"
-            app:layout_constraintTop_toBottomOf="@+id/lastName" />
+            app:layout_constraintStart_toEndOf="@+id/descriptionLabel"
+            app:layout_constraintTop_toBottomOf="@+id/site" />
 
         <EditText
-            android:id="@+id/phoneNumberLabel"
+            android:id="@+id/productTypeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -109,10 +109,10 @@
             android:text="telefone:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nicknameLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
         <EditText
-            android:id="@+id/phoneNumber"
+            android:id="@+id/productType"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -120,11 +120,11 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/phoneNumberLabel"
-            app:layout_constraintTop_toBottomOf="@+id/nickname" />
+            app:layout_constraintStart_toEndOf="@+id/productTypeLabel"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <EditText
-            android:id="@+id/birthDateLabel"
+            android:id="@+id/storePhoneNumberLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -134,10 +134,10 @@
             android:text="data de nascimento:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phoneNumberLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/productTypeLabel" />
 
         <EditText
-            android:id="@+id/birthDate"
+            android:id="@+id/storePhoneNumber"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -145,11 +145,11 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/birthDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+            app:layout_constraintStart_toEndOf="@+id/storePhoneNumberLabel"
+            app:layout_constraintTop_toBottomOf="@+id/productType" />
 
         <EditText
-            android:id="@+id/expenseLimitLabel"
+            android:id="@+id/storeEmailLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -159,10 +159,10 @@
             android:text="limite de gastos:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/birthDateLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/storePhoneNumberLabel" />
 
         <EditText
-            android:id="@+id/expenseLimit"
+            android:id="@+id/storeEmail"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -170,11 +170,11 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/expenseLimitLabel"
-            app:layout_constraintTop_toBottomOf="@+id/birthDate" />
+            app:layout_constraintStart_toEndOf="@+id/storeEmailLabel"
+            app:layout_constraintTop_toBottomOf="@+id/storePhoneNumber" />
 
         <EditText
-            android:id="@+id/imageLabel"
+            android:id="@+id/managerNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -184,10 +184,10 @@
             android:text="imagem:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/expenseLimitLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/storeEmailLabel" />
 
         <Button
-            android:id="@+id/image"
+            android:id="@+id/managerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -196,16 +196,16 @@
             android:text="escolher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="@+id/imageLabel"
-            app:layout_constraintTop_toBottomOf="@+id/expenseLimit" />
+            app:layout_constraintStart_toEndOf="@+id/managerNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/storeEmail" />
 
         <com.azoubel.expensecontrol.ui.view.AddressView
-            android:id="@+id/addressView"
+            android:id="@+id/storeAddressView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintHorizontal_bias="0.628"
             app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image"></com.azoubel.expensecontrol.ui.view.AddressView
+            app:layout_constraintTop_toBottomOf="@+id/managerName"></com.azoubel.expensecontrol.ui.view.AddressView
 
             >
 
@@ -219,7 +219,7 @@
             android:text="salvar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addressView" />
+            app:layout_constraintTop_toBottomOf="@+id/storeAddressView" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

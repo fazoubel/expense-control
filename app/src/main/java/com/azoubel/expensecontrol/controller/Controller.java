@@ -14,6 +14,7 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
+import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Car;
 import com.azoubel.expensecontrol.model.User.House;
 import com.azoubel.expensecontrol.model.User.Person;
@@ -97,14 +98,16 @@ public class Controller extends BuilderController{
         return buildUsers(context, userDataList);
     }
 
-    public void addExpense(Context context, int userId, int storeId, float initialValue, long expirationDate, String description,
+    public void addExpense(Context context, int userId, Store store, float initialValue, long expirationDate, String description,
                            ExpenseCategory expenseCategory, float assessment) {
 
         ExpenseData expenseData = new ExpenseData();
         expenseData.setUserId(userId);
         expenseData.setInitialValue(initialValue);
         expenseData.setExpirationDate(expirationDate);
-        expenseData.setStoreId(storeId);
+        if(store != null) {
+            expenseData.setStoreId(store.getStoreId());
+        }
         expenseData.setAssessment(assessment);
         expenseData.setCategory(expenseCategory.name());
         expenseData.setDescription(description);
@@ -159,13 +162,43 @@ public class Controller extends BuilderController{
         return address;
     }
 
-    public void addStore(Context context, String storeName, int addressId, String site, String description) {
+    public void addStore(Context context, String storeName, String site, String description, String productType,
+                         String phoneNubmer, String email, String managerName, String managerPhoneNumber,
+                         String managerEmail, Address address) {
         StoreData storeData = new StoreData();
         storeData.setStoreName(storeName);
-        storeData.setAddressId(addressId);
         storeData.setSite(site);
         storeData.setDescription(description);
+        storeData.setProductType(productType);
+        storeData.setPhoneNumber(phoneNubmer);
+        storeData.setEmail(email);
+        storeData.setManagerName(managerName);
+        storeData.setManagerPhoneNumber(managerPhoneNumber);
+        storeData.setManagerEmail(managerEmail);
+        if(address != null) {
+            storeData.setAddressId(address.getAddressId());
+        }
         AppDatabase.getInstance(context).storeDAO().insertStore(storeData);
+    }
+
+    public Store getStore(Context context, int id) {
+        Store store = null;
+        StoreData storeData = AppDatabase.getInstance(context).storeDAO().getStore(id);
+        if(storeData != null) {
+            store = buildStore(context, storeData);
+        }
+        return store;
+    }
+
+    public List<Store> getAllStores(Context context) {
+        List<StoreData> storeDataList = AppDatabase.getInstance(context).storeDAO().getAll();
+        List<Store> storeList = new ArrayList<>();
+        if(!storeDataList.isEmpty()) {
+            for (StoreData storeData : storeDataList) {
+                storeList.add(buildStore(context, storeData));
+            }
+        }
+        return storeList;
     }
 
 }

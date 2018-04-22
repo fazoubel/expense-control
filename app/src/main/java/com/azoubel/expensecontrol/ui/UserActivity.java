@@ -15,7 +15,7 @@ import com.azoubel.expensecontrol.ui.view.AddressView;
 
 import java.util.Date;
 
-public class UserActivity extends AbstractActivity implements AddressView.AddressSearcher{
+public class UserActivity extends AbstractActivity {
 
     private AddressView addressView;
     private EditText firstNameET;
@@ -44,15 +44,15 @@ public class UserActivity extends AbstractActivity implements AddressView.Addres
 
     @Override
     protected void init() {
-        addressView = findViewById(R.id.addressView);
+        addressView = findViewById(R.id.storeAddressView);
         addressView.setAddressSearcher(this);
-        firstNameET = findViewById(R.id.firstName);
-        lastNameET = findViewById(R.id.lastName);
-        nicknameET = findViewById(R.id.nickname);
-        phoneNumberET = findViewById(R.id.phoneNumber);
-        birthDateET = findViewById(R.id.birthDate);
-        expenseLimitET = findViewById(R.id.expenseLimit);
-        imageButton = findViewById(R.id.image);
+        firstNameET = findViewById(R.id.storeName);
+        lastNameET = findViewById(R.id.site);
+        nicknameET = findViewById(R.id.description);
+        phoneNumberET = findViewById(R.id.productType);
+        birthDateET = findViewById(R.id.storePhoneNumber);
+        expenseLimitET = findViewById(R.id.storeEmail);
+        imageButton = findViewById(R.id.managerName);
         saveButton = findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +60,12 @@ public class UserActivity extends AbstractActivity implements AddressView.Addres
                 save();
             }
         });
-        if(person != null) {
-            fillPerson(person);
-        }
+        fillComponents();
     }
 
     @Override
     protected int getContentViewXML() {
-        return R.layout.activity_new_person;
+        return R.layout.activity_user;
     }
 
     @Override
@@ -105,20 +103,18 @@ public class UserActivity extends AbstractActivity implements AddressView.Addres
     }
 
     @Override
-    public Address findAddress(String street, int number, String neiborhood) {
-        return controller.findAddress(this, street, number, neiborhood);
-    }
-
-    public void fillPerson(Person person) {
-        firstNameET.setText(person.getFirstName());
-        lastNameET.setText(person.getLastName());
-        nicknameET.setText(person.getNickName());
-        phoneNumberET.setText(person.getPhoneNumber());
-        birthDateET.setText("" + person.getBirthday());
-        expenseLimitET.setText("" + person.getExpectedExpensesValue());
-        Address address = person.getAddress();
-        if(address != null) {
-            addressView.fillAddress(person.getAddress());
+    public void fillComponents() {
+        if(person != null) {
+            firstNameET.setText(person.getFirstName());
+            lastNameET.setText(person.getLastName());
+            nicknameET.setText(person.getNickName());
+            phoneNumberET.setText(person.getPhoneNumber());
+            birthDateET.setText("" + person.getBirthday());
+            expenseLimitET.setText("" + person.getExpectedExpensesValue());
+            Address address = person.getAddress();
+            if(address != null) {
+                addressView.fillAddress(person.getAddress());
+            }
         }
     }
 }

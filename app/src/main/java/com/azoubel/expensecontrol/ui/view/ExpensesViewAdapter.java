@@ -1,6 +1,7 @@
 package com.azoubel.expensecontrol.ui.view;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,7 +16,8 @@ public class ExpensesViewAdapter extends BaseAdapter {
 
     private List<Expense> expenses;
     private Activity activity;
-    private ExpensesView.ExpenseClickListener listener;
+    private View selectedView;
+    private Expense selectedExpense;
 
     public ExpensesViewAdapter(List<Expense> expenses, Activity activity) {
         this.expenses = expenses;
@@ -40,20 +42,21 @@ public class ExpensesViewAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         if(view == null) {
-            view = activity.getLayoutInflater().inflate(R.layout.list_item_expense, viewGroup, false);
+            view = activity.getLayoutInflater().inflate(R.layout.list_item, viewGroup, false);
         }
 
-        TextView userNameView = view.findViewById(R.id.expenseDescriptionItem);
-        userNameView.setText(expenses.get(i).toString());
-
-        /*userPhoneView.setText(expenses.get(i).getPerson().getName());*/
+        TextView expenseDescription = view.findViewById(R.id.listItemDescription);
+        expenseDescription.setText(expenses.get(i).toString());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener != null) {
-                    listener.onExpenseClicked(getItem(i).getExpenseId());
+                view.setBackgroundColor(Color.BLUE);
+                if(selectedView != null) {
+                    selectedView.setBackgroundColor(Color.TRANSPARENT);
                 }
+                selectedView = view;
+                selectedExpense = getItem(i);
             }
         });
 
@@ -68,8 +71,16 @@ public class ExpensesViewAdapter extends BaseAdapter {
         this.expenses = expenses;
     }
 
-    public void setExpenseClickListener(ExpensesView.ExpenseClickListener listener) {
-        this.listener = listener;
+    public Expense getSelectedExpense() {
+        return selectedExpense;
+    }
+
+    public void clearSelected() {
+        selectedExpense = null;
+        if(selectedView != null) {
+            selectedView.setBackgroundColor(Color.TRANSPARENT);
+            selectedView = null;
+        }
     }
 
  }

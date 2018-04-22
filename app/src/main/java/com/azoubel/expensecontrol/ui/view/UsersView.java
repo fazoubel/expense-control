@@ -13,10 +13,6 @@ import java.util.List;
 
 public class UsersView extends ConstraintLayout{
 
-    public interface UserClickListener {
-        void onUserClicked(int userId);
-    }
-
     private ListView listView;
     private UsersViewAdapter adapter;
 
@@ -47,14 +43,14 @@ public class UsersView extends ConstraintLayout{
         }
     }
 
-    public void setUserClickListener(UserClickListener listener) {
-        if(adapter != null) {
-            adapter.setUserClickListener(listener);
-        }
-    }
-
     public User getSelectedUser() {
         return adapter.getSelectedUser();
+    }
+
+    public void clearSelected() {
+        if(adapter != null) {
+            adapter.clearSelected();
+        }
     }
 
 }

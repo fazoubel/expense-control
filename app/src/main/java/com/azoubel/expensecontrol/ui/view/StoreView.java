@@ -7,54 +7,54 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.azoubel.expensecontrol.R;
-import com.azoubel.expensecontrol.model.Payment;
+import com.azoubel.expensecontrol.model.Store;
 
 import java.util.List;
 
-public class PaymentsView extends ConstraintLayout {
+public class StoreView extends ConstraintLayout {
 
-    public interface PaymentClickListener {
-        void onPaymentClicked(int paymentId);
+    public interface StoreClickListener {
+        void onStoreClicked(int storeId);
     }
 
     private ListView listView;
-    private PaymentsViewAdapter adapter;
+    private StoreViewAdapter adapter;
 
-    public PaymentsView(Context context) {
+    public StoreView(Context context) {
         super(context);
         init();
     }
 
-    public PaymentsView(Context context, AttributeSet attrs) {
+    public StoreView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     public void init() {
-        inflate(getContext(), R.layout.view_payments, this);
-        listView = findViewById(R.id.paymentsListView);
+        inflate(getContext(), R.layout.view_stores, this);
+        listView = findViewById(R.id.storesListView);
     }
 
-    public void setData(List<Payment> payments, Activity activity) {
+    public void setData(List<Store> stores, Activity activity) {
         if(adapter == null) {
-            adapter = new PaymentsViewAdapter(payments, activity);
+            adapter = new StoreViewAdapter(stores, activity);
             listView.setAdapter(adapter);
         }
         else {
-            adapter.setPayments(payments);
+            adapter.setStores(stores);
             adapter.setActivity(activity);
             adapter.notifyDataSetChanged();
         }
     }
 
-    public void setPaymentClickListener(PaymentsView.PaymentClickListener listener) {
+    public void setStoreClickListener(StoreView.StoreClickListener listener) {
         if(adapter != null) {
             adapter.setPaymentClickListener(listener);
         }
     }
 
-    public Payment getSelectedPayment() {
-        return adapter.getSelectedPayment();
+    public Store getSelectedStore() {
+        return adapter.getSelectedStore();
     }
 
     public void clearSelected() {
@@ -62,5 +62,4 @@ public class PaymentsView extends ConstraintLayout {
             adapter.clearSelected();
         }
     }
-
 }

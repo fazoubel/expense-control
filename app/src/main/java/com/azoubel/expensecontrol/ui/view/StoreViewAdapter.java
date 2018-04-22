@@ -8,31 +8,31 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.azoubel.expensecontrol.R;
-import com.azoubel.expensecontrol.model.Payment;
+import com.azoubel.expensecontrol.model.Store;
 
 import java.util.List;
 
-public class PaymentsViewAdapter extends BaseAdapter {
+public class StoreViewAdapter extends BaseAdapter {
 
-    private List<Payment> payments;
+    private List<Store> stores;
     private Activity activity;
     private View selectedView;
-    private Payment selectedPayment;
-    private PaymentsView.PaymentClickListener listener;
+    private Store selectedStore;
+    private StoreView.StoreClickListener listener;
 
-    public PaymentsViewAdapter(List<Payment> payments, Activity activity) {
-        this.payments = payments;
+    public StoreViewAdapter(List<Store> stores, Activity activity) {
+        this.stores = stores;
         this.activity = activity;
     }
 
     @Override
     public int getCount() {
-        return payments.size();
+        return stores.size();
     }
 
     @Override
-    public Payment getItem(int i) {
-        return payments.get(i);
+    public Store getItem(int i) {
+        return stores.get(i);
     }
 
     @Override
@@ -46,21 +46,21 @@ public class PaymentsViewAdapter extends BaseAdapter {
             view = activity.getLayoutInflater().inflate(R.layout.list_item, viewGroup, false);
         }
 
-        TextView paymentDescription = view.findViewById(R.id.listItemDescription);
-        paymentDescription.setText(payments.get(i).toString());
+        TextView storeDescription = view.findViewById(R.id.listItemDescription);
+        storeDescription.setText(stores.get(i).toString());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setBackgroundColor(Color.BLUE);
-                if(selectedView != null) {
-                    selectedView.setBackgroundColor(Color.TRANSPARENT);
-                }
-                selectedView = view;
-                selectedPayment = getItem(i);
-                if(listener != null) {
-                    listener.onPaymentClicked(getItem(i).getPaymentId());
-                }
+            view.setBackgroundColor(Color.BLUE);
+            if(selectedView != null) {
+                selectedView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            selectedView = view;
+            selectedStore = getItem(i);
+            if(listener != null) {
+                listener.onStoreClicked(getItem(i).getStoreId());
+            }
 
             }
         });
@@ -72,20 +72,20 @@ public class PaymentsViewAdapter extends BaseAdapter {
         this.activity = activity;
     }
 
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
     }
 
-    public void setPaymentClickListener(PaymentsView.PaymentClickListener listener) {
+    public void setPaymentClickListener(StoreView.StoreClickListener listener) {
         this.listener = listener;
     }
 
-    public Payment getSelectedPayment() {
-        return selectedPayment;
+    public Store getSelectedStore() {
+        return selectedStore;
     }
 
     public void clearSelected() {
-        selectedPayment = null;
+        selectedStore = null;
         if(selectedView != null) {
             selectedView.setBackgroundColor(Color.TRANSPARENT);
             selectedView = null;

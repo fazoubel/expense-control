@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.azoubel.expensecontrol.controller.Controller;
+import com.azoubel.expensecontrol.model.Address;
+import com.azoubel.expensecontrol.ui.view.AddressView;
 
-public abstract class AbstractActivity extends Activity{
+public abstract class AbstractActivity extends Activity implements AddressView.AddressSearcher{
 
     protected abstract int getContentViewXML();
 
     protected Controller controller;
 
     protected abstract void init();
+
+    protected abstract void fillComponents();
 
     protected abstract void save();
 
@@ -21,5 +25,10 @@ public abstract class AbstractActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(getContentViewXML());
         controller = new Controller();
+    }
+
+    @Override
+    public Address findAddress(String street, int number, String neiborhood) {
+        return controller.findAddress(this, street, number, neiborhood);
     }
 }

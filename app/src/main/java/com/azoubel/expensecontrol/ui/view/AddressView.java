@@ -138,16 +138,18 @@ public class AddressView extends ConstraintLayout{
     }
 
     public void fillAddress(Address address) {
-        streetET.setText(address.getStreet());
-        numberET.setText("" + address.getNumber());
-        neighborhoodET.setText(address.getNeighborhood());
-        cityET.setText(address.getCity());
-        stateET.setText(address.getState());
-        countryET.setText(address.getCountry());
-        zipET.setText(address.getZipCode());
-        complementET.setText(address.getComplement());
-        referenceET.setText(address.getReference());
-        apartmentET.setText("" + address.getApartment());
-        blockET.setText(address.getApartmentBlock());
+        if(address != null) {
+            streetET.setText(address.getStreet());
+            numberET.setText("" + address.getNumber());
+            neighborhoodET.setText(address.getNeighborhood());
+            cityET.setText(address.getCity());
+            stateET.setText(address.getState());
+            countryET.setText(address.getCountry());
+            zipET.setText(address.getZipCode());
+            complementET.setText(address.getComplement());
+            referenceET.setText(address.getReference());
+            apartmentET.setText("" + address.getApartment());
+            blockET.setText(address.getApartmentBlock());
+        }
     }
 }

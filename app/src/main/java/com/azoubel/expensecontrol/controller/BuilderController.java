@@ -200,16 +200,26 @@ public class BuilderController {
         Store store = new Store();
         store.setStoreId(storeData.getStoreId());
         store.setStoreName(storeData.getStoreName());
+        store.setSite(storeData.getSite());
         store.setDescription(storeData.getDescription());
+        store.setProductType(storeData.getProductType());
+        store.setPhoneNumber(storeData.getPhoneNumber());
+        store.setEmail(storeData.getEmail());
+        store.setManagerName(storeData.getManagerName());
+        store.setManagerPhoneNumber(storeData.getManagerPhoneNumber());
+        store.setManagerEmail(storeData.getManagerEmail());
         AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(storeData.getAddressId());
-        Address address = buildAddress(addressData);
-        store.setAddress(address);
+        if(addressData != null) {
+            Address address = buildAddress(addressData);
+            store.setAddress(address);
+        }
         store.setSite(storeData.getSite());
         return store;
     }
 
     protected Address buildAddress(AddressData addressData) {
         Address address = new Address();
+        address.setAddressId(addressData.getAddressId());
         address.setStreet(addressData.getStreet());
         address.setNeighborhood(addressData.getNeighborhood());
         address.setNumber(addressData.getNumber());
