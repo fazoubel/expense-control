@@ -140,6 +140,15 @@ public class Controller extends BuilderController{
         return buildExpenses(context, expenseDataList);
     }
 
+    public Expense getExpense(Context context, int id) {
+        Expense expense = null;
+        ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(id);
+        if(expenseData != null) {
+            expense = buildExpense(context, expenseData);
+        }
+        return expense;
+    }
+
     public void addAddress(Context context, String street, int number, String neighborhood, String city, String state, String country, String zipCpde) {
         AddressData addressData = new AddressData();
         addressData.setStreet(street);

@@ -9,10 +9,29 @@
         android:title="Usuários"
         android:checkable="true"/>
 
+
+    <item
+        android:id="@+id/nav_expenses"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Gastos do mês"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/nav_payments"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Pagamentos do mês"
+        android:checkable="true"/>
+
     <item
         android:id="@+id/nav_stores"
         android:icon="@drawable/ic_menu_camera"
         android:title="Lojas"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/nav_promotions"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Promoções válidas"
         android:checkable="true"/>
 
     <group android:checkableBehavior="single"

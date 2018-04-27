@@ -52,5 +52,4 @@ public class UsersView extends ConstraintLayout{
             adapter.clearSelected();
         }
     }
-
 }

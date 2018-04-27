@@ -4,7 +4,7 @@ import com.azoubel.expensecontrol.model.Address;
 
 import java.util.Date;
 
-public class Person extends User{
+public class Person extends User {
 
     private Date birthday;
 
