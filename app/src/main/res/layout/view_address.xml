@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="mesmo endereço que"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toEndOf="@+id/addressLabel"
         app:layout_constraintTop_toBottomOf="parent" />
@@ -50,7 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/streetLabel"
         app:layout_constraintTop_toBottomOf="@+id/findAddress" />
@@ -75,7 +75,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/numberLabel"
         app:layout_constraintTop_toBottomOf="@+id/street" />
@@ -100,7 +100,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/neighborhoodLabel"
         app:layout_constraintTop_toBottomOf="@+id/number" />
@@ -125,7 +125,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/cityLabel"
         app:layout_constraintTop_toBottomOf="@+id/neighborhood" />
@@ -150,7 +150,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/stateLabel"
         app:layout_constraintTop_toBottomOf="@+id/city" />
@@ -175,7 +175,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/countryLabel"
         app:layout_constraintTop_toBottomOf="@+id/state" />
@@ -200,7 +200,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/zipLabel"
         app:layout_constraintTop_toBottomOf="@+id/country" />
@@ -225,7 +225,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/referenceLabel"
         app:layout_constraintTop_toBottomOf="@+id/zip" />
@@ -250,7 +250,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/complementLabel"
         app:layout_constraintTop_toBottomOf="@+id/reference" />
@@ -275,7 +275,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/apartmentLabel"
         app:layout_constraintTop_toBottomOf="@+id/complement" />
@@ -304,7 +304,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toEndOf="@+id/blockLabel"
         app:layout_constraintTop_toBottomOf="@+id/apartment" />

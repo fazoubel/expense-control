@@ -43,7 +43,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/nameLabel"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -68,7 +68,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/nameLabel"
             app:layout_constraintTop_toBottomOf="@+id/storeName" />
@@ -93,7 +93,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/descriptionLabel"
             app:layout_constraintTop_toBottomOf="@+id/site" />
@@ -118,7 +118,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/productTypeLabel"
             app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -143,7 +143,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/storePhoneNumberLabel"
             app:layout_constraintTop_toBottomOf="@+id/productType" />
@@ -168,7 +168,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/storeEmailLabel"
             app:layout_constraintTop_toBottomOf="@+id/storePhoneNumber" />
@@ -194,7 +194,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
             app:layout_constraintStart_toEndOf="@+id/managerNameLabel"
             app:layout_constraintTop_toBottomOf="@+id/storeEmail" />
@@ -220,7 +220,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
             app:layout_constraintStart_toEndOf="@+id/managerPhoneNumberLabel"
             app:layout_constraintTop_toBottomOf="@+id/managerName" />
@@ -246,7 +246,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
             app:layout_constraintStart_toEndOf="@+id/managerEmailLabel"
             app:layout_constraintTop_toBottomOf="@+id/managerPhoneNumber" />
@@ -271,7 +271,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="salvar"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/storeAddressView" />
 
