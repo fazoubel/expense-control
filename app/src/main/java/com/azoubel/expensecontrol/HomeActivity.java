@@ -149,15 +149,15 @@ public class HomeActivity extends AppCompatActivity
             }
 
 
-            controller.addExpense(this, users.get(0).getUserId(), store1, 55.04f, expirationDate.getTime(),
-                    "compra de uma tartaruga ninja", ExpenseCategory.compra, 0);
+            controller.addExpense(this, (Person) users.get(0), store1, 55.04f, expirationDate.getTime(),
+                    "compra de tartaruga", ExpenseCategory.compra, 0, expirationDate.getTime());
 
             calendar.add(Calendar.DATE, 1);
 
             Date expirationDate2 = calendar.getTime();
 
-            controller.addExpense(this, users.get(1).getUserId(), store2, 105.00f, expirationDate2.getTime(),
-                    "compra de um cágado", ExpenseCategory.compra, 5.5f);
+            controller.addExpense(this, (Person) users.get(1), store2, 105.00f, expirationDate2.getTime(),
+                    "compra de cágado", ExpenseCategory.compra, 5.5f, expirationDate2.getTime());
 
             List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
 

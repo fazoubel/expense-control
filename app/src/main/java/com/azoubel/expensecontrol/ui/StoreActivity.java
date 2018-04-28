@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.azoubel.expensecontrol.R;
@@ -22,6 +24,7 @@ public class StoreActivity extends AbstractActivity{
     private EditText managerPhoneNumberET;
     private EditText managerEmailET;
     private AddressView addressView;
+    private Button saveBT;
     private Store store;
 
     @Override
@@ -52,6 +55,13 @@ public class StoreActivity extends AbstractActivity{
         managerEmailET = findViewById(R.id.managerEmail);
         addressView = findViewById(R.id.storeAddressView);
         addressView.setAddressSearcher(this);
+        saveBT = findViewById(R.id.save);
+        saveBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
         fillComponents();
     }
 
@@ -73,11 +83,17 @@ public class StoreActivity extends AbstractActivity{
 
     @Override
     protected void save() {
-        controller.addStore(this, nameET.getText().toString(), siteET.getText().toString(),
+        if(store == null) {
+            controller.addStore(this, nameET.getText().toString(), siteET.getText().toString(),
                 descriptionET.getText().toString(), productTypeET.getText().toString(),
                 phoneNumberET.getText().toString(), emailET.getText().toString(),
                 managerNameET.getText().toString(), managerPhoneNumberET.getText().toString(),
                 managerEmailET.getText().toString(), addressView.getAddress());
+        }
+        else{
+            //update store
+        }
+
         finish();
     }
 }

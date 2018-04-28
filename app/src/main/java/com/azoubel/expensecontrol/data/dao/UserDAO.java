@@ -49,6 +49,9 @@ public interface UserDAO {
     @Query("SELECT * FROM PersonData WHERE userId = :userId")
     PersonData getPerson(int userId);
 
+    @Query("SELECT * FROM PersonData WHERE first_name = :firstName AND last_name = :lastName")
+    PersonData getPerson(String firstName, String lastName);
+
     @Delete
     void delete(PersonData personData);
 

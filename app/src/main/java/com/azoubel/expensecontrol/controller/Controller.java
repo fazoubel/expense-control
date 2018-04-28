@@ -98,11 +98,11 @@ public class Controller extends BuilderController{
         return buildUsers(context, userDataList);
     }
 
-    public void addExpense(Context context, int userId, Store store, float initialValue, long expirationDate, String description,
-                           ExpenseCategory expenseCategory, float assessment) {
+    public void addExpense(Context context, Person person, Store store, float initialValue, long expirationDate, String description,
+                           ExpenseCategory expenseCategory, float assessment, long expenseDate) {
 
         ExpenseData expenseData = new ExpenseData();
-        expenseData.setUserId(userId);
+        expenseData.setUserId(person.getUserId());
         expenseData.setInitialValue(initialValue);
         expenseData.setExpirationDate(expirationDate);
         if(store != null) {
@@ -111,6 +111,7 @@ public class Controller extends BuilderController{
         expenseData.setAssessment(assessment);
         expenseData.setCategory(expenseCategory.name());
         expenseData.setDescription(description);
+        expenseData.setBuyingDate(expenseDate);
         AppDatabase.getInstance(context).expenseDAO().insertAll(expenseData);
 
     }

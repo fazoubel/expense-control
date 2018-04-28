@@ -169,7 +169,7 @@ public class BuilderController {
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(expenseData.getUserId());
         Person person = buildPerson(context, personData);
 
-        expense.setUser(person);
+        expense.setBuyer(person);
 
         expense.setDescription(expenseData.getDescription());
 
@@ -192,6 +192,10 @@ public class BuilderController {
         }
 
         expense.setAssessment(expenseData.getAssessment());
+
+        if(expenseData.getBuyingDate() != null) {
+            expense.setExpenseDate(new Date(expenseData.getBuyingDate()));
+        }
 
         return expense;
     }

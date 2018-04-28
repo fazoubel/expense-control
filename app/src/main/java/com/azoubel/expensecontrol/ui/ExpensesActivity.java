@@ -1,24 +1,40 @@
 package com.azoubel.expensecontrol.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.azoubel.expensecontrol.R;
 import com.azoubel.expensecontrol.model.Expense;
+import com.azoubel.expensecontrol.model.ExpenseCategory;
+import com.azoubel.expensecontrol.model.Store;
+import com.azoubel.expensecontrol.model.User.Person;
 
 public class ExpensesActivity extends AbstractActivity{
 
     private EditText nameET;
     private EditText descriptionET;
-    private EditText productTypeET;
-    private EditText phoneNumberET;
-    private EditText emailET;
-    private EditText managerNameET;
-    private EditText managerPhoneNumberET;
-    private EditText managerEmailET;
+    private EditText expirationDateET;
+    private EditText initialValueET;
+    private EditText finalValueET;
+    private EditText categoryET;
+    private Button buyerPickerBT;
+    private EditText buyerET;
+    private Button storePickerBT;
+    private EditText storeET;
+    private EditText assessmentET;
+    private EditText expenseDateET;
+    private Button saveBT;
     private Expense expense;
+    private Person buyer;
+    private Store store;
+
+    private final static int BUYER_PICKER_REQUEST = 0;
+    private final static int STORE_PICKER_REQUEST = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,43 +53,90 @@ public class ExpensesActivity extends AbstractActivity{
 
     @Override
     protected void init() {
-        /*nameET = findViewById(R.id.expenseName);
-        siteET = findViewById(R.id.paymentDate);
-        descriptionET = findViewById(R.id.paymentWay);
-        productTypeET = findViewById(R.id.paymentValue);
-        phoneNumberET = findViewById(R.id.creditCard);
-        emailET = findViewById(R.id.category);
-        managerNameET = findViewById(R.id.buyer);
-        managerPhoneNumberET = findViewById(R.id.store);
-        managerEmailET = findViewById(R.id.assessment);
-        addressView = findViewById(R.id.storeAddressView);
-        addressView.setAddressSearcher(this);*/
+        nameET = findViewById(R.id.expenseName);
+        descriptionET = findViewById(R.id.description);
+        expirationDateET = findViewById(R.id.expirationDate);
+        initialValueET = findViewById(R.id.initialValue);
+        finalValueET = findViewById(R.id.finalValue);
+        categoryET = findViewById(R.id.category);
+        buyerPickerBT = findViewById(R.id.buyerButton);
+        buyerET = findViewById(R.id.buyer);
+        storePickerBT = findViewById(R.id.storeButton);
+        storeET = findViewById(R.id.store);
+        assessmentET = findViewById(R.id.assessment);
+        expenseDateET = findViewById(R.id.expenseDate);
+        saveBT = findViewById(R.id.save);
+        saveBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
         fillComponents();
     }
 
     @Override
     protected void fillComponents() {
         if(expense != null) {
-            /*nameET.setText(expense.getStoreName());
-            siteET.setText(expense.getSite());
+            nameET.setText(expense.getDescription());
             descriptionET.setText(expense.getDescription());
-            productTypeET.setText(expense.getProductType());
-            phoneNumberET.setText(expense.getPhoneNumber());
-            emailET.setText(expense.getEmail());
-            managerNameET.setText(expense.getManagerName());
-            managerPhoneNumberET.setText(expense.getManagerPhoneNumber());
-            managerEmailET.setText(expense.getManagerEmail());
-            addressView.fillAddress(expense.getAddress());*/
+            if(expense.getExpenseDate() != null) {
+                expirationDateET.setText(expense.getExpirationDate().toString());
+            }
+            initialValueET.setText(""+expense.getInitialValue());
+            finalValueET.setText(""+expense.getFinalValue());
+            categoryET.setText(expense.getCategory().toString());
+            buyerPickerBT.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent userPickerActivity = new Intent(ExpensesActivity.this, UserPickerActivity.class);
+                    startActivityForResult(userPickerActivity, BUYER_PICKER_REQUEST);
+                }
+            });
+            storePickerBT.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent storePickerActivity = new Intent(ExpensesActivity.this, StorePickerActivity.class);
+                    startActivityForResult(storePickerActivity, STORE_PICKER_REQUEST);
+                }
+            });
+            assessmentET.setText(""+expense.getAssessment());
+            if(expense.getExpenseDate() != null) {
+                expenseDateET.setText(expense.getExpenseDate().toString());
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK) {
+            int id = Integer.parseInt(data.getStringExtra("id"));
+            if(requestCode == BUYER_PICKER_REQUEST) {
+                buyer = controller.getPerson(ExpensesActivity.this, id);
+                buyerET.setText(buyer.getFirstName());
+            }
+            else if(requestCode == STORE_PICKER_REQUEST) {
+                store = controller.getStore(ExpensesActivity.this, id);
+                storeET.setText(store.getStoreName());
+            }
         }
     }
 
     @Override
     protected void save() {
-        /*controller.addStore(this, nameET.getText().toString(), siteET.getText().toString(),
-                descriptionET.getText().toString(), productTypeET.getText().toString(),
-                phoneNumberET.getText().toString(), emailET.getText().toString(),
-                managerNameET.getText().toString(), managerPhoneNumberET.getText().toString(),
-                managerEmailET.getText().toString(), addressView.getAddress());*/
+        if(expense == null) {
+            controller.addExpense(this, buyer, store,
+                Float.parseFloat(initialValueET.getText().toString()),
+                Long.parseLong(expirationDateET.getText().toString()),
+                descriptionET.getText().toString(),
+                ExpenseCategory.valueOf(categoryET.getText().toString()),
+                Float.parseFloat(assessmentET.getText().toString()),
+                Long.parseLong(expenseDateET.getText().toString()));
+        }
+        else{
+            //update expense
+        }
         finish();
     }
 }

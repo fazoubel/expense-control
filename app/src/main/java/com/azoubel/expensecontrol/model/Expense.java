@@ -1,5 +1,6 @@
 package com.azoubel.expensecontrol.model;
 
+import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.Date;
@@ -24,7 +25,7 @@ public class Expense{
 
     private Store store;
 
-    private User user;
+    private Person buyer;
 
     private ExpenseCategory category;
 
@@ -36,12 +37,12 @@ public class Expense{
         this.expenseId = expenseId;
     }
 
-    public User getUser() {
-        return user;
+    public Person getBuyer() {
+        return buyer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setBuyer(Person buyer) {
+        this.buyer = buyer;
     }
 
     public float getInitialValue() {

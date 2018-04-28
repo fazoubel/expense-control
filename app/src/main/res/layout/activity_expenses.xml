@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,6 +40,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/nameLabel"
@@ -79,13 +79,13 @@
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
             android:enabled="false"
-            android:text="site:"
+            android:text="data de vencimento:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
         <EditText
-            android:id="@+id/paymentDate"
+            android:id="@+id/expirationDate"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -98,20 +98,20 @@
 
 
         <EditText
-            android:id="@+id/paymentValueLabel"
+            android:id="@+id/expenseValueLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
             android:enabled="false"
-            android:text="vencimento do pagamento:"
+            android:text="valor da compra:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/paymentDateLabel" />
 
         <EditText
-            android:id="@+id/paymentValue"
+            android:id="@+id/initialValue"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -119,24 +119,24 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/paymentValueLabel"
-            app:layout_constraintTop_toBottomOf="@+id/paymentDate" />
+            app:layout_constraintStart_toEndOf="@+id/expenseValueLabel"
+            app:layout_constraintTop_toBottomOf="@+id/expirationDate" />
 
         <EditText
-            android:id="@+id/creditCardLabel"
+            android:id="@+id/finalPaymentValueLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
             android:enabled="false"
-            android:text="data da compra:"
+            android:text="valor à pagar:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/paymentValueLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/expenseValueLabel" />
 
         <EditText
-            android:id="@+id/creditCard"
+            android:id="@+id/finalValue"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -144,8 +144,8 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/creditCardLabel"
-            app:layout_constraintTop_toBottomOf="@+id/paymentValue" />
+            app:layout_constraintStart_toEndOf="@+id/finalPaymentValueLabel"
+            app:layout_constraintTop_toBottomOf="@+id/initialValue" />
 
         <EditText
             android:id="@+id/categoryLabel"
@@ -158,7 +158,7 @@
             android:text="categoria:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/creditCardLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/finalPaymentValueLabel" />
 
         <EditText
             android:id="@+id/category"
@@ -170,17 +170,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/categoryLabel"
-            app:layout_constraintTop_toBottomOf="@+id/creditCard" />
+            app:layout_constraintTop_toBottomOf="@+id/finalValue" />
 
-        <EditText
-            android:id="@+id/buyerLabel"
+        <Button
+            android:id="@+id/buyerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
-            android:enabled="false"
-            android:text="comprador:"
+            android:text="comprador':"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
@@ -195,21 +194,20 @@
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="@+id/buyerLabel"
+            app:layout_constraintStart_toEndOf="@+id/buyerButton"
             app:layout_constraintTop_toBottomOf="@+id/category" />
 
-        <EditText
-            android:id="@+id/storeLabel"
+        <Button
+            android:id="@+id/storeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
-            android:enabled="false"
-            android:text="telefone do gerente:"
+            android:text="loja:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buyerLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/buyerButton" />
 
         <EditText
             android:id="@+id/store"
@@ -221,7 +219,7 @@
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="@+id/storeLabel"
+            app:layout_constraintStart_toEndOf="@+id/storeButton"
             app:layout_constraintTop_toBottomOf="@+id/buyer" />
 
         <EditText
@@ -232,10 +230,10 @@
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
             android:enabled="false"
-            android:text="email do gerente:"
+            android:text="multa:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/storeLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/storeButton" />
 
         <EditText
             android:id="@+id/assessment"
@@ -250,6 +248,32 @@
             app:layout_constraintStart_toEndOf="@+id/assessmentLabel"
             app:layout_constraintTop_toBottomOf="@+id/store" />
 
+        <EditText
+            android:id="@+id/expenseDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@android:color/transparent"
+            android:enabled="false"
+            android:text="data da compra:"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assessmentLabel" />
+
+        <EditText
+            android:id="@+id/expenseDate"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.628"
+            app:layout_constraintStart_toEndOf="@+id/expenseDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/assessmentLabel" />
+
         <Button
             android:id="@+id/save"
             android:layout_width="wrap_content"
@@ -260,7 +284,7 @@
             android:text="salvar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store" />
+            app:layout_constraintTop_toBottomOf="@+id/expenseDate" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
