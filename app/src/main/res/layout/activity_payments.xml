@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/nameLabel"
+            android:id="@+id/expenseNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -42,39 +42,40 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:enabled="false"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/nameLabel"
+            app:layout_constraintStart_toEndOf="@+id/expenseNameLabel"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <EditText
-            android:id="@+id/buyerLabel"
+        <Button
+            android:id="@+id/payerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
-            android:enabled="false"
-            android:text="comprador:"
+            android:text="pagante"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/expenseNameLabel" />
 
         <EditText
-            android:id="@+id/buyer"
-            android:layout_width="160dp"
+            android:id="@+id/payer"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
+            android:inputType="text"
             android:textColor="@android:color/black"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="@+id/buyerLabel"
+            app:layout_constraintStart_toEndOf="@+id/payerButton"
             app:layout_constraintTop_toBottomOf="@+id/expenseName" />
 
 
         <EditText
-            android:id="@+id/descriptionLabel"
+            android:id="@+id/paymentWayLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -84,19 +85,20 @@
             android:text="forma de pagamento:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buyerLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/payerButton" />
 
         <EditText
-            android:id="@+id/description"
-            android:layout_width="226dp"
+            android:id="@+id/paymentWay"
+            android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/descriptionLabel"
-            app:layout_constraintTop_toBottomOf="@+id/buyer" />
+            app:layout_constraintStart_toEndOf="@+id/paymentWayLabel"
+            app:layout_constraintTop_toBottomOf="@+id/payer" />
 
         <EditText
             android:id="@+id/paymentDateLabel"
@@ -109,19 +111,20 @@
             android:text="data de pagamento:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/paymentWayLabel" />
 
         <EditText
             android:id="@+id/paymentDate"
-            android:layout_width="226dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/paymentDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/paymentWay" />
 
 
         <EditText
@@ -139,39 +142,41 @@
 
         <EditText
             android:id="@+id/paymentValue"
-            android:layout_width="226dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/paymentValueLabel"
             app:layout_constraintTop_toBottomOf="@+id/paymentDate" />
 
-        <EditText
-            android:id="@+id/creditCardLabel"
+        <Button
+            android:id="@+id/creditCardButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@android:color/transparent"
-            android:enabled="false"
-            android:text="cartão de crédito:"
+            android:text="cartão de crédito"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/paymentValueLabel" />
 
         <EditText
             android:id="@+id/creditCard"
-            android:layout_width="160dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            android:enabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/creditCardLabel"
+            app:layout_constraintStart_toEndOf="@+id/creditCardButton"
             app:layout_constraintTop_toBottomOf="@+id/paymentValue" />
 
         <Button
@@ -182,7 +187,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="salvar"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/creditCard" />
 

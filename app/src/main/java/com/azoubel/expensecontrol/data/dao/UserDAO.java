@@ -31,7 +31,7 @@ public interface UserDAO {
     List<UserData> getAll();
 
     @Query("SELECT * FROM UserData WHERE userId = :userId")
-    UserData getUser(int userId);
+    UserData getPayer(int userId);
 
     @Delete
     void delete(UserData userData);*/

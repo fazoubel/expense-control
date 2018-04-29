@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.azoubel.expensecontrol.R;
+import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.Payment;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PaymentsView extends ConstraintLayout {
 
     private ListView listView;
     private PaymentsViewAdapter adapter;
+    private Expense expense;
 
     public PaymentsView(Context context) {
         super(context);
@@ -63,4 +65,11 @@ public class PaymentsView extends ConstraintLayout {
         }
     }
 
+    public Expense getExpense() {
+        return expense;
+    }
+
+    public void setExpense(Expense expense) {
+        this.expense = expense;
+    }
 }

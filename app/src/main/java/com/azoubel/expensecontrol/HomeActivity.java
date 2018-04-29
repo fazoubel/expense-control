@@ -134,7 +134,7 @@ public class HomeActivity extends AppCompatActivity
 
             Calendar calendar = Calendar.getInstance();
 
-            calendar.add(Calendar.DATE, 2);
+            //calendar.add(Calendar.DATE, 2);
 
             Date expirationDate = calendar.getTime();
 
@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity
             controller.addExpense(this, (Person) users.get(0), store1, 55.04f, expirationDate.getTime(),
                     "compra de tartaruga", ExpenseCategory.compra, 0, expirationDate.getTime());
 
-            calendar.add(Calendar.DATE, 1);
+            //calendar.add(Calendar.DATE, 1);
 
             Date expirationDate2 = calendar.getTime();
 
@@ -161,7 +161,7 @@ public class HomeActivity extends AppCompatActivity
 
             List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
 
-            controller.addPayment(this, users.get(0).getUserId(), expenseList.get(0).getExpenseId(), PaymentWay.dinheiro,
+            controller.addPayment(this, (Person) users.get(0), expenseList.get(0), PaymentWay.dinheiro,
                     expenseList.get(0).getInitialValue(), "");
 
         }
@@ -223,6 +223,7 @@ public class HomeActivity extends AppCompatActivity
                 }
                 else {
                     Intent startPaymentsActivityIntent = new Intent(HomeActivity.this, PaymentsActivity.class);
+                    startPaymentsActivityIntent.putExtra("expense_id", paymentsView.getExpense().getExpenseId());
                     startActivity(startPaymentsActivityIntent);
                 }
             }
@@ -285,6 +286,7 @@ public class HomeActivity extends AppCompatActivity
                 if(selectedExpense != null) {
                     List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, selectedExpense.getExpenseId());
                     paymentsView.setData(paymentList, HomeActivity.this);
+                    paymentsView.setExpense(expensesView.getSelectedExpense());
                     changeView(SHOW_PAYMENTS_VIEW);
                 }
             }
@@ -321,9 +323,6 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_expenses) {
             changeView(SHOW_EXPENSES_VIEW);
-        }
-        else if (id == R.id.nav_payments) {
-            changeView(SHOW_PAYMENTS_VIEW);
         }
         else if (id == R.id.nav_stores) {
             List<Store> storeList = controller.getAllStores(this);

@@ -1,6 +1,9 @@
 package com.azoubel.expensecontrol.model;
 
+import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
+
+import java.util.Date;
 
 public class Payment {
 
@@ -8,12 +11,14 @@ public class Payment {
 
     private Expense expense;
 
-    private User user;
+    private Person payer;
 
     private PaymentWay paymentWay;
 
     private float value;
 
+    private Date paymentDate; 
+    
     private CreditCard creditCard;
 
     public int getPaymentId() {
@@ -32,12 +37,12 @@ public class Payment {
         this.expense = expense;
     }
 
-    public User getUser() {
-        return user;
+    public Person getPayer() {
+        return payer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPayer(Person payer) {
+        this.payer = payer;
     }
 
     public PaymentWay getPaymentWay() {
@@ -64,9 +69,21 @@ public class Payment {
         this.creditCard = creditCard;
     }
 
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
     @Override
     public String toString() {
-        return String.format(expense.toString() + "\n"
-                +"R$ "+value + "\n");
+        return String.format(expense.getDescription() + "\n"
+                + payer.getFirstName() + payer.getLastName() + "\n"
+                +"R$ "+value + "\n"
+                + paymentDate + "\n"
+                + paymentWay + "\n"
+                + creditCard + "\n");
     }
 }

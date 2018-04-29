@@ -85,12 +85,13 @@
 
         <EditText
             android:id="@+id/expirationDate"
-            android:layout_width="226dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/paymentDateLabel"
             app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -111,12 +112,13 @@
 
         <EditText
             android:id="@+id/initialValue"
-            android:layout_width="226dp"
+            android:layout_width="196dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toEndOf="@+id/expenseValueLabel"
             app:layout_constraintTop_toBottomOf="@+id/expirationDate" />
@@ -266,12 +268,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
             android:textColor="@android:color/black"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.628"
             app:layout_constraintStart_toEndOf="@+id/expenseDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/assessmentLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/assessment" />
 
         <Button
             android:id="@+id/save"

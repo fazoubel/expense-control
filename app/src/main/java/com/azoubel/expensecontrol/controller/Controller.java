@@ -116,16 +116,16 @@ public class Controller extends BuilderController{
 
     }
 
-    public void addPayment(Context context, int userId, int expenseId, PaymentWay paymentWay, float value, String creditCardNumber) {
+    public void addPayment(Context context, Person payer, Expense expense, PaymentWay paymentWay, float value, String creditCardNumber) {
         PaymentData paymentData = new PaymentData();
         paymentData.setPaymentDate(new Date().getTime());
         paymentData.setCreditCardNumber(creditCardNumber);
-        paymentData.setExpenseId(expenseId);
-        paymentData.setUserId(userId);
+        paymentData.setExpenseId(expense.getExpenseId());
+        paymentData.setUserId(payer.getUserId());
         paymentData.setValue(value);
         paymentData.setPaymentWay(paymentWay.name());
         AppDatabase.getInstance(context).paymentDAO().insertPayment(paymentData);
-        ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expenseId);
+        ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expense.getExpenseId());
         expenseData.setLastPaymentDate(new Date().getTime());
         AppDatabase.getInstance(context).expenseDAO().update(expenseData);
     }
@@ -209,6 +209,13 @@ public class Controller extends BuilderController{
             }
         }
         return storeList;
+    }
+
+    public Payment getPayment(Context context, int id) {
+        PaymentData paymentData = AppDatabase.getInstance(context).paymentDAO().getPayment(id);
+        return buildPayment(context, paymentData);
+
+
     }
 
 }

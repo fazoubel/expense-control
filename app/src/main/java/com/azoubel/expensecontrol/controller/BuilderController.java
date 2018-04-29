@@ -265,9 +265,13 @@ public class BuilderController {
 
         payment.setValue(paymentData.getValue());
 
+        if(paymentData.getPaymentDate() != null) {
+            payment.setPaymentDate(new Date(paymentData.getPaymentDate()));
+        }
+
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(expenseData.getUserId());
         Person person = buildPerson(context, personData);
-        payment.setUser(person);
+        payment.setPayer(person);
 
         return payment;
     }
