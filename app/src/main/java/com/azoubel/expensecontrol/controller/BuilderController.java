@@ -71,6 +71,8 @@ public class BuilderController {
 
         Person person = new Person();
 
+        person.setUserId(personData.getUserId());
+
         Date birthday = new Date(personData.getBirthday());
 
         person.setFirstName(personData.getFirstName());
@@ -92,16 +94,24 @@ public class BuilderController {
 
         Pet pet = new Pet();
 
+        pet.setUserId(petData.getUserId());
         pet.setAge(petData.getAge());
         pet.setBreed(petData.getBreed());
         pet.setKind(petData.getKind());
         pet.setName(petData.getName());
         pet.setNickName(petData.getNickName());
         pet.setSex(petData.getSex());
+        pet.setImage(petData.getImage());
+        pet.setExpectedExpensesValue(petData.getExpectedExpensesValue());
 
         PersonData ownerData = AppDatabase.getInstance(context).userDAO().getPerson(petData.getOwnerId());
         if(ownerData != null) {
             pet.setOwner(buildPerson(context, ownerData));
+        }
+
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(petData.getAddressId());
+        if(addressData != null) {
+            pet.setAddress(buildAddress(addressData));
         }
 
         return pet;
@@ -111,16 +121,24 @@ public class BuilderController {
 
         Car car = new Car();
 
+        car.setUserId(carData.getUserId());
         car.setModel(carData.getModel());
         car.setBrand(carData.getBrand());
         car.setColor(carData.getColor());
         car.setPlateNumber(carData.getPlateNumber());
         car.setType(carData.getType());
         car.setYear(carData.getYear());
+        car.setImage(carData.getImage());
+        car.setExpectedExpensesValue(carData.getExpectedExpensesValue());
 
         PersonData ownerData = AppDatabase.getInstance(context).userDAO().getPerson(carData.getOwnerId());
         if(ownerData != null) {
             car.setOwner(buildPerson(context, ownerData));
+        }
+
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(carData.getAddressId());
+        if(addressData != null) {
+            car.setAddress(buildAddress(addressData));
         }
 
 
@@ -131,12 +149,15 @@ public class BuilderController {
 
         House house = new House();
 
+        house.setUserId(houseData.getUserId());
         house.setType(houseData.getType());
         house.setDescription(houseData.getDescription());
         house.setSquare(houseData.getSquare());
         house.setGarages(houseData.getGarages());
         house.setRooms(houseData.getRooms());
         house.setIsRented(houseData.getIsRented());
+        house.setImage(houseData.getImage());
+        house.setExpectedExpensesValue(house.getExpectedExpensesValue());
 
         PersonData tenantData = AppDatabase.getInstance(context).userDAO().getPerson(houseData.getTenantId());
         if(tenantData != null) {
@@ -278,7 +299,7 @@ public class BuilderController {
 
     protected CreditCard buildCreditCard(Context context, CreditCardData creditCardData) {
         CreditCard creditCard = new CreditCard();
-        creditCard.setNumber(creditCard.getNumber());
+        creditCard.setNumber(creditCardData.getNumber());
 
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(creditCardData.getUserId());
         Person person = buildPerson(context, personData);

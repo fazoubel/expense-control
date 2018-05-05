@@ -38,7 +38,7 @@ public class UserPickerActivity extends AbstractActivity{
 
     @Override
     protected void fillComponents() {
-        List<User> users = controller.loadUsers(this);
+        List<User> users = controller.loadAllPersons(this);
         usersView.setData(users, this);
         pickerButton.setOnClickListener(new View.OnClickListener() {
             @Override

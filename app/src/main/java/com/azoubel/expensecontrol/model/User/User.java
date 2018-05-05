@@ -2,6 +2,8 @@ package com.azoubel.expensecontrol.model.User;
 
 import android.arch.persistence.room.Entity;
 
+import com.azoubel.expensecontrol.model.Address;
+
 @Entity
 public class User {
 
@@ -13,6 +15,8 @@ public class User {
     private int image;
 
     private float expectedExpensesValue;
+
+    private Address address;
 
     public int getUserId() {
         return userId;
@@ -36,6 +40,14 @@ public class User {
 
     public void setExpectedExpensesValue(float expectedExpensesValue) {
         this.expectedExpensesValue = expectedExpensesValue;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     /*private String getSexString() {

@@ -71,34 +71,39 @@ public class UserActivity extends AbstractActivity {
     @Override
     protected void save() {
 
-        String firstName = firstNameET.getText().toString();
-        String lastName = lastNameET.getText().toString();
-        String nickname = nicknameET.getText().toString();
-        String phoneNumber = phoneNumberET.getText().toString();
-        String birthDate = birthDateET.getText().toString();
-        String expenseLimit = expenseLimitET.getText().toString();
-        if(!TextUtils.isEmpty(expenseLimit)){
-            expenseLimit = expenseLimit.replaceAll(",", ".");
-        }
+        if(person == null) {
+            String firstName = firstNameET.getText().toString();
+            String lastName = lastNameET.getText().toString();
+            String nickname = nicknameET.getText().toString();
+            String phoneNumber = phoneNumberET.getText().toString();
+            String birthDate = birthDateET.getText().toString();
+            String expenseLimit = expenseLimitET.getText().toString();
+            if(!TextUtils.isEmpty(expenseLimit)){
+                expenseLimit = expenseLimit.replaceAll(",", ".");
+            }
 
-        Address address = addressView.getAddress();
-        Person person = new Person();
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        person.setNickName(nickname);
-        person.setPhoneNumber(phoneNumber);
+            person = new Person();
+            person.setFirstName(firstName);
+            person.setLastName(lastName);
+            person.setNickName(nickname);
+            person.setPhoneNumber(phoneNumber);
         /*if(!TextUtils.isEmpty(birthDate)){
             Date date = new Date();
             date.setDate();
             person.setBirthday();
         }*/
-        person.setBirthday(new Date());
-        person.setSex(0);
-        person.setExpectedExpensesValue(Float.parseFloat(expenseLimit));
-        person.setImage(0);
+            person.setBirthday(new Date());
+            person.setSex(0);
+            person.setExpectedExpensesValue(Float.parseFloat(expenseLimit));
+            person.setImage(0);
+            Address address = addressView.getAddress();
+            person.setAddress(address);
+            controller.addPerson(this, person);
+        }
+        else {
+            //update
+        }
 
-        controller.addPerson(this, firstName, lastName, nickname, phoneNumber,new Date().getTime(),  0, Float.parseFloat(expenseLimit),
-                0, address);
         finish();
     }
 

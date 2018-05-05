@@ -9,13 +9,6 @@
         android:title="Usuários"
         android:checkable="true"/>
 
-
-    <item
-        android:id="@+id/nav_expenses"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="Gastos do mês"
-        android:checkable="true"/>
-
     <item
         android:id="@+id/nav_stores"
         android:icon="@drawable/ic_menu_camera"

@@ -3,13 +3,18 @@ package com.azoubel.expensecontrol.controller;
 import android.content.Context;
 
 import com.azoubel.expensecontrol.data.model.AddressData;
+import com.azoubel.expensecontrol.data.model.CreditCardData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
 import com.azoubel.expensecontrol.data.model.PaymentData;
 import com.azoubel.expensecontrol.data.model.StoreData;
+import com.azoubel.expensecontrol.data.model.UserData.CarData;
+import com.azoubel.expensecontrol.data.model.UserData.HouseData;
 import com.azoubel.expensecontrol.data.model.UserData.PersonData;
+import com.azoubel.expensecontrol.data.model.UserData.PetData;
 import com.azoubel.expensecontrol.data.model.UserData.UserData;
 import com.azoubel.expensecontrol.data.AppDatabase;
 import com.azoubel.expensecontrol.model.Address;
+import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
@@ -29,33 +34,40 @@ public class Controller extends BuilderController{
 
     public Controller(){}
 
-    public void addPerson(Context context, String firstName, String lastName, String nickname, String phoneNumber,
-                          long birthDate ,int sex, float expenseLimit, int image, Address address) {
+    public void addPerson(Context context, Person person) {
 
-        PersonData personData = new PersonData();
+        if(person != null) {
+            PersonData personData = new PersonData();
 
-        if(address != null) {
-            AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
-            if(addressData != null) {
-                personData.setAddressId(addressData.getAddressId());
+            personData.setFirstName(person.getFirstName());
+            personData.setLastName(person.getLastName());
+            personData.setNickName(person.getNickName());
+            if(person.getBirthday() != null) {
+                personData.setBirthday(person.getBirthday().getTime());
             }
-            else {
-                AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
-                AddressData insertedAddress = AppDatabase.getInstance(context).addressDAO()
-                        .getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
-                personData.setAddressId(insertedAddress.getAddressId());
+            personData.setExpectedExpensesValue(person.getExpectedExpensesValue());
+            personData.setPhoneNumber(person.getPhoneNumber());
+            personData.setSex(person.getSex());
+            personData.setImage(person.getImage());
+            AppDatabase.getInstance(context).userDAO().insertAll(personData);
+
+            Address address = person.getAddress();
+
+            if(address != null) {
+                AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                if(addressData != null) {
+                    personData.setAddressId(addressData.getAddressId());
+                }
+                else {
+                    AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+                    AddressData insertedAddress = AppDatabase.getInstance(context).addressDAO()
+                            .getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                    personData.setAddressId(insertedAddress.getAddressId());
+                }
             }
+
         }
 
-        personData.setFirstName(firstName);
-        personData.setLastName(lastName);
-        personData.setNickName(nickname);
-        personData.setBirthday(birthDate);
-        personData.setExpectedExpensesValue(expenseLimit);
-        personData.setPhoneNumber(phoneNumber);
-        personData.setSex(sex);
-        personData.setImage(image);
-        AppDatabase.getInstance(context).userDAO().insertAll(personData);
     }
 
     public Person getPerson(Context context, int id) {
@@ -67,35 +79,176 @@ public class Controller extends BuilderController{
         return person;
     }
 
-    public void addPet() {
+    public void addPet(Context context, Pet pet) {
+
+        if(pet != null) {
+
+            PetData petData = new PetData();
+
+            petData.setAge(pet.getAge());
+            petData.setBreed(pet.getBreed());
+            petData.setKind(pet.getKind());
+            petData.setName(pet.getName());
+            petData.setNickName(pet.getNickName());
+            petData.setSex(pet.getSex());
+            petData.setImage(pet.getImage());
+            petData.setExpectedExpensesValue(pet.getExpectedExpensesValue());
+
+            Address address = pet.getAddress();
+
+            if(address != null) {
+                AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                if(addressData != null) {
+                    petData.setAddressId(addressData.getAddressId());
+                }
+                else {
+                    AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+                    AddressData insertedAddress = AppDatabase.getInstance(context).addressDAO()
+                            .getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                    petData.setAddressId(insertedAddress.getAddressId());
+                }
+            }
+
+            if(pet.getOwner() != null) {
+                petData.setOwnerId(pet.getOwner().getUserId());
+            }
+
+        }
 
     }
 
     public Pet getPet(Context context, int id) {
-        return null;
+
+        Pet pet = null;
+        PetData petData = AppDatabase.getInstance(context).userDAO().getPet(id);
+        if(petData != null) {
+            pet = buildPet(context, petData);
+        }
+        return pet;
     }
 
-    public void addHouse() {
+    public void addHouse(Context context, House house) {
+        if(house != null) {
+            HouseData houseData = new HouseData();
 
+            houseData.setDescription(house.getDescription());
+            houseData.setGarages(house.getGarages());
+            houseData.setIsRented(house.getIsRented());
+            houseData.setRooms(house.getRooms());
+            houseData.setSquare(house.getSquare());
+            if(house.getTenant() != null) {
+                houseData.setTenantId(house.getTenant().getUserId());
+            }
+            house.setType(houseData.getType());
+
+            houseData.setImage(house.getImage());
+            houseData.setExpectedExpensesValue(house.getExpectedExpensesValue());
+
+            Address address = house.getAddress();
+
+            if(address != null) {
+                AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                if(addressData != null) {
+                    houseData.setAddressId(addressData.getAddressId());
+                }
+                else {
+                    AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+                    AddressData insertedAddress = AppDatabase.getInstance(context).addressDAO()
+                            .getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                    houseData.setAddressId(insertedAddress.getAddressId());
+                }
+            }
+        }
     }
 
-    public House getHouse() {
-        return null;
+    public House getHouse(Context context, int id) {
+        House house = null;
+        HouseData houseData = AppDatabase.getInstance(context).userDAO().getHouse(id);
+        if(houseData != null) {
+            house = buildHouse(context, houseData);
+        }
+        return house;
     }
 
-    public void addCar() {
+    public void addCar(Context context, Car car) {
+        if(car != null) {
 
+            CarData carData = new CarData();
+
+            carData.setBrand(car.getBrand());
+            carData.setColor(car.getColor());
+            carData.setModel(car.getModel());
+            if(car.getOwner() != null) {
+                carData.setOwnerId(car.getOwner().getUserId());
+            }
+            carData.setPlateNumber(car.getPlateNumber());
+            carData.setType(car.getType());
+            carData.setYear(car.getYear());
+            carData.setImage(car.getImage());
+            carData.setExpectedExpensesValue(car.getExpectedExpensesValue());
+
+            Address address = car.getAddress();
+
+            if(address != null) {
+                AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                if(addressData != null) {
+                    carData.setAddressId(addressData.getAddressId());
+                }
+                else {
+                    AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+                    AddressData insertedAddress = AppDatabase.getInstance(context).addressDAO()
+                            .getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                    carData.setAddressId(insertedAddress.getAddressId());
+                }
+            }
+
+        }
     }
 
-    public Car getCar() {
-        return null;
+    public Car getCar(Context context, int id) {
+
+        Car car = null;
+        CarData carData = AppDatabase.getInstance(context).userDAO().getCar(id);
+        if(carData != null) {
+            car = buildCar(context, carData);
+        }
+        return car;
     }
 
-    public List<User> loadUsers(final Context context) {
+    public List<User> loadAllPersons(Context context) {
         List<PersonData> personDataList = AppDatabase.getInstance(context).userDAO().getAllPersons();
         List<UserData> userDataList = new ArrayList<>();
         userDataList.addAll(personDataList);
         return buildUsers(context, userDataList);
+    }
+
+    public List<User> loadAllUsers(Context context) {
+        List<PersonData> personDataList = AppDatabase.getInstance(context).userDAO().getAllPersons();
+        List<PetData> petDataList = AppDatabase.getInstance(context).userDAO().getAllPets();
+        List<CarData> carDataList = AppDatabase.getInstance(context).userDAO().getAllCars();
+        List<HouseData> houseDataList = AppDatabase.getInstance(context).userDAO().getAllHouses();
+        List<User> users = new ArrayList<>();
+        if(personDataList != null && !personDataList.isEmpty()) {
+            for (PersonData personData : personDataList) {
+                users.add(buildPerson(context, personData));
+            }
+        }
+        if(petDataList != null && !petDataList.isEmpty()) {
+            for (PetData petData : petDataList) {
+                users.add(buildPet(context, petData));
+            }
+        }
+        if(carDataList != null && !carDataList.isEmpty()) {
+            for (CarData carData : carDataList) {
+                users.add(buildCar(context, carData));
+            }
+        }
+        if(houseDataList != null && !houseDataList.isEmpty()) {
+            for (HouseData houseData : houseDataList) {
+                users.add(buildHouse(context, houseData));
+            }
+        }
+        return users;
     }
 
     public void addExpense(Context context, Person person, Store store, float initialValue, long expirationDate, String description,
@@ -150,16 +303,22 @@ public class Controller extends BuilderController{
         return expense;
     }
 
-    public void addAddress(Context context, String street, int number, String neighborhood, String city, String state, String country, String zipCpde) {
-        AddressData addressData = new AddressData();
-        addressData.setStreet(street);
-        addressData.setNumber(number);
-        addressData.setNeighborhood(neighborhood);
-        addressData.setCity(city);
-        addressData.setState(state);
-        addressData.setCountry(country);
-        addressData.setZipCode(zipCpde);
-        AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+    public void addAddress(Context context, Address address) {
+        if(address != null) {
+            AddressData addressData = new AddressData();
+            addressData.setStreet(address.getStreet());
+            addressData.setNumber(address.getNumber());
+            addressData.setNeighborhood(address.getNeighborhood());
+            addressData.setCity(address.getCity());
+            addressData.setState(address.getState());
+            addressData.setCountry(address.getCountry());
+            addressData.setZipCode(address.getZipCode());
+            addressData.setReference(address.getReference());
+            addressData.setComplement(address.getComplement());
+            addressData.setApartment(address.getApartment());
+            addressData.setApartmentBlock(address.getApartmentBlock());
+            AppDatabase.getInstance(context).addressDAO().insertAddress(addressData);
+        }
     }
 
 
@@ -172,19 +331,18 @@ public class Controller extends BuilderController{
         return address;
     }
 
-    public void addStore(Context context, String storeName, String site, String description, String productType,
-                         String phoneNubmer, String email, String managerName, String managerPhoneNumber,
-                         String managerEmail, Address address) {
+    public void addStore(Context context, Store store) {
         StoreData storeData = new StoreData();
-        storeData.setStoreName(storeName);
-        storeData.setSite(site);
-        storeData.setDescription(description);
-        storeData.setProductType(productType);
-        storeData.setPhoneNumber(phoneNubmer);
-        storeData.setEmail(email);
-        storeData.setManagerName(managerName);
-        storeData.setManagerPhoneNumber(managerPhoneNumber);
-        storeData.setManagerEmail(managerEmail);
+        storeData.setStoreName(store.getStoreName());
+        storeData.setSite(store.getSite());
+        storeData.setDescription(store.getDescription());
+        storeData.setProductType(store.getProductType());
+        storeData.setPhoneNumber(store.getPhoneNumber());
+        storeData.setEmail(store.getEmail());
+        storeData.setManagerName(store.getManagerName());
+        storeData.setManagerPhoneNumber(store.getManagerPhoneNumber());
+        storeData.setManagerEmail(store.getManagerEmail());
+        Address address = store.getAddress();
         if(address != null) {
             storeData.setAddressId(address.getAddressId());
         }
@@ -216,6 +374,28 @@ public class Controller extends BuilderController{
         return buildPayment(context, paymentData);
 
 
+    }
+
+    public List<CreditCard> getCreditCardsOfUser(Context context, Person person) {
+        List<CreditCard> creditCardList = new ArrayList<>();
+        if(person != null) {
+            List<CreditCardData> creditCardDataList = AppDatabase.getInstance(context).creditCardDAO().getCreditCardByUser(person.getUserId());
+            for (CreditCardData creditCardData : creditCardDataList) {
+                creditCardList.add(buildCreditCard(context, creditCardData));
+            }
+        }
+        return creditCardList;
+    }
+
+    public void addCreditCard(Context context, CreditCard creditCard) {
+        if(creditCard != null && creditCard.getUser() != null) {
+            CreditCardData creditCardData = new CreditCardData();
+            creditCardData.setUserId(creditCard.getUser().getUserId());
+            creditCardData.setExpiration_date(creditCard.getExpiration_date());
+            creditCardData.setFlag(creditCard.getFlag());
+            creditCardData.setNumber(creditCard.getNumber());
+            AppDatabase.getInstance(context).creditCardDAO().insertAll(creditCardData);
+        }
     }
 
 }

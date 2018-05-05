@@ -24,8 +24,6 @@ public class Store {
 
     private String managerEmail;
 
-    private int addressId;
-
     public int getStoreId() {
         return storeId;
     }
@@ -112,14 +110,6 @@ public class Store {
 
     public void setManagerEmail(String managerEmail) {
         this.managerEmail = managerEmail;
-    }
-
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
     }
 
     @Override

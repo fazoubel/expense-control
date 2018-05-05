@@ -27,9 +27,6 @@ public class HouseData extends UserData {
     @ColumnInfo(name = "tenant")
     private int tenantId;
 
-    @ColumnInfo(name = "addressId")
-    private int addressId;
-
     public String getType() {
         return type;
     }
@@ -86,11 +83,4 @@ public class HouseData extends UserData {
         this.tenantId = tenantId;
     }
 
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
 }

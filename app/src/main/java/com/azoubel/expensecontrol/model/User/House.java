@@ -18,8 +18,6 @@ public class House extends User {
 
     private Person tenant;
 
-    private Address address;
-
     public String getType() {
         return type;
     }
@@ -76,11 +74,4 @@ public class House extends User {
         this.tenant = tenant;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

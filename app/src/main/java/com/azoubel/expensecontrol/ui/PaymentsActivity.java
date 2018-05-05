@@ -1,8 +1,10 @@
 package com.azoubel.expensecontrol.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -54,11 +56,28 @@ public class PaymentsActivity extends AbstractActivity{
     protected void init() {
         expenseNameET = findViewById(R.id.expenseName);
         payerBT = findViewById(R.id.payerButton);
+        payerBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userPickerActivity = new Intent(PaymentsActivity.this, UserPickerActivity.class);
+                startActivityForResult(userPickerActivity, BUYER_PICKER_REQUEST);
+            }
+        });
         payerET = findViewById(R.id.payer);
         paymentWayET = findViewById(R.id.paymentWay);
         paymentDateET = findViewById(R.id.paymentDate);
         paymentValueET = findViewById(R.id.paymentValue);
         creditCardBT = findViewById(R.id.creditCardButton);
+        creditCardBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(payer != null) {
+                    Intent creditCardPickerActivity = new Intent(PaymentsActivity.this, CreditCardPickerActivity.class);
+                    creditCardPickerActivity.putExtra("id", payer.getUserId());
+                    startActivityForResult(creditCardPickerActivity, CREDIT_CARD_PICKER_REQUEST);
+                }
+            }
+        });
         creditCardET = findViewById(R.id.creditCard);
         fillComponents();
     }
@@ -67,7 +86,8 @@ public class PaymentsActivity extends AbstractActivity{
     protected void fillComponents() {
         if(payment != null) {
             expenseNameET.setText(payment.getExpense().getDescription());
-            payerET.setText(payment.getPayer().getFirstName() + payment.getPayer().getLastName());
+            payer = payment.getPayer();
+            payerET.setText(payer.getFirstName() + " " + payment.getPayer().getLastName());
             paymentWayET.setText(payment.getPaymentWay().toString());
             paymentDateET.setText(payment.getPaymentDate().toString());
             paymentValueET.setText(""+payment.getValue());
@@ -88,6 +108,22 @@ public class PaymentsActivity extends AbstractActivity{
         }
         else {
             //update payment
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode == BUYER_PICKER_REQUEST) {
+                int id = Integer.parseInt(data.getStringExtra("id"));
+                payer = controller.getPerson(PaymentsActivity.this, id);
+                payerET.setText(payer.getFirstName());
+            }
+            else if (requestCode == CREDIT_CARD_PICKER_REQUEST) {
+                String creditCardNumber = data.getStringExtra("credit_card_number");
+                creditCardET.setText(creditCardNumber);
+            }
         }
     }
 }

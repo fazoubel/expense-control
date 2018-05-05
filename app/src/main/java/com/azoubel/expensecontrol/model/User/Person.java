@@ -18,8 +18,6 @@ public class Person extends User {
 
     private String phoneNumber;
 
-    private Address address;
-
     public Date getBirthday() {
         return birthday;
     }
@@ -66,14 +64,6 @@ public class Person extends User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     @Override

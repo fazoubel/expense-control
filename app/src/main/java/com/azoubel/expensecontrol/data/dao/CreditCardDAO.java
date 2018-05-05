@@ -8,6 +8,8 @@ import android.arch.persistence.room.Update;
 
 import com.azoubel.expensecontrol.data.model.CreditCardData;
 
+import java.util.List;
+
 @Dao
 public interface CreditCardDAO {
 
@@ -15,10 +17,13 @@ public interface CreditCardDAO {
     void insertAll(CreditCardData... creditCardData);
 
     @Update
-    void update(CreditCardData address);
+    void update(CreditCardData creditCardData);
 
-    @Query("SELECT * FROM CreditCardData WHERE number LIKE :creditCardNumber")
+    @Query("SELECT * FROM CreditCardData WHERE number = :creditCardNumber")
     CreditCardData getCreditCard(String creditCardNumber);
+
+    @Query("SELECT * FROM CreditCardData WHERE user_id = :userId")
+    List<CreditCardData> getCreditCardByUser(int userId);
 
     @Delete
     void delete(CreditCardData creditCardData);

@@ -16,6 +16,9 @@ public class UserData {
     @ColumnInfo(name = "expected_expenses_value")
     private float expectedExpensesValue;
 
+    @ColumnInfo(name = "address_id")
+    private int addressId;
+
     public int getUserId() {
         return userId;
     }
@@ -38,5 +41,13 @@ public class UserData {
 
     public void setExpectedExpensesValue(float expectedExpensesValue) {
         this.expectedExpensesValue = expectedExpensesValue;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 }

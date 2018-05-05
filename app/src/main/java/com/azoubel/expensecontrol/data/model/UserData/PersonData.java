@@ -26,9 +26,6 @@ public class PersonData extends UserData{
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
 
-    @ColumnInfo(name = "address_id")
-    private int addressId;
-
     public long getBirthday() {
         return birthday;
     }
@@ -78,11 +75,4 @@ public class PersonData extends UserData{
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
 }

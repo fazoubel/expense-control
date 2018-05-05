@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import com.azoubel.expensecontrol.controller.Controller;
 import com.azoubel.expensecontrol.model.Address;
+import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
@@ -93,7 +94,7 @@ public class HomeActivity extends AppCompatActivity
             controller = new Controller();
         }
 
-        users = controller.loadUsers(this);
+        users = controller.loadAllPersons(this);
 
         usersView.setData(users, this);
 
@@ -101,36 +102,112 @@ public class HomeActivity extends AppCompatActivity
 
         if(users == null || users.isEmpty()) {
 
-            controller.addAddress(this, "rua alemanha", 102, "rio doce","olinda", "pernambuco", "brazil", "11111-111");
+            Address address1 = new Address();
+            address1.setStreet("rua alemanha");
+            address1.setNumber(102);
+            address1.setNeighborhood("rio doce");
+            address1.setCity("olinda");
+            address1.setState("pernambuco");
+            address1.setCountry("brazil");
+            address1.setComplement("11111-111");
+            //address1.setReference();
+            //address1.setApartment();
+            //address1.setApartmentBlock();
 
-            controller.addAddress(this, "rua chicago", 102, "rio doce","camaragibe", "pernambuco", "brazil", "22222-222");
+            controller.addAddress(this, address1);
 
-            controller.addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
+            Address address2 = new Address();
+            address2.setStreet("rua chicago");
+            address2.setNumber(2052);
+            address2.setNeighborhood("Graças");
+            address2.setCity("Recife");
+            address2.setState("pernambuco");
+            address2.setCountry("brazil");
+            address2.setComplement("22222-222");
+            address2.setReference("perto do longe");
+            address2.setApartment(1345);
+            address2.setApartmentBlock("D");
 
-            Address address1 = controller.findAddress(this, "rua alemanha", 102, "rio doce");
+            controller.addAddress(this, address2);
 
-            Address address2 = controller.findAddress(this, "rua chicago", 102, "rio doce");
+            //controller.addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
 
-            controller.addPerson(this, "fernando", "oliveira", "fernando",
-                    "111111111111", new Date().getTime(), 0, 1000, 0, address1);
+            address1 = controller.findAddress(this, "rua alemanha", 102, "rio doce");
 
-            controller.addPerson(this, "thiago", "lopes", "lopes",
-                    "222222222222", new Date().getTime(), 0, 1000, 0, address2);
+            address2 = controller.findAddress(this, "rua chicago", 102, "rio doce");
 
-            controller.addPerson(this, "caliane", "figueredo", "caliane",
-                    "3333333333", new Date().getTime(), 0, 1000, 0, address2);
+            Person person1 = new Person();
+            person1.setFirstName("fernando");
+            person1.setLastName("oliveira");
+            person1.setNickName("nando");
+            person1.setPhoneNumber("111111111111");
+            person1.setBirthday(new Date());
+            person1.setSex(Person.SEX_MALE);
+            person1.setImage(0);
+            person1.setExpectedExpensesValue(500f);
+            person1.setAddress(address1);
 
-            users = controller.loadUsers(this);
+            controller.addPerson(this, person1);
+
+            Person person2 = new Person();
+            person2.setFirstName("thiago");
+            person2.setLastName("lopes");
+            person2.setNickName("txubaca");
+            person2.setPhoneNumber("222222222222");
+            person2.setBirthday(new Date());
+            person2.setSex(Person.SEX_MALE);
+            person2.setImage(0);
+            person2.setExpectedExpensesValue(1500f);
+            person2.setAddress(address2);
+
+            controller.addPerson(this, person2);
+
+            Person person3 = new Person();
+            person3.setFirstName("caliane");
+            person3.setLastName("figueredo");
+            person3.setNickName("iemanja");
+            person3.setPhoneNumber("3333333333");
+            person3.setBirthday(new Date());
+            person3.setSex(Person.SEX_FEMALE);
+            person3.setImage(0);
+            person1.setExpectedExpensesValue(5000f);
+            person3.setAddress(address2);
+
+            controller.addPerson(this, person3);
+
+            users = controller.loadAllPersons(this);
 
             usersView.setData(users, this);
 
             changeView(SHOW_USERS_VIEW);
 
-            controller.addStore(this, "loja tartaruga", "tartarugas.com.br","loja de tartarugas", "animais", "12321312312",
-                    "lojatartaruga@gmail.com", "Olavo","123123123", "olavogerente@gmail.com", address1);
+            Store store1 = new Store();
+            store1.setStoreName("loja tartaruga");
+            store1.setSite("tartarugas.com.br");
+            store1.setDescription("loja de tartarugas");
+            store1.setProductType("animais");
+            store1.setPhoneNumber("12321312312");
+            store1.setEmail("lojatartaruga@gmail.com");
+            store1.setManagerName("Olavo");
+            store1.setManagerPhoneNumber("123123123");
+            store1.setManagerEmail("olavogerente@gmail.com");
+            store1.setAddress(address1);
 
-            controller.addStore(this, "loja abobrinha", "abobrinhas.com.br","loja de abobrinha", "abobrinhas", "12321312312",
-                    "lojaabobrinhas@gmail.com", "Gilmar","123123123", "gilmargerente@gmail.com", address2);
+            controller.addStore(this, store1);
+
+            Store store2 = new Store();
+            store2.setStoreName("loja abobrinha");
+            store2.setSite("abobrinhas.com.br");
+            store2.setDescription("loja de abobrinha");
+            store2.setProductType("abobrinhas");
+            store2.setPhoneNumber("9999999999999");
+            store2.setEmail("lojaabobrinhas@gmail.com");
+            store2.setManagerName("Gilmar");
+            store2.setManagerPhoneNumber("44444444444");
+            store2.setManagerEmail("gilmargerente@gmail.com");
+            store2.setAddress(address2);
+
+            controller.addStore(this, store2);
 
             Calendar calendar = Calendar.getInstance();
 
@@ -140,8 +217,8 @@ public class HomeActivity extends AppCompatActivity
 
             List<Store> stores = controller.getAllStores(this);
 
-            Store store1=null;
-            Store store2=null;
+            store1=null;
+            store2=null;
 
             if(!stores.isEmpty() && stores.size() >=2) {
                 store1 = stores.get(0);
@@ -162,7 +239,45 @@ public class HomeActivity extends AppCompatActivity
             List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
 
             controller.addPayment(this, (Person) users.get(0), expenseList.get(0), PaymentWay.dinheiro,
-                    expenseList.get(0).getInitialValue(), "");
+                    expenseList.get(0).getInitialValue()/2, "");
+
+            CreditCard creditCard1 = new CreditCard();
+            creditCard1.setFlag("visa");
+            creditCard1.setExpiration_date(new Date().toString());
+            creditCard1.setNumber("2222-3333-4444-5555");
+            creditCard1.setUser(users.get(0));
+
+            controller.addCreditCard(this, creditCard1);
+
+            controller.addPayment(this, (Person) users.get(0), expenseList.get(0), PaymentWay.cartão_de_crédito,
+                    expenseList.get(0).getInitialValue()/2, creditCard1.getNumber());
+
+            CreditCard creditCard2 = new CreditCard();
+            creditCard2.setFlag("mastercard");
+            creditCard2.setExpiration_date(new Date().toString());
+            creditCard2.setNumber("1111-3333-7777-5555");
+            creditCard2.setUser(users.get(1));
+
+            controller.addCreditCard(this, creditCard2);
+
+            CreditCard creditCard3 = new CreditCard();
+            creditCard3.setFlag("visa");
+            creditCard3.setExpiration_date(new Date().toString());
+            creditCard3.setNumber("6666-3436-7444-5895");
+            creditCard3.setUser(users.get(1));
+
+            controller.addCreditCard(this, creditCard3);
+
+            List<Expense> expenseList2 = controller.findExpenseByUser(this, users.get(1).getUserId(), getStartDate(), getEndDate());
+
+            controller.addPayment(this, (Person) users.get(0), expenseList2.get(0), PaymentWay.cartão_de_crédito,
+                    expenseList2.get(0).getInitialValue()/3, creditCard1.getNumber());
+
+            controller.addPayment(this, (Person) users.get(1), expenseList2.get(0), PaymentWay.cartão_de_crédito,
+                    expenseList2.get(0).getInitialValue()/3, creditCard2.getNumber());
+
+            controller.addPayment(this, (Person) users.get(1), expenseList2.get(0), PaymentWay.cartão_de_crédito,
+                    expenseList2.get(0).getInitialValue()/3, creditCard3.getNumber());
 
         }
 
@@ -320,9 +435,6 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_users) {
             changeView(SHOW_USERS_VIEW);
-        }
-        else if (id == R.id.nav_expenses) {
-            changeView(SHOW_EXPENSES_VIEW);
         }
         else if (id == R.id.nav_stores) {
             List<Store> storeList = controller.getAllStores(this);

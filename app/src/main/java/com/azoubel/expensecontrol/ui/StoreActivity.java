@@ -84,11 +84,18 @@ public class StoreActivity extends AbstractActivity{
     @Override
     protected void save() {
         if(store == null) {
-            controller.addStore(this, nameET.getText().toString(), siteET.getText().toString(),
-                descriptionET.getText().toString(), productTypeET.getText().toString(),
-                phoneNumberET.getText().toString(), emailET.getText().toString(),
-                managerNameET.getText().toString(), managerPhoneNumberET.getText().toString(),
-                managerEmailET.getText().toString(), addressView.getAddress());
+            store = new Store();
+            store.setStoreName(nameET.getText().toString());
+            store.setSite(siteET.getText().toString());
+            store.setDescription(descriptionET.getText().toString());
+            store.setProductType(productTypeET.getText().toString());
+            store.setPhoneNumber(phoneNumberET.getText().toString());
+            store.setEmail(emailET.getText().toString());
+            store.setManagerName(managerNameET.getText().toString());
+            store.setManagerPhoneNumber(managerPhoneNumberET.getText().toString());
+            store.setManagerEmail(managerEmailET.getText().toString());
+            store.setAddress(addressView.getAddress());
+            controller.addStore(this, store);
         }
         else{
             //update store
