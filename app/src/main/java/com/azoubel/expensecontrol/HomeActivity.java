@@ -134,7 +134,7 @@ public class HomeActivity extends AppCompatActivity
 
             address1 = controller.findAddress(this, "rua alemanha", 102, "rio doce");
 
-            address2 = controller.findAddress(this, "rua chicago", 102, "rio doce");
+            address2 = controller.findAddress(this, "rua chicago", 2052, "Graças");
 
             Person person1 = new Person();
             person1.setFirstName("fernando");
@@ -225,21 +225,45 @@ public class HomeActivity extends AppCompatActivity
                 store2 = stores.get(1);
             }
 
+            Expense expense1 = new Expense();
+            expense1.setBuyer((Person)users.get(0));
+            expense1.setStore(store1);
+            expense1.setInitialValue(55.04f);
+            expense1.setExpenseDate(expirationDate);
+            expense1.setExpirationDate(expirationDate);
+            expense1.setCategory(ExpenseCategory.compra);
+            expense1.setDescription("compra de tartaruga");
+            expense1.setAssessment(0);
 
-            controller.addExpense(this, (Person) users.get(0), store1, 55.04f, expirationDate.getTime(),
-                    "compra de tartaruga", ExpenseCategory.compra, 0, expirationDate.getTime());
+            controller.addExpense(this, expense1);
 
             //calendar.add(Calendar.DATE, 1);
 
             Date expirationDate2 = calendar.getTime();
 
-            controller.addExpense(this, (Person) users.get(1), store2, 105.00f, expirationDate2.getTime(),
-                    "compra de cágado", ExpenseCategory.compra, 5.5f, expirationDate2.getTime());
+            Expense expense2 = new Expense();
+            expense2.setBuyer((Person)users.get(1));
+            expense2.setStore(store2);
+            expense2.setInitialValue(105.00f);
+            expense2.setExpenseDate(expirationDate2);
+            expense2.setExpirationDate(expirationDate2);
+            expense2.setCategory(ExpenseCategory.compra);
+            expense2.setDescription("compra de cágado");
+            expense2.setAssessment(5.5f);
+
+            controller.addExpense(this, expense2);
 
             List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
 
-            controller.addPayment(this, (Person) users.get(0), expenseList.get(0), PaymentWay.dinheiro,
-                    expenseList.get(0).getInitialValue()/2, "");
+            Payment payment1 = new Payment();
+            payment1.setValue(expenseList.get(0).getInitialValue()/2);
+            payment1.setExpense(expenseList.get(0));
+            payment1.setPayer((Person)users.get(0));
+            payment1.setPaymentWay(PaymentWay.dinheiro);
+            //payment1.setPaymentDate();
+            //payment1.setCreditCard("");
+
+            controller.addPayment(this, payment1);
 
             CreditCard creditCard1 = new CreditCard();
             creditCard1.setFlag("visa");
@@ -249,8 +273,15 @@ public class HomeActivity extends AppCompatActivity
 
             controller.addCreditCard(this, creditCard1);
 
-            controller.addPayment(this, (Person) users.get(0), expenseList.get(0), PaymentWay.cartão_de_crédito,
-                    expenseList.get(0).getInitialValue()/2, creditCard1.getNumber());
+            Payment payment2 = new Payment();
+            payment2.setValue(expenseList.get(0).getInitialValue()/2);
+            payment2.setExpense(expenseList.get(0));
+            payment2.setPayer((Person)users.get(0));
+            payment2.setPaymentWay(PaymentWay.cartão_de_crédito);
+            //payment2.setPaymentDate();
+            payment2.setCreditCard(creditCard1);
+
+            controller.addPayment(this, payment2);
 
             CreditCard creditCard2 = new CreditCard();
             creditCard2.setFlag("mastercard");
@@ -270,14 +301,35 @@ public class HomeActivity extends AppCompatActivity
 
             List<Expense> expenseList2 = controller.findExpenseByUser(this, users.get(1).getUserId(), getStartDate(), getEndDate());
 
-            controller.addPayment(this, (Person) users.get(0), expenseList2.get(0), PaymentWay.cartão_de_crédito,
-                    expenseList2.get(0).getInitialValue()/3, creditCard1.getNumber());
+            Payment payment3 = new Payment();
+            payment3.setValue(expenseList2.get(0).getInitialValue()/3);
+            payment3.setExpense(expenseList2.get(0));
+            payment3.setPayer((Person)users.get(0));
+            payment3.setPaymentWay(PaymentWay.cartão_de_crédito);
+            //payment3.setPaymentDate();
+            payment3.setCreditCard(creditCard1);
 
-            controller.addPayment(this, (Person) users.get(1), expenseList2.get(0), PaymentWay.cartão_de_crédito,
-                    expenseList2.get(0).getInitialValue()/3, creditCard2.getNumber());
+            controller.addPayment(this, payment3);
 
-            controller.addPayment(this, (Person) users.get(1), expenseList2.get(0), PaymentWay.cartão_de_crédito,
-                    expenseList2.get(0).getInitialValue()/3, creditCard3.getNumber());
+            Payment payment4 = new Payment();
+            payment4.setValue(expenseList2.get(0).getInitialValue()/3);
+            payment4.setExpense(expenseList2.get(0));
+            payment4.setPayer((Person)users.get(1));
+            payment4.setPaymentWay(PaymentWay.cartão_de_crédito);
+            //payment4.setPaymentDate();
+            payment4.setCreditCard(creditCard2);
+
+            controller.addPayment(this, payment4);
+
+            Payment payment5 = new Payment();
+            payment5.setValue(expenseList2.get(0).getInitialValue()/3);
+            payment5.setExpense(expenseList2.get(0));
+            payment5.setPayer((Person)users.get(1));
+            payment5.setPaymentWay(PaymentWay.cartão_de_crédito);
+            //payment5.setPaymentDate();
+            payment5.setCreditCard(creditCard3);
+
+            controller.addPayment(this, payment5);
 
         }
 
@@ -498,4 +550,23 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //update the views after updating data
+
+       /* users = controller.loadAllPersons(this);
+        usersView.setData(users, this);
+        changeView(SHOW_USERS_VIEW);
+
+        List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, selectedUser.getUserId(),
+                getStartDate(), getEndDate());
+        expensesView.setData(expenseList, HomeActivity.this);
+        changeView(SHOW_EXPENSES_VIEW);
+
+        List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, selectedExpense.getExpenseId());
+        paymentsView.setData(paymentList, HomeActivity.this);
+        changeView(SHOW_PAYMENTS_VIEW);*/
+    }
 }

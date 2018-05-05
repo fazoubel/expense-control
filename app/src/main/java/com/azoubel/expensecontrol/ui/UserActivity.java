@@ -24,6 +24,7 @@ public class UserActivity extends AbstractActivity {
     private EditText phoneNumberET;
     private EditText birthDateET;
     private EditText expenseLimitET;
+    private EditText sexET;
     private Button imageButton;
     private Button saveButton;
 
@@ -52,6 +53,7 @@ public class UserActivity extends AbstractActivity {
         phoneNumberET = findViewById(R.id.productType);
         birthDateET = findViewById(R.id.storePhoneNumber);
         expenseLimitET = findViewById(R.id.storeEmail);
+        //sexET = findViewById(R.id.sex);
         imageButton = findViewById(R.id.managerName);
         saveButton = findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -70,38 +72,13 @@ public class UserActivity extends AbstractActivity {
 
     @Override
     protected void save() {
-
         if(person == null) {
-            String firstName = firstNameET.getText().toString();
-            String lastName = lastNameET.getText().toString();
-            String nickname = nicknameET.getText().toString();
-            String phoneNumber = phoneNumberET.getText().toString();
-            String birthDate = birthDateET.getText().toString();
-            String expenseLimit = expenseLimitET.getText().toString();
-            if(!TextUtils.isEmpty(expenseLimit)){
-                expenseLimit = expenseLimit.replaceAll(",", ".");
-            }
-
-            person = new Person();
-            person.setFirstName(firstName);
-            person.setLastName(lastName);
-            person.setNickName(nickname);
-            person.setPhoneNumber(phoneNumber);
-        /*if(!TextUtils.isEmpty(birthDate)){
-            Date date = new Date();
-            date.setDate();
-            person.setBirthday();
-        }*/
-            person.setBirthday(new Date());
-            person.setSex(0);
-            person.setExpectedExpensesValue(Float.parseFloat(expenseLimit));
-            person.setImage(0);
-            Address address = addressView.getAddress();
-            person.setAddress(address);
+            buildPerson();
             controller.addPerson(this, person);
         }
         else {
-            //update
+            buildPerson();
+            controller.updatePerson(this, person);
         }
 
         finish();
@@ -121,5 +98,28 @@ public class UserActivity extends AbstractActivity {
                 addressView.fillAddress(person.getAddress());
             }
         }
+    }
+
+    private void buildPerson() {
+        if(person == null) {
+            person = new Person();
+        }
+        String expenseLimit = expenseLimitET.getText().toString();
+        if(!TextUtils.isEmpty(expenseLimit)){
+            expenseLimit = expenseLimit.replaceAll(",", ".");
+        }
+        person.setFirstName(firstNameET.getText().toString());
+        person.setLastName(lastNameET.getText().toString());
+        person.setNickName(nicknameET.getText().toString());
+        person.setPhoneNumber(phoneNumberET.getText().toString());
+        person.setBirthday(new Date());//birthDateET.getText().toString());
+        person.setSex(0); //sexET.getText().toString();
+        person.setExpectedExpensesValue(Float.parseFloat(expenseLimit));
+        person.setImage(0);
+        Address address = addressView.getAddress();
+        if(person.getAddress() != null) {
+            address.setAddressId(person.getAddress().getAddressId());
+        }
+        person.setAddress(address);
     }
 }

@@ -14,6 +14,8 @@ import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Person;
 
+import java.util.Date;
+
 public class ExpensesActivity extends AbstractActivity{
 
     private EditText nameET;
@@ -42,6 +44,8 @@ public class ExpensesActivity extends AbstractActivity{
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra("id")) {
             expense = controller.getExpense(this, intent.getIntExtra("id", -1));
+            buyer = expense.getBuyer();
+            store = expense.getStore();
         }
         init();
     }
@@ -126,17 +130,31 @@ public class ExpensesActivity extends AbstractActivity{
     @Override
     protected void save() {
         if(expense == null) {
-            controller.addExpense(this, buyer, store,
-                Float.parseFloat(initialValueET.getText().toString()),
-                Long.parseLong(expirationDateET.getText().toString()),
-                descriptionET.getText().toString(),
-                ExpenseCategory.valueOf(categoryET.getText().toString()),
-                Float.parseFloat(assessmentET.getText().toString()),
-                Long.parseLong(expenseDateET.getText().toString()));
+            buildExpense();
+            controller.addExpense(this, expense);
         }
         else{
-            //update expense
+            buildExpense();
+            controller.updateExpense(this, expense);
         }
         finish();
+    }
+
+    private void buildExpense() {
+
+        if(buyer != null && store != null) {
+            if(expense == null) {
+                expense = new Expense();
+            }
+            expense.setBuyer(buyer);
+            expense.setStore(store);
+            expense.setInitialValue(Float.parseFloat(initialValueET.getText().toString()));
+            expense.setExpirationDate(new Date());//Long.parseLong(expirationDateET.getText().toString()));
+            expense.setDescription(descriptionET.getText().toString());
+            expense.setCategory(ExpenseCategory.valueOf(categoryET.getText().toString()));
+            expense.setAssessment(Float.parseFloat(assessmentET.getText().toString()));
+            expense.setExpenseDate(new Date());//Long.parseLong(expenseDateET.getText().toString()))
+        }
+
     }
 }

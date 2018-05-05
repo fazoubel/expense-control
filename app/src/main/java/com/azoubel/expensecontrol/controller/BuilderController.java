@@ -290,7 +290,7 @@ public class BuilderController {
             payment.setPaymentDate(new Date(paymentData.getPaymentDate()));
         }
 
-        PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(expenseData.getUserId());
+        PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(paymentData.getUserId());
         Person person = buildPerson(context, personData);
         payment.setPayer(person);
 

@@ -9,10 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.azoubel.expensecontrol.R;
+import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.User.Person;
+
+import java.util.Date;
 
 public class PaymentsActivity extends AbstractActivity{
 
@@ -27,6 +30,7 @@ public class PaymentsActivity extends AbstractActivity{
     private Expense expense;
     private Payment payment;
     private Person payer;
+    private Button saveBT;
 
     private final static int BUYER_PICKER_REQUEST = 0;
     private final static int CREDIT_CARD_PICKER_REQUEST = 1;
@@ -38,8 +42,10 @@ public class PaymentsActivity extends AbstractActivity{
         if(intent != null) {
             if(intent.hasExtra("id")) {
                 payment = controller.getPayment(this, intent.getIntExtra("id", -1));
+                payer = payment.getPayer();
+                expense = payment.getExpense();
             }
-            if(intent.hasExtra("expense_id")) {
+            else if(intent.hasExtra("expense_id")) {
                 expense = controller.getExpense(this, intent.getIntExtra("expense_id", -1));
             }
         }
@@ -79,6 +85,15 @@ public class PaymentsActivity extends AbstractActivity{
             }
         });
         creditCardET = findViewById(R.id.creditCard);
+
+        saveBT = findViewById(R.id.save);
+        saveBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
+
         fillComponents();
     }
 
@@ -103,12 +118,14 @@ public class PaymentsActivity extends AbstractActivity{
     @Override
     protected void save() {
         if(payment == null) {
-            controller.addPayment(PaymentsActivity.this, payer, expense, PaymentWay.valueOf(paymentWayET.getText().toString()),
-                    Float.parseFloat(paymentValueET.getText().toString()), creditCardET.getText().toString());
+            buildPayment();
+            controller.addPayment(this, payment);
         }
         else {
-            //update payment
+            buildPayment();
+            controller.updatePayment(this, payment);
         }
+        finish();
     }
 
     @Override
@@ -119,10 +136,31 @@ public class PaymentsActivity extends AbstractActivity{
                 int id = Integer.parseInt(data.getStringExtra("id"));
                 payer = controller.getPerson(PaymentsActivity.this, id);
                 payerET.setText(payer.getFirstName());
+                creditCardET.setText("");
             }
             else if (requestCode == CREDIT_CARD_PICKER_REQUEST) {
                 String creditCardNumber = data.getStringExtra("credit_card_number");
                 creditCardET.setText(creditCardNumber);
+            }
+        }
+    }
+
+    private void buildPayment() {
+        if(payer != null && expense != null) {
+            if(payment == null) {
+                payment = new Payment();
+            }
+            payment.setExpense(expense);
+            payment.setPayer(payer);
+            payment.setPaymentDate(new Date());//paymentDateET.getText().toString()
+            PaymentWay paymentWay = PaymentWay.valueOf(paymentWayET.getText().toString());
+            if(paymentWay != null) {
+                payment.setPaymentWay(paymentWay);
+            }
+            payment.setValue(Float.parseFloat(paymentValueET.getText().toString()));
+            CreditCard creditCard = controller.getCreditCard(this, creditCardET.getText().toString());
+            if(creditCard != null) {
+                payment.setCreditCard(creditCard);
             }
         }
     }
