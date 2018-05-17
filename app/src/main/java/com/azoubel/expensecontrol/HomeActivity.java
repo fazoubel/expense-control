@@ -46,6 +46,11 @@ public class HomeActivity extends AppCompatActivity
     private static final int SHOW_STORES_VIEW = 3;
     private static final int SHOW_PROMOTIONS_VIEW = 4;
 
+    private static final int USER_ACTIVITY = 0;
+    private static final int EXPENSE_ACTIVITY = 1;
+    private static final int PAYMENT_ACTIVITY = 2;
+    private static final int STORE_ACTIVITY = 3;
+
     private static Controller controller;
     private List<User> users;
 
@@ -382,16 +387,16 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(usersView.getVisibility() == View.VISIBLE) {
                     Intent startUserActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
-                    startActivity(startUserActivityIntent);
+                    startActivityForResult(startUserActivityIntent, USER_ACTIVITY);
                 }
                 else if (expensesView.getVisibility() == View.VISIBLE) {
                     Intent startExpensesActivityIntent = new Intent(HomeActivity.this, ExpensesActivity.class);
-                    startActivity(startExpensesActivityIntent);
+                    startActivityForResult(startExpensesActivityIntent, EXPENSE_ACTIVITY);
                 }
                 else {
                     Intent startPaymentsActivityIntent = new Intent(HomeActivity.this, PaymentsActivity.class);
                     startPaymentsActivityIntent.putExtra("expense_id", paymentsView.getExpense().getExpenseId());
-                    startActivity(startPaymentsActivityIntent);
+                    startActivityForResult(startPaymentsActivityIntent, PAYMENT_ACTIVITY);
                 }
             }
         });
@@ -404,7 +409,7 @@ public class HomeActivity extends AppCompatActivity
                 if(selectedUser != null) {
                     Intent startNewPersonActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
                     startNewPersonActivityIntent.putExtra("id", selectedUser.getUserId());
-                    startActivity(startNewPersonActivityIntent);
+                    startActivityForResult(startNewPersonActivityIntent, USER_ACTIVITY);
                 }
             }
             else if (expensesView.getVisibility() == View.VISIBLE) {
@@ -412,7 +417,7 @@ public class HomeActivity extends AppCompatActivity
                 if(selectedExpense != null) {
                     Intent expensesActivityIntent = new Intent(HomeActivity.this, ExpensesActivity.class);
                     expensesActivityIntent.putExtra("id", selectedExpense.getExpenseId());
-                    startActivity(expensesActivityIntent);
+                    startActivityForResult(expensesActivityIntent, EXPENSE_ACTIVITY);
                 }
             }
             else if (paymentsView.getVisibility() == View.VISIBLE) {
@@ -420,7 +425,7 @@ public class HomeActivity extends AppCompatActivity
                 if(selectedPayment != null) {
                     Intent paymentsActivityIntent = new Intent(HomeActivity.this, PaymentsActivity.class);
                     paymentsActivityIntent.putExtra("id", selectedPayment.getPaymentId());
-                    startActivity(paymentsActivityIntent);
+                    startActivityForResult(paymentsActivityIntent, PAYMENT_ACTIVITY);
                 }
             }
             else if(storesView.getVisibility() == View.VISIBLE) {
@@ -428,7 +433,7 @@ public class HomeActivity extends AppCompatActivity
                 if(selectedStore != null) {
                     Intent storeActivityIntent = new Intent(HomeActivity.this, StoreActivity.class);
                     storeActivityIntent.putExtra("id", selectedStore.getStoreId());
-                    startActivity(storeActivityIntent);
+                    startActivityForResult(storeActivityIntent, STORE_ACTIVITY);
                 }
             }
 
@@ -516,30 +521,43 @@ public class HomeActivity extends AppCompatActivity
 
     public void changeView(int view) {
 
-        usersView.clearSelected();
-        expensesView.clearSelected();
-        paymentsView.clearSelected();
-        storesView.clearSelected();
-
         if(view == SHOW_USERS_VIEW) {
+
+            usersView.clearSelected();
+            expensesView.clearSelected();
+            paymentsView.clearSelected();
+
             usersView.setVisibility(View.VISIBLE);
             expensesView.setVisibility(View.GONE);
             paymentsView.setVisibility(View.GONE);
             storesView.setVisibility(View.GONE);
         }
         else if(view == SHOW_EXPENSES_VIEW) {
+
+            expensesView.clearSelected();
+            paymentsView.clearSelected();
+
             usersView.setVisibility(View.GONE);
             expensesView.setVisibility(View.VISIBLE);
             paymentsView.setVisibility(View.GONE);
             storesView.setVisibility(View.GONE);
         }
         else if(view == SHOW_PAYMENTS_VIEW){
+
+            paymentsView.clearSelected();
+
             usersView.setVisibility(View.GONE);
             expensesView.setVisibility(View.GONE);
             paymentsView.setVisibility(View.VISIBLE);
             storesView.setVisibility(View.GONE);
         }
         else if(view == SHOW_STORES_VIEW){
+
+            storesView.clearSelected();
+            usersView.clearSelected();
+            expensesView.clearSelected();
+            paymentsView.clearSelected();
+
             usersView.setVisibility(View.GONE);
             expensesView.setVisibility(View.GONE);
             paymentsView.setVisibility(View.GONE);
@@ -555,18 +573,25 @@ public class HomeActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         //update the views after updating data
+        if(requestCode == USER_ACTIVITY) {
+            users = controller.loadAllPersons(this);
+            usersView.setData(users, this);
+        }
+        else if(requestCode == EXPENSE_ACTIVITY) {
+            int userId = expensesView.getSelectedExpense().getBuyer().getUserId();
+            List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, userId,
+                    getStartDate(), getEndDate());
+            expensesView.setData(expenseList, HomeActivity.this);
+        }
+        else if(requestCode == PAYMENT_ACTIVITY) {
+            int userId = expensesView.getSelectedExpense().getBuyer().getUserId();
+            List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, userId);
+            paymentsView.setData(paymentList, HomeActivity.this);
+        }
+        else if(requestCode == STORE_ACTIVITY) {
+            List<Store> storeList = controller.getAllStores(this);
+            storesView.setData(storeList, this);
+        }
 
-       /* users = controller.loadAllPersons(this);
-        usersView.setData(users, this);
-        changeView(SHOW_USERS_VIEW);
-
-        List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, selectedUser.getUserId(),
-                getStartDate(), getEndDate());
-        expensesView.setData(expenseList, HomeActivity.this);
-        changeView(SHOW_EXPENSES_VIEW);
-
-        List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, selectedExpense.getExpenseId());
-        paymentsView.setData(paymentList, HomeActivity.this);
-        changeView(SHOW_PAYMENTS_VIEW);*/
     }
 }
