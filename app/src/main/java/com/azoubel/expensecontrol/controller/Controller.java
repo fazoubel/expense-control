@@ -34,6 +34,36 @@ public class Controller extends BuilderController{
 
     public Controller(){}
 
+    public void addUser(Context context, User user) {
+        if(user instanceof Person) {
+            addPerson(context, (Person) user);
+        }
+        else if (user instanceof Pet) {
+            addPet(context, (Pet) user);
+        }
+        else if(user instanceof House) {
+            addHouse(context, (House) user);
+        }
+        else {
+            addCar(context, (Car) user);
+        }
+    }
+
+    public void updateUser(Context context, User user) {
+        if(user instanceof Person) {
+            updatePerson(context, (Person) user);
+        }
+        else if (user instanceof Pet) {
+            updatePet(context, (Pet) user);
+        }
+        else if(user instanceof House) {
+            updateHouse(context, (House) user);
+        }
+        else {
+            updateCar(context, (Car) user);
+        }
+    }
+
     public void addPerson(Context context, Person person) {
 
         if(person != null) {
@@ -71,6 +101,30 @@ public class Controller extends BuilderController{
 
     }
 
+    public User getUser(Context context, int id) {
+        Person person = getPerson(context, id);
+        if(person != null) {
+            return person;
+        }
+        else {
+            Pet pet = getPet(context, id);
+            if (pet != null) {
+                return pet;
+            }
+            else {
+                House house = getHouse(context, id);
+                if(house != null) {
+                    return house;
+                }
+                else {
+                    Car car = getCar(context, id);
+                    return car;
+                }
+            }
+        }
+
+    }
+
     public Person getPerson(Context context, int id) {
         Person person = null;
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(id);
@@ -98,7 +152,7 @@ public class Controller extends BuilderController{
                 Address address = person.getAddress();
 
                 if(address != null) {
-                    AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getStreet(), address.getNumber(), address.getNeighborhood());
+                    AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(address.getAddressId());
                     if(addressData != null) {
                         personData.setAddressId(addressData.getAddressId());
                         updateAddress(context, address);

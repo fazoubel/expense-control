@@ -47,7 +47,7 @@ public class StoreActivity extends AbstractActivity{
     protected void init() {
         nameET = findViewById(R.id.storeName);
         siteET = findViewById(R.id.site);
-        descriptionET = findViewById(R.id.description);
+        descriptionET = findViewById(R.id.storeDescription);
         productTypeET = findViewById(R.id.productType);
         phoneNumberET = findViewById(R.id.storePhoneNumber);
         emailET = findViewById(R.id.storeEmail);
