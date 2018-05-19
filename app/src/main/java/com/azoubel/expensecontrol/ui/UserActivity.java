@@ -3,18 +3,26 @@ package com.azoubel.expensecontrol.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.azoubel.expensecontrol.R;
 import com.azoubel.expensecontrol.model.Address;
+import com.azoubel.expensecontrol.model.User.Car;
 import com.azoubel.expensecontrol.model.User.House;
 import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.Pet;
 import com.azoubel.expensecontrol.model.User.User;
 import com.azoubel.expensecontrol.ui.view.AddressView;
+import com.azoubel.expensecontrol.ui.view.CarView;
+import com.azoubel.expensecontrol.ui.view.HouseView;
 import com.azoubel.expensecontrol.ui.view.PersonView;
+import com.azoubel.expensecontrol.ui.view.PetView;
 
 public class UserActivity extends AbstractActivity {
 
@@ -23,9 +31,22 @@ public class UserActivity extends AbstractActivity {
     private static final int SHOW_HOUSE = 2;
     private static final int SHOW_CAR = 3;
 
-    private Button saveButton;
-    private PersonView personView;
+    private RadioGroup chooseUserType;
+
+    private ConstraintLayout userViewContainer;
+
+    private EditText expenseLimitET;
+    private Button imageButton;
     private AddressView addressView;
+
+    private ConstraintLayout dinamicViewContainer;
+
+    private PersonView personView;
+    private PetView petView;
+    private HouseView houseView;
+    private CarView carView;
+
+    private Button saveButton;
 
     private User user;
 
@@ -35,8 +56,8 @@ public class UserActivity extends AbstractActivity {
         Intent intent = getIntent();
         if(intent != null) {
             if(intent.hasExtra("id")) {
-                int personID = intent.getIntExtra("id", -1);
-                user = controller.getUser(this, personID);
+                long userId = intent.getLongExtra("id", -1);
+                user = controller.getUser(this, userId);
             }
         }
         init();
@@ -44,16 +65,40 @@ public class UserActivity extends AbstractActivity {
 
     @Override
     protected void init() {
-        personView = findViewById(R.id.personView);
-        addressView = findViewById(R.id.addressView);
-        addressView.setAddressSearcher(this);
-        saveButton = findViewById(R.id.save);
+
+        chooseUserType = findViewById(R.id.chooseUserType);
+
+        if(user != null) {
+            chooseUserType.setVisibility(View.GONE);
+
+        }
+
+        userViewContainer = findViewById(R.id.userViewContainer);
+        expenseLimitET = userViewContainer.findViewById(R.id.expenseLimit);
+        imageButton = userViewContainer.findViewById(R.id.imageButton);
+        addressView = userViewContainer.findViewById(R.id.addressView);
+        addressView.setIntentStarter(this);
+        saveButton = userViewContainer.findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 save();
             }
         });
+
+        dinamicViewContainer = userViewContainer.findViewById(R.id.dinamicViewContainer);
+
+        personView = dinamicViewContainer.findViewById(R.id.personView);
+
+        petView = dinamicViewContainer.findViewById(R.id.petView);
+        petView.setIntentStarter(this);
+
+        houseView = dinamicViewContainer.findViewById(R.id.houseView);
+        houseView.setIntentStarter(this);
+
+        carView = dinamicViewContainer.findViewById(R.id.carView);
+        carView.setIntentStarter(this);
+
         fillComponents();
     }
 
@@ -73,13 +118,18 @@ public class UserActivity extends AbstractActivity {
             }
             else if (user instanceof Pet) {
                 showView(SHOW_PET);
+                petView.fillComponents((Pet) user);
             }
             else if(user instanceof House) {
                 showView(SHOW_HOUSE);
+                houseView.fillComponents((House) user);
             }
             else {
                 showView(SHOW_CAR);
+                carView.fillComponents((Car) user);
             }
+
+            expenseLimitET.setText("" + user.getExpectedExpensesValue());
 
             Address address = user.getAddress();
             if(address != null) {
@@ -109,6 +159,26 @@ public class UserActivity extends AbstractActivity {
         if(personView.getVisibility() == View.VISIBLE) {
             user = personView.buildPerson();
         }
+        else if(petView.getVisibility() == View.VISIBLE) {
+            user = petView.buildPet();
+        }
+        else if(houseView.getVisibility() == View.VISIBLE) {
+            user = houseView.buildHouse();
+        }
+        else if(carView.getVisibility() == View.VISIBLE) {
+            user = carView.buildCar();
+        }
+
+        String expenseLimit = expenseLimitET.getText().toString();
+        if(!TextUtils.isEmpty(expenseLimit)){
+            expenseLimit = expenseLimit.replaceAll(",", ".");
+            user.setExpectedExpensesValue(Float.parseFloat(expenseLimit));
+        }
+        else {
+            user.setExpectedExpensesValue(0);
+        }
+
+        user.setImage(0);
 
         Address address = addressView.getAddress();
         if(user.getAddress() != null) {
@@ -139,11 +209,64 @@ public class UserActivity extends AbstractActivity {
     }
 
     private void showView(int toShow) {
-        addressView.setVisibility(View.VISIBLE);
-        saveButton.setVisibility(View.VISIBLE);
+
+        userViewContainer.setVisibility(View.VISIBLE);
+
         if(toShow == SHOW_PERSON) {
             personView.setVisibility(View.VISIBLE);
+            petView.setVisibility(View.GONE);
+            houseView.setVisibility(View.GONE);
+            carView.setVisibility(View.GONE);
+        }
+        else if(toShow == SHOW_PET) {
+            personView.setVisibility(View.GONE);
+            petView.setVisibility(View.VISIBLE);
+            houseView.setVisibility(View.GONE);
+            carView.setVisibility(View.GONE);
+        }
+        else if (toShow == SHOW_HOUSE) {
+            personView.setVisibility(View.GONE);
+            petView.setVisibility(View.GONE);
+            houseView.setVisibility(View.VISIBLE);
+            carView.setVisibility(View.GONE);
+        }
+        else if (toShow == SHOW_CAR) {
+            personView.setVisibility(View.GONE);
+            petView.setVisibility(View.GONE);
+            houseView.setVisibility(View.GONE);
+            carView.setVisibility(View.VISIBLE);
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == PetView.PET_OWNER_PICKER_REQUEST && petView != null) {
+                int id = Integer.parseInt(data.getStringExtra("id"));
+                Person owner = controller.getPerson(this, id);
+                petView.setOwner(owner);
+            }
+            else if(requestCode == HouseView.HOUSE_TENANT_PICKER_REQUEST && houseView != null) {
+                int id = Integer.parseInt(data.getStringExtra("id"));
+                Person tenant = controller.getPerson(this, id);
+                houseView.setTenant(tenant);
+            }
+            else if(requestCode == CarView.CAR_OWNER_PICKER_REQUEST && carView != null) {
+                int id = Integer.parseInt(data.getStringExtra("id"));
+                Person owner = controller.getPerson(this, id);
+                carView.setOwner(owner);
+            }
+            else if(requestCode == AddressView.PICK_USER_ADDRESS && addressView != null) {
+                long id = Long.parseLong(data.getStringExtra("id"));
+                Person owner = controller.getPerson(this, id);
+                if(owner != null && owner.getAddress() != null) {
+                    if(user != null) {
+                        user.setAddress(owner.getAddress());
+                    }
+                    addressView.fillAddress(owner.getAddress());
+                }
+            }
+        }
+    }
 }

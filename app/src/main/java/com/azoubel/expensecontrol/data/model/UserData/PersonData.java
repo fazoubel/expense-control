@@ -2,16 +2,33 @@ package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity
-public class PersonData extends UserData{
+/*@Entity(
+        //indices = {@Index(value = "user_id", unique = true)},
+        foreignKeys = {
+        @ForeignKey(
+                entity = UserData.class,
+                parentColumns = "id",
+                childColumns = "user_id"
+        )
+}
+)*/
+@Entity()
+public class PersonData {
+
+    @PrimaryKey
+    @ColumnInfo(name = "user_id")
+    private long userId;
 
     @ColumnInfo(name = "birthday_date")
     private long birthday;
 
     @ColumnInfo(name = "sex")
-    private int sex;
+    private String sex;
 
     @NonNull
     @ColumnInfo(name = "first_name")
@@ -26,6 +43,14 @@ public class PersonData extends UserData{
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public long getBirthday() {
         return birthday;
     }
@@ -34,11 +59,11 @@ public class PersonData extends UserData{
         this.birthday = birthday;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

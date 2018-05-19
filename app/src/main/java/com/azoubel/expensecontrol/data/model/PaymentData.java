@@ -19,7 +19,7 @@ public class PaymentData {
 
     @NonNull
     @ColumnInfo(name = "user_id")
-    private int userId;
+    private long userId;
 
     @ColumnInfo(name = "payment_way")
     private String paymentWay;
@@ -51,11 +51,11 @@ public class PaymentData {
         this.expenseId = expenseId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

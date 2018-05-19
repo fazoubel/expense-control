@@ -6,9 +6,9 @@ public class Pet extends User {
 
     private String breed;
 
-    private String kind;
+    private String species;
 
-    private int sex;
+    private String sex;
 
     private String name;
 
@@ -32,19 +32,19 @@ public class Pet extends User {
         this.breed = breed;
     }
 
-    public String getKind() {
-        return kind;
+    public String getSpecies() {
+        return species;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setSpecies(String species) {
+        this.species = species;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -70,5 +70,10 @@ public class Pet extends User {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return name + ", " + species + ", " + breed + " ("+nickName+")";
     }
 }

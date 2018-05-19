@@ -8,7 +8,7 @@ import com.azoubel.expensecontrol.controller.Controller;
 import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.ui.view.AddressView;
 
-public abstract class AbstractActivity extends Activity implements AddressView.AddressSearcher{
+public abstract class AbstractActivity extends Activity {
 
     protected abstract int getContentViewXML();
 
@@ -27,8 +27,4 @@ public abstract class AbstractActivity extends Activity implements AddressView.A
         controller = new Controller();
     }
 
-    @Override
-    public Address findAddress(String street, int number, String neiborhood) {
-        return controller.findAddress(this, street, number, neiborhood);
-    }
 }

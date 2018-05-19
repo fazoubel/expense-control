@@ -33,7 +33,7 @@ public class ExpenseData {
 
     @NonNull
     @ColumnInfo(name = "user_id")
-    private int userId;
+    private long userId;
 
     @NonNull
     @ColumnInfo(name = "buying_date")
@@ -54,11 +54,11 @@ public class ExpenseData {
         this.expenseId = expenseId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

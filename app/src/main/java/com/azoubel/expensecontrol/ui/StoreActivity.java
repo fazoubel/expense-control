@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.azoubel.expensecontrol.R;
 import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.Store;
+import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.ui.view.AddressView;
 
 public class StoreActivity extends AbstractActivity{
@@ -55,7 +56,7 @@ public class StoreActivity extends AbstractActivity{
         managerPhoneNumberET = findViewById(R.id.managerPhoneNumber);
         managerEmailET = findViewById(R.id.managerEmail);
         addressView = findViewById(R.id.storeAddressView);
-        addressView.setAddressSearcher(this);
+        addressView.setIntentStarter(this);
         saveBT = findViewById(R.id.save);
         saveBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,5 +114,20 @@ public class StoreActivity extends AbstractActivity{
             address.setAddressId(store.getAddress().getAddressId());
         }
         store.setAddress(address);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == AddressView.PICK_USER_ADDRESS && addressView != null) {
+            long id = Long.parseLong(data.getStringExtra("id"));
+            Person owner = controller.getPerson(this, id);
+            if(owner != null && owner.getAddress() != null) {
+                if(store != null) {
+                    store.setAddress(owner.getAddress());
+                }
+                addressView.fillAddress(owner.getAddress());
+            }
+        }
     }
 }

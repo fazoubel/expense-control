@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class UserData {
 
     @PrimaryKey(autoGenerate = true)
-    private int userId;
+    private long id;
 
     @ColumnInfo(name = "image")
     private int image;
@@ -19,12 +19,12 @@ public class UserData {
     @ColumnInfo(name = "address_id")
     private int addressId;
 
-    public int getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getImage() {

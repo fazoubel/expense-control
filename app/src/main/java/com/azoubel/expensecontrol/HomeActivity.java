@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity
             controller = new Controller();
         }
 
-        users = controller.loadAllPersons(this);
+        users = controller.loadAllUsers(this);
 
         usersView.setData(users, this);
 
@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity
             address1.setCity("olinda");
             address1.setState("pernambuco");
             address1.setCountry("brazil");
-            address1.setComplement("11111-111");
+            address1.setZipCode("11111-111");
             //address1.setReference();
             //address1.setApartment();
             //address1.setApartmentBlock();
@@ -128,12 +128,25 @@ public class HomeActivity extends AppCompatActivity
             address2.setCity("Recife");
             address2.setState("pernambuco");
             address2.setCountry("brazil");
-            address2.setComplement("22222-222");
+            address2.setZipCode("22222-222");
             address2.setReference("perto do longe");
             address2.setApartment(1345);
             address2.setApartmentBlock("D");
 
             controller.addAddress(this, address2);
+
+            Address address3 = new Address();
+            address3.setStreet("rua Mexico");
+            address3.setNumber(119);
+            address3.setNeighborhood("Paris");
+            address3.setCity("Paulista");
+            address3.setState("pernambuco");
+            address3.setCountry("brazil");
+            address3.setZipCode("33333-333");
+            address3.setApartment(236);
+            address3.setApartmentBlock("Norte");
+
+            controller.addAddress(this, address3);
 
             //controller.addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
 
@@ -141,13 +154,15 @@ public class HomeActivity extends AppCompatActivity
 
             address2 = controller.findAddress(this, "rua chicago", 2052, "Graças");
 
+            address3 = controller.findAddress(this, "rua Mexico", 119, "Paris");
+
             Person person1 = new Person();
             person1.setFirstName("fernando");
             person1.setLastName("oliveira");
             person1.setNickName("nando");
             person1.setPhoneNumber("111111111111");
             person1.setBirthday(new Date());
-            person1.setSex(Person.SEX_MALE);
+            person1.setSex("masculino");
             person1.setImage(0);
             person1.setExpectedExpensesValue(500f);
             person1.setAddress(address1);
@@ -160,7 +175,7 @@ public class HomeActivity extends AppCompatActivity
             person2.setNickName("txubaca");
             person2.setPhoneNumber("222222222222");
             person2.setBirthday(new Date());
-            person2.setSex(Person.SEX_MALE);
+            person2.setSex("masculino");
             person2.setImage(0);
             person2.setExpectedExpensesValue(1500f);
             person2.setAddress(address2);
@@ -173,14 +188,14 @@ public class HomeActivity extends AppCompatActivity
             person3.setNickName("iemanja");
             person3.setPhoneNumber("3333333333");
             person3.setBirthday(new Date());
-            person3.setSex(Person.SEX_FEMALE);
+            person3.setSex("feminino");
             person3.setImage(0);
             person1.setExpectedExpensesValue(5000f);
-            person3.setAddress(address2);
+            person3.setAddress(address3);
 
             controller.addPerson(this, person3);
 
-            users = controller.loadAllPersons(this);
+            users = controller.loadAllUsers(this);
 
             usersView.setData(users, this);
 
@@ -369,7 +384,7 @@ public class HomeActivity extends AppCompatActivity
             for (User user : this.users) {
                 if(user instanceof Person) {
                     Person person = (Person) user;
-                    MenuItem usersItem = naviMenu.add( R.id.menuUsers, user.getUserId(), Menu.NONE, person.getFirstName());
+                    MenuItem usersItem = naviMenu.add( R.id.menuUsers, (int) user.getUserId(), Menu.NONE, person.getFirstName());
                     usersItem.setIcon(getUserIcon(user.getImage()));
                     usersItem.setCheckable(true);
                 }
@@ -389,14 +404,18 @@ public class HomeActivity extends AppCompatActivity
                     Intent startUserActivityIntent = new Intent(HomeActivity.this, UserActivity.class);
                     startActivityForResult(startUserActivityIntent, USER_ACTIVITY);
                 }
-                else if (expensesView.getVisibility() == View.VISIBLE) {
+                else if(expensesView.getVisibility() == View.VISIBLE) {
                     Intent startExpensesActivityIntent = new Intent(HomeActivity.this, ExpensesActivity.class);
                     startActivityForResult(startExpensesActivityIntent, EXPENSE_ACTIVITY);
                 }
-                else {
+                else if(paymentsView.getVisibility() == View.VISIBLE){
                     Intent startPaymentsActivityIntent = new Intent(HomeActivity.this, PaymentsActivity.class);
                     startPaymentsActivityIntent.putExtra("expense_id", paymentsView.getExpense().getExpenseId());
                     startActivityForResult(startPaymentsActivityIntent, PAYMENT_ACTIVITY);
+                }
+                else {
+                    Intent storeActivityIntent = new Intent(HomeActivity.this, StoreActivity.class);
+                    startActivityForResult(storeActivityIntent, STORE_ACTIVITY);
                 }
             }
         });
@@ -573,18 +592,18 @@ public class HomeActivity extends AppCompatActivity
 
         //update the views after updating data
         if(requestCode == USER_ACTIVITY) {
-            users = controller.loadAllPersons(this);
+            users = controller.loadAllUsers(this);
             usersView.setData(users, this);
         }
         else if(requestCode == EXPENSE_ACTIVITY) {
-            int userId = expensesView.getSelectedExpense().getBuyer().getUserId();
+            long userId = expensesView.getSelectedExpense().getBuyer().getUserId();
             List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, userId,
                     getStartDate(), getEndDate());
             expensesView.setData(expenseList, HomeActivity.this);
         }
         else if(requestCode == PAYMENT_ACTIVITY) {
-            int userId = expensesView.getSelectedExpense().getBuyer().getUserId();
-            List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, userId);
+            int expenseId = expensesView.getSelectedExpense().getExpenseId();
+            List<Payment> paymentList = controller.findPaymentsByExpense(HomeActivity.this, expenseId);
             paymentsView.setData(paymentList, HomeActivity.this);
         }
         else if(requestCode == STORE_ACTIVITY) {

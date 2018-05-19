@@ -29,7 +29,7 @@ public class CreditCardPickerActivity extends AbstractActivity{
         Intent intent = getIntent();
         if(intent != null) {
             if (intent.hasExtra("id")) {
-                owner = controller.getPerson(this, intent.getIntExtra("id", -1));
+                owner = controller.getPerson(this, intent.getLongExtra("id", -1));
             }
         }
         init();

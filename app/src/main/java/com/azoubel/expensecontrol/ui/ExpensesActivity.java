@@ -108,6 +108,13 @@ public class ExpensesActivity extends AbstractActivity{
             if(expense.getExpenseDate() != null) {
                 expenseDateET.setText(expense.getExpenseDate().toString());
             }
+            if(store != null) {
+                storeET.setText(store.getStoreName());
+            }
+
+            if(buyer != null) {
+                buyerET.setText(buyer.getFirstName() + " " + buyer.getLastName());
+            }
         }
     }
 

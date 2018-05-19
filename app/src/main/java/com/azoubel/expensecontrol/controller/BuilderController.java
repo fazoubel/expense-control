@@ -32,20 +32,20 @@ import java.util.List;
 
 public class BuilderController {
 
-    protected List<User> buildUsers(Context context, List<UserData> userDataList) {
+    /*protected List<User> buildUsers(Context context, List<UserData> userDataList) {
         List<User> userList = new ArrayList<>();
         for (UserData userData : userDataList) {
             User user = buildUser(context, userData);
             userList.add(user);
         }
         return userList;
-    }
+    }*/
 
-    protected User buildUser(Context context, UserData userData) {
+    /*protected User buildUser(Context context, UserData userData) {
 
-        User user;
+        User user = new User();
 
-        if(userData instanceof PersonData) {
+        *//*if(userData instanceof PersonData) {
             user = buildPerson(context, (PersonData) userData);
         }
         else  if(userData instanceof PetData) {
@@ -56,18 +56,23 @@ public class BuilderController {
         }
         else {
             user = buildHouse(context, (HouseData) userData);
-        }
+        }*//*
 
-        user.setUserId(userData.getUserId());
+        user.setUserId(userData.getId());
 
         user.setImage(userData.getImage());
 
         user.setExpectedExpensesValue(userData.getExpectedExpensesValue());
 
-        return user;
-    }
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(userData.getAddressId());
+        if(addressData != null) {
+            user.setAddress(buildAddress(addressData));
+        }
 
-    protected Person buildPerson(Context context, PersonData personData) {
+        return user;
+    }*/
+
+    protected Person buildPerson(Context context, PersonData personData, UserData userData) {
 
         Person person = new Person();
 
@@ -82,7 +87,13 @@ public class BuilderController {
         person.setSex(personData.getSex());
         person.setBirthday(birthday);
 
-        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(personData.getAddressId());
+        person.setUserId(userData.getId());
+
+        person.setImage(userData.getImage());
+
+        person.setExpectedExpensesValue(userData.getExpectedExpensesValue());
+
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(userData.getAddressId());
         if(addressData != null) {
             person.setAddress(buildAddress(addressData));
         }
@@ -90,26 +101,30 @@ public class BuilderController {
         return person;
     }
 
-    protected Pet buildPet(Context context, PetData petData) {
+    protected Pet buildPet(Context context, PetData petData, UserData userData) {
 
         Pet pet = new Pet();
 
         pet.setUserId(petData.getUserId());
         pet.setAge(petData.getAge());
         pet.setBreed(petData.getBreed());
-        pet.setKind(petData.getKind());
+        pet.setSpecies(petData.getSpecies());
         pet.setName(petData.getName());
         pet.setNickName(petData.getNickName());
         pet.setSex(petData.getSex());
-        pet.setImage(petData.getImage());
-        pet.setExpectedExpensesValue(petData.getExpectedExpensesValue());
 
         PersonData ownerData = AppDatabase.getInstance(context).userDAO().getPerson(petData.getOwnerId());
         if(ownerData != null) {
-            pet.setOwner(buildPerson(context, ownerData));
+            pet.setOwner(buildPerson(context, ownerData, userData));
         }
 
-        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(petData.getAddressId());
+        pet.setUserId(userData.getId());
+
+        pet.setImage(userData.getImage());
+
+        pet.setExpectedExpensesValue(userData.getExpectedExpensesValue());
+
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(userData.getAddressId());
         if(addressData != null) {
             pet.setAddress(buildAddress(addressData));
         }
@@ -117,7 +132,7 @@ public class BuilderController {
         return pet;
     }
 
-    protected Car buildCar(Context context, CarData carData) {
+    protected Car buildCar(Context context, CarData carData, UserData userData) {
 
         Car car = new Car();
 
@@ -128,43 +143,53 @@ public class BuilderController {
         car.setPlateNumber(carData.getPlateNumber());
         car.setType(carData.getType());
         car.setYear(carData.getYear());
-        car.setImage(carData.getImage());
-        car.setExpectedExpensesValue(carData.getExpectedExpensesValue());
 
         PersonData ownerData = AppDatabase.getInstance(context).userDAO().getPerson(carData.getOwnerId());
         if(ownerData != null) {
-            car.setOwner(buildPerson(context, ownerData));
+            car.setOwner(buildPerson(context, ownerData, userData));
         }
 
-        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(carData.getAddressId());
+        car.setUserId(userData.getId());
+
+        car.setImage(userData.getImage());
+
+        car.setExpectedExpensesValue(userData.getExpectedExpensesValue());
+
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(userData.getAddressId());
         if(addressData != null) {
             car.setAddress(buildAddress(addressData));
         }
 
 
+
         return car;
     }
 
-    protected House buildHouse(Context context, HouseData houseData) {
+    protected House buildHouse(Context context, HouseData houseData, UserData userData) {
 
         House house = new House();
 
         house.setUserId(houseData.getUserId());
         house.setType(houseData.getType());
         house.setDescription(houseData.getDescription());
-        house.setSquare(houseData.getSquare());
+        house.setArea(houseData.getArea());
         house.setGarages(houseData.getGarages());
         house.setRooms(houseData.getRooms());
         house.setIsRented(houseData.getIsRented());
-        house.setImage(houseData.getImage());
         house.setExpectedExpensesValue(house.getExpectedExpensesValue());
 
         PersonData tenantData = AppDatabase.getInstance(context).userDAO().getPerson(houseData.getTenantId());
         if(tenantData != null) {
-            house.setTenant(buildPerson(context, tenantData));
+            house.setTenant(buildPerson(context, tenantData, userData));
         }
 
-        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(houseData.getAddressId());
+        house.setUserId(userData.getId());
+
+        house.setImage(userData.getImage());
+
+        house.setExpectedExpensesValue(userData.getExpectedExpensesValue());
+
+        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(userData.getAddressId());
         if(addressData != null) {
             house.setAddress(buildAddress(addressData));
         }
@@ -188,7 +213,10 @@ public class BuilderController {
         expense.setExpenseId(expenseData.getExpenseId());
 
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(expenseData.getUserId());
-        Person person = buildPerson(context, personData);
+
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(expenseData.getUserId());
+
+        Person person = buildPerson(context, personData, userData);
 
         expense.setBuyer(person);
 
@@ -290,8 +318,9 @@ public class BuilderController {
             payment.setPaymentDate(new Date(paymentData.getPaymentDate()));
         }
 
-        PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(paymentData.getUserId());
-        Person person = buildPerson(context, personData);
+        PersonData personData = (PersonData) AppDatabase.getInstance(context).userDAO().getPerson(paymentData.getUserId());
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(expenseData.getUserId());
+        Person person = buildPerson(context, personData, userData);
         payment.setPayer(person);
 
         return payment;
@@ -302,7 +331,8 @@ public class BuilderController {
         creditCard.setNumber(creditCardData.getNumber());
 
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(creditCardData.getUserId());
-        Person person = buildPerson(context, personData);
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(creditCardData.getUserId());
+        Person person = buildPerson(context, personData, userData);
         creditCard.setUser(person);
 
         creditCard.setExpiration_date(creditCardData.getExpiration_date());

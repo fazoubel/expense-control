@@ -64,46 +64,136 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chooseUserType">
+            app:layout_constraintTop_toBottomOf="@id/chooseUserType"
+            android:visibility="gone">
 
-            <com.azoubel.expensecontrol.ui.view.PersonView
-                android:id="@+id/personView"
+            <EditText
+                android:id="@+id/expenseLimitLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@android:color/transparent"
+                android:enabled="false"
+                android:text="limite de gastos:"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <EditText
+                android:id="@+id/expenseLimit"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.906"
+                app:layout_constraintStart_toEndOf="@+id/expenseLimitLabel"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="escolher"
+                android:inputType="text"
+                app:layout_constraintHorizontal_bias="0.628"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expenseLimitLabel" />
+
+            <EditText
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@android:color/transparent"
+                android:enabled="false"
+                android:text="---"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintTop_toBottomOf="@+id/expenseLimit" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/dinamicViewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageButton">
+
+                <com.azoubel.expensecontrol.ui.view.PersonView
+                    android:id="@+id/personView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHorizontal_bias="0.628"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    android:visibility="gone">
+                </com.azoubel.expensecontrol.ui.view.PersonView>
+
+                <com.azoubel.expensecontrol.ui.view.PetView
+                    android:id="@+id/petView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHorizontal_bias="0.628"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    android:visibility="gone">
+                </com.azoubel.expensecontrol.ui.view.PetView>
+
+                <com.azoubel.expensecontrol.ui.view.HouseView
+                    android:id="@+id/houseView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHorizontal_bias="0.628"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    android:visibility="gone">
+                </com.azoubel.expensecontrol.ui.view.HouseView>
+
+                <com.azoubel.expensecontrol.ui.view.CarView
+                    android:id="@+id/carView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHorizontal_bias="0.628"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    android:visibility="gone">
+                </com.azoubel.expensecontrol.ui.view.CarView
+>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <com.azoubel.expensecontrol.ui.view.AddressView
+                android:id="@+id/addressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_bias="0.628"
                 app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="parent"
-                android:visibility="gone">
-            </com.azoubel.expensecontrol.ui.view.PersonView>
+                app:layout_constraintTop_toBottomOf="@+id/dinamicViewContainer">
+            </com.azoubel.expensecontrol.ui.view.AddressView>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:inputType="text"
+                android:text="salvar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressView" />
 
         </android.support.constraint.ConstraintLayout>
-
-
-
-        <com.azoubel.expensecontrol.ui.view.AddressView
-            android:id="@+id/addressView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userViewContainer"
-            android:visibility="gone">
-        </com.azoubel.expensecontrol.ui.view.AddressView>
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:inputType="text"
-            android:text="salvar"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addressView" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

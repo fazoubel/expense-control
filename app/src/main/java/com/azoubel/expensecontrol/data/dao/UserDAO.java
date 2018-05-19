@@ -21,8 +21,8 @@ public interface UserDAO {
     UserData findByName(String name);*/
 
     //user
-    /*@Insert
-    void insertAll(UserData... userData);
+    @Insert
+    long insertUser(UserData userData);
 
     @Update
     void update(UserData userData);
@@ -30,78 +30,78 @@ public interface UserDAO {
     @Query("SELECT * FROM UserData")
     List<UserData> getAll();
 
-    @Query("SELECT * FROM UserData WHERE userId = :userId")
-    UserData getPayer(int userId);
+    @Query("SELECT * FROM UserData WHERE id = :userId")
+    UserData getUser(long userId);
 
     @Delete
-    void delete(UserData userData);*/
+    void delete(UserData userData);
 
     //person
     @Insert
-    void insertAll(PersonData... personData);
+    void insertPerson(PersonData... personData);
 
     @Update
-    void update(PersonData personData);
+    void updatePerson(PersonData personData);
 
     @Query("SELECT * FROM PersonData")
     List<PersonData> getAllPersons();
 
-    @Query("SELECT * FROM PersonData WHERE userId = :userId")
-    PersonData getPerson(int userId);
+    @Query("SELECT * FROM PersonData WHERE user_id = :userId")
+    PersonData getPerson(long userId);
 
     @Query("SELECT * FROM PersonData WHERE first_name = :firstName AND last_name = :lastName")
     PersonData getPerson(String firstName, String lastName);
 
     @Delete
-    void delete(PersonData personData);
+    void deletePerson(PersonData personData);
 
     //pet
     @Insert
-    void insertAll(PetData... petData);
+    void insertPet(PetData... petData);
 
     @Update
-    void update(PetData petData);
+    void updatePet(PetData petData);
 
     @Query("SELECT * FROM PetData")
     List<PetData> getAllPets();
 
-    @Query("SELECT * FROM PetData WHERE userId = :userId")
-    PetData getPet(int userId);
+    @Query("SELECT * FROM PetData WHERE user_id = :userId")
+    PetData getPet(long userId);
 
     @Delete
-    void delete(PetData petData);
+    void deletePet(PetData petData);
 
 
     //car
     @Insert
-    void insertAll(CarData... carData);
+    void insertCar(CarData... carData);
 
     @Update
-    void update(CarData carData);
+    void updateCar(CarData carData);
 
     @Query("SELECT * FROM CarData")
     List<CarData> getAllCars();
 
-    @Query("SELECT * FROM CarData WHERE userId = :userId")
-    CarData getCar(int userId);
+    @Query("SELECT * FROM CarData WHERE user_id = :userId")
+    CarData getCar(long userId);
 
     @Delete
-    void delete(CarData carData);
+    void deleteCar(CarData carData);
 
 
     //house
     @Insert
-    void insertAll(HouseData... houseData);
+    void insertHouse(HouseData... houseData);
 
     @Update
-    void update(HouseData houseData);
+    void updateHouse(HouseData houseData);
 
     @Query("SELECT * FROM HouseData")
     List<HouseData> getAllHouses();
 
-    @Query("SELECT * FROM HouseData WHERE userId = :userId")
-    HouseData getHouse(int userId);
+    @Query("SELECT * FROM HouseData WHERE user_id = :userId")
+    HouseData getHouse(long userId);
 
     @Delete
-    void delete(HouseData houseData);
+    void deleteHouse(HouseData houseData);
 }

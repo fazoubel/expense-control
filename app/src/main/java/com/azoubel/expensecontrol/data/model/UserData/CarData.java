@@ -2,9 +2,26 @@ package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 
-@Entity
-public class CarData extends UserData {
+/*@Entity(
+        //indices = {@Index(value = "user_id", unique = true)},
+        foreignKeys = {
+        @ForeignKey(
+                entity = UserData.class,
+                parentColumns = "id",
+                childColumns = "user_id"
+        )
+}
+)*/
+@Entity()
+public class CarData {
+
+    @PrimaryKey
+    @ColumnInfo(name = "user_id")
+    private long userId;
 
     @ColumnInfo(name = "model")
     private String model;
@@ -25,7 +42,15 @@ public class CarData extends UserData {
     private String type;
 
     @ColumnInfo(name = "owner")
-    private int ownerId;
+    private long ownerId;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getModel() {
         return model;
@@ -75,11 +100,11 @@ public class CarData extends UserData {
         this.type = type;
     }
 
-    public int getOwnerId() {
+    public long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(long ownerId) {
         this.ownerId = ownerId;
     }
 }

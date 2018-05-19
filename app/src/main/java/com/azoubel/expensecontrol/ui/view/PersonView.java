@@ -21,9 +21,7 @@ public class PersonView extends ConstraintLayout {
     private EditText nicknameET;
     private EditText phoneNumberET;
     private EditText birthDateET;
-    private EditText expenseLimitET;
     private EditText sexET;
-    private Button imageButton;
 
     public PersonView(Context context) {
         super(context);
@@ -42,9 +40,8 @@ public class PersonView extends ConstraintLayout {
         nicknameET = findViewById(R.id.nickname);
         phoneNumberET = findViewById(R.id.phoneNumber);
         birthDateET = findViewById(R.id.birthDate);
-        expenseLimitET = findViewById(R.id.expenseLimit);
-        //sexET = findViewById(R.id.sex);
-        imageButton = findViewById(R.id.imageButton);
+        sexET = findViewById(R.id.sex);
+
     }
 
     public void fillComponents(Person person) {
@@ -55,7 +52,6 @@ public class PersonView extends ConstraintLayout {
             nicknameET.setText(person.getNickName());
             phoneNumberET.setText(person.getPhoneNumber());
             birthDateET.setText("" + person.getBirthday());
-            expenseLimitET.setText("" + person.getExpectedExpensesValue());
         }
     }
 
@@ -63,18 +59,12 @@ public class PersonView extends ConstraintLayout {
         if(person == null) {
             person = new Person();
         }
-        String expenseLimit = expenseLimitET.getText().toString();
-        if(!TextUtils.isEmpty(expenseLimit)){
-            expenseLimit = expenseLimit.replaceAll(",", ".");
-        }
         person.setFirstName(firstNameET.getText().toString());
         person.setLastName(lastNameET.getText().toString());
         person.setNickName(nicknameET.getText().toString());
         person.setPhoneNumber(phoneNumberET.getText().toString());
         person.setBirthday(new Date());//birthDateET.getText().toString());
-        person.setSex(0); //sexET.getText().toString();
-        person.setExpectedExpensesValue(Float.parseFloat(expenseLimit));
-        person.setImage(0);
+        person.setSex(sexET.getText().toString());
         return person;
     }
 

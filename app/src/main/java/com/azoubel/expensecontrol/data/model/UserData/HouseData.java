@@ -2,9 +2,26 @@ package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 
-@Entity
-public class HouseData extends UserData {
+/*@Entity(
+        //indices = {@Index(value = "user_id", unique = true)},
+        foreignKeys = {
+        @ForeignKey(
+                entity = UserData.class,
+                parentColumns = "id",
+                childColumns = "user_id"
+        )
+}
+)*/
+@Entity()
+public class HouseData {
+
+    @PrimaryKey
+    @ColumnInfo(name = "user_id")
+    private long userId;
 
     @ColumnInfo(name = "type")
     private String type;
@@ -18,14 +35,22 @@ public class HouseData extends UserData {
     @ColumnInfo(name = "garages")
     private int garages;
 
-    @ColumnInfo(name = "square")
-    private int square;
+    @ColumnInfo(name = "area")
+    private int area;
 
     @ColumnInfo(name = "is_rented")
-    private int isRented;
+    private String isRented;
 
     @ColumnInfo(name = "tenant")
-    private int tenantId;
+    private long tenantId;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getType() {
         return type;
@@ -59,27 +84,27 @@ public class HouseData extends UserData {
         this.garages = garages;
     }
 
-    public int getSquare() {
-        return square;
+    public int getArea() {
+        return area;
     }
 
-    public void setSquare(int square) {
-        this.square = square;
+    public void setArea(int area) {
+        this.area = area;
     }
 
-    public int getIsRented() {
+    public String getIsRented() {
         return isRented;
     }
 
-    public void setIsRented(int isRented) {
+    public void setIsRented(String isRented) {
         this.isRented = isRented;
     }
 
-    public int getTenantId() {
+    public long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(int tenantId) {
+    public void setTenantId(long tenantId) {
         this.tenantId = tenantId;
     }
 

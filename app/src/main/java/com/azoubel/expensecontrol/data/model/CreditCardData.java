@@ -15,7 +15,7 @@ public class CreditCardData {
 
     @NonNull
     @ColumnInfo(name = "user_id")
-    private int userId;
+    private long userId;
 
     @ColumnInfo(name = "expiration_date")
     private String expiration_date;
@@ -32,11 +32,11 @@ public class CreditCardData {
         this.number = number;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

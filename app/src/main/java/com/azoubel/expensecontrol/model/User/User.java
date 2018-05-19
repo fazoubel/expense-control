@@ -10,7 +10,7 @@ public class User {
     public static final int SEX_MALE = 0;
     public static final int SEX_FEMALE = 1;
 
-    private int userId;
+    private long userId;
 
     private int image;
 
@@ -18,11 +18,11 @@ public class User {
 
     private Address address;
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

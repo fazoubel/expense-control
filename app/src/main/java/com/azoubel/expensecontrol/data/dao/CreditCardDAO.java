@@ -23,7 +23,7 @@ public interface CreditCardDAO {
     CreditCardData getCreditCard(String creditCardNumber);
 
     @Query("SELECT * FROM CreditCardData WHERE user_id = :userId")
-    List<CreditCardData> getCreditCardByUser(int userId);
+    List<CreditCardData> getCreditCardByUser(long userId);
 
     @Delete
     void delete(CreditCardData creditCardData);

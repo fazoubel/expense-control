@@ -1,6 +1,8 @@
 package com.azoubel.expensecontrol.ui.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -12,12 +14,11 @@ import android.widget.EditText;
 
 import com.azoubel.expensecontrol.R;
 import com.azoubel.expensecontrol.model.Address;
+import com.azoubel.expensecontrol.ui.UserPickerActivity;
 
 public class AddressView extends ConstraintLayout{
 
-    public interface AddressSearcher {
-        Address findAddress(String street, int number, String neiborhood);
-    }
+    public static final int PICK_USER_ADDRESS = 3;
 
     private EditText streetET;
     private EditText numberET;
@@ -32,7 +33,7 @@ public class AddressView extends ConstraintLayout{
     private EditText blockET;
     private Button findAddressBT;
 
-    private AddressSearcher addressSearcher;
+    private Activity intentStarter;
 
     public AddressView(Context context) {
         super(context);
@@ -62,38 +63,12 @@ public class AddressView extends ConstraintLayout{
         findAddressBT.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(addressSearcher != null) {
-                    final String streetOnClick = streetET.getText().toString();
-                    final String numberStringOnClick = numberET.getText().toString();
-                    final String neighborhoodOnClick = neighborhoodET.getText().toString();
-
-                    if(!TextUtils.isEmpty(streetOnClick)
-                            && !TextUtils.isEmpty(numberStringOnClick)
-                            && !TextUtils.isEmpty(neighborhoodOnClick)) {
-
-                        Address address=null;
-                        try{
-                            address = addressSearcher.findAddress(streetOnClick, Integer.parseInt(numberStringOnClick), neighborhoodOnClick);
-                        }
-                        catch(Exception exception) {
-                            //passing an invalid number like a normal string will rise an exception
-                            //in this case the address will be null and the snackbar will be shown
-                        }
-
-
-                        if(address != null) {
-                            fillAddress(address);
-                        }
-                        else {
-                            Snackbar.make(view, "Endereço não encontrado", Snackbar.LENGTH_LONG)
-                                    .setAction("Busca de Endereço", null).show();
-                        }
-                    }
-                }
-
+            if(intentStarter != null) {
+                Intent userPickerIntent = new Intent(intentStarter, UserPickerActivity.class);
+                intentStarter.startActivityForResult(userPickerIntent, PICK_USER_ADDRESS);
+            }
             }
         });
-
     }
 
     public Address getAddress() {
@@ -133,10 +108,6 @@ public class AddressView extends ConstraintLayout{
         return address;
     }
 
-    public void setAddressSearcher(AddressSearcher searcher) {
-        this.addressSearcher = searcher;
-    }
-
     public void fillAddress(Address address) {
         if(address != null) {
             streetET.setText(address.getStreet());
@@ -151,5 +122,9 @@ public class AddressView extends ConstraintLayout{
             apartmentET.setText("" + address.getApartment());
             blockET.setText(address.getApartmentBlock());
         }
+    }
+
+    public void setIntentStarter(Activity intentStarter) {
+        this.intentStarter = intentStarter;
     }
 }

@@ -8,7 +8,7 @@ public class Person extends User {
 
     private Date birthday;
 
-    private int sex;
+    private String sex;
 
     private String firstName;
 
@@ -26,11 +26,11 @@ public class Person extends User {
         this.birthday = birthday;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

@@ -2,9 +2,27 @@ package com.azoubel.expensecontrol.data.model.UserData;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-@Entity
-public class PetData extends UserData {
+/*@Entity(
+        //indices = {@Index(value = "user_id", unique = true)},
+        foreignKeys = {
+        @ForeignKey(
+                entity = UserData.class,
+                parentColumns = "id",
+                childColumns = "user_id"
+        )
+}
+)*/
+@Entity()
+public class PetData {
+
+    @PrimaryKey
+    @ColumnInfo(name = "user_id")
+    private long userId;
 
     @ColumnInfo(name = "age")
     private int age;
@@ -12,11 +30,11 @@ public class PetData extends UserData {
     @ColumnInfo(name = "breed")
     private String breed;
 
-    @ColumnInfo(name = "kind")
-    private String kind;
+    @ColumnInfo(name = "species")
+    private String species;
 
     @ColumnInfo(name = "sex")
-    private int sex;
+    private String sex;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -25,7 +43,15 @@ public class PetData extends UserData {
     private String nickName;
 
     @ColumnInfo(name = "owner")
-    private int ownerId;
+    private long ownerId;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public int getAge() {
         return age;
@@ -43,19 +69,19 @@ public class PetData extends UserData {
         this.breed = breed;
     }
 
-    public String getKind() {
-        return kind;
+    public String getSpecies() {
+        return species;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setSpecies(String kind) {
+        this.species = species;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -75,11 +101,11 @@ public class PetData extends UserData {
         this.nickName = nickName;
     }
 
-    public int getOwnerId() {
+    public long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(long ownerId) {
         this.ownerId = ownerId;
     }
 }

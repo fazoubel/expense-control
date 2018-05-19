@@ -71,4 +71,10 @@ public class Car extends User {
     public void setOwner(Person owner) {
         this.owner = owner;
     }
+
+    @Override
+    public String toString() {
+        return model + ", " + year + ", " + brand;
+
+    }
 }
