@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.azoubel.expensecontrol.R;
@@ -45,6 +46,9 @@ public class StoreViewAdapter extends BaseAdapter {
         if(view == null) {
             view = activity.getLayoutInflater().inflate(R.layout.list_item, viewGroup, false);
         }
+
+        ImageView imageView = view.findViewById(R.id.list_item_image);
+        imageView.setImageDrawable(activity.getDrawable(R.drawable.store));
 
         TextView storeDescription = view.findViewById(R.id.listItemDescription);
         storeDescription.setText(stores.get(i).toString());

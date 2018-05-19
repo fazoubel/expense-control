@@ -7,8 +7,16 @@ import com.azoubel.expensecontrol.model.Address;
 @Entity
 public class User {
 
-    public static final int SEX_MALE = 0;
-    public static final int SEX_FEMALE = 1;
+    public static final int IMAGE_BABE = 0;
+    public static final int IMAGE_BOY = 1;
+    public static final int IMAGE_CAT = 2;
+    public static final int IMAGE_DOG = 3;
+    public static final int IMAGE_FATHER = 4;
+    public static final int IMAGE_GIRL = 5;
+    public static final int IMAGE_OLD_MAN = 6;
+    public static final int IMAGE_OLD_WOMAN = 7;
+    public static final int IMAGE_WOMAN = 8;
+
 
     private long userId;
 

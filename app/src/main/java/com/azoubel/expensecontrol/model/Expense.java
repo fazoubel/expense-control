@@ -120,6 +120,7 @@ public class Expense{
     @Override
     public String toString() {
         return String.format(this.description + "\n"
+                + "comprador: " + this.buyer.getFirstName() + " " + buyer.getLastName() + "\n"
                 + "loja: " + this.store.getStoreName() + "\n"
                 + "categoria: " + this.getCategory().name() + "\n"
                 + "valor da compra: R$ " + this.initialValue + "\n"

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -37,6 +38,7 @@ public class UserActivity extends AbstractActivity {
 
     private EditText expenseLimitET;
     private Button imageButton;
+    private ImageView userImage;
     private AddressView addressView;
 
     private ConstraintLayout dinamicViewContainer;
@@ -76,6 +78,7 @@ public class UserActivity extends AbstractActivity {
         userViewContainer = findViewById(R.id.userViewContainer);
         expenseLimitET = userViewContainer.findViewById(R.id.expenseLimit);
         imageButton = userViewContainer.findViewById(R.id.imageButton);
+        userImage = userViewContainer.findViewById(R.id.image);
         addressView = userViewContainer.findViewById(R.id.addressView);
         addressView.setIntentStarter(this);
         saveButton = userViewContainer.findViewById(R.id.save);
@@ -135,6 +138,8 @@ public class UserActivity extends AbstractActivity {
             if(address != null) {
                 addressView.fillAddress(user.getAddress());
             }
+
+            userImage.setImageDrawable(getDrawable(getUserImage(user.getImage())));
         }
     }
 
@@ -267,6 +272,20 @@ public class UserActivity extends AbstractActivity {
                     addressView.fillAddress(owner.getAddress());
                 }
             }
+        }
+    }
+
+    public int getUserImage(int userImage) {
+        switch (userImage) {
+            case User.IMAGE_BABE: return R.drawable.babe;
+            case User.IMAGE_BOY: return R.drawable.boy;
+            case User.IMAGE_CAT: return R.drawable.cat;
+            case User.IMAGE_DOG: return R.drawable.dog;
+            case User.IMAGE_FATHER: return R.drawable.father;
+            case User.IMAGE_GIRL: return R.drawable.girl;
+            case User.IMAGE_OLD_MAN: return R.drawable.old_man;
+            case User.IMAGE_OLD_WOMAN: return R.drawable.old_woman;
+            default: return R.drawable.woman;
         }
     }
 }

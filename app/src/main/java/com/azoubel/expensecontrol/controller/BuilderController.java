@@ -318,8 +318,8 @@ public class BuilderController {
             payment.setPaymentDate(new Date(paymentData.getPaymentDate()));
         }
 
-        PersonData personData = (PersonData) AppDatabase.getInstance(context).userDAO().getPerson(paymentData.getUserId());
-        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(expenseData.getUserId());
+        PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(paymentData.getUserId());
+        UserData userData = AppDatabase.getInstance(context).userDAO().getUser(paymentData.getUserId());
         Person person = buildPerson(context, personData, userData);
         payment.setPayer(person);
 

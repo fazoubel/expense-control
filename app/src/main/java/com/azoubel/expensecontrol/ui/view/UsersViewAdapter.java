@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.azoubel.expensecontrol.R;
@@ -45,6 +46,9 @@ public class UsersViewAdapter extends BaseAdapter {
             view = activity.getLayoutInflater().inflate(R.layout.list_item, viewGroup, false);
         }
 
+        ImageView imageView = view.findViewById(R.id.list_item_image);
+        imageView.setImageDrawable(activity.getDrawable(getUserImage(users.get(i).getImage())));
+
         TextView userDescription = view.findViewById(R.id.listItemDescription);
         userDescription.setText(users.get(i).toString());
 
@@ -80,6 +84,20 @@ public class UsersViewAdapter extends BaseAdapter {
         if(selectedView != null) {
             selectedView.setBackgroundColor(Color.TRANSPARENT);
             selectedView = null;
+        }
+    }
+
+    public int getUserImage(int userImage) {
+        switch (userImage) {
+            case User.IMAGE_BABE: return R.drawable.babe;
+            case User.IMAGE_BOY: return R.drawable.boy;
+            case User.IMAGE_CAT: return R.drawable.cat;
+            case User.IMAGE_DOG: return R.drawable.dog;
+            case User.IMAGE_FATHER: return R.drawable.father;
+            case User.IMAGE_GIRL: return R.drawable.girl;
+            case User.IMAGE_OLD_MAN: return R.drawable.old_man;
+            case User.IMAGE_OLD_WOMAN: return R.drawable.old_woman;
+            default: return R.drawable.woman;
         }
     }
 }

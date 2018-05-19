@@ -163,7 +163,7 @@ public class HomeActivity extends AppCompatActivity
             person1.setPhoneNumber("111111111111");
             person1.setBirthday(new Date());
             person1.setSex("masculino");
-            person1.setImage(0);
+            person1.setImage(User.IMAGE_BOY);
             person1.setExpectedExpensesValue(500f);
             person1.setAddress(address1);
 
@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity
             person2.setPhoneNumber("222222222222");
             person2.setBirthday(new Date());
             person2.setSex("masculino");
-            person2.setImage(0);
+            person2.setImage(User.IMAGE_OLD_MAN);
             person2.setExpectedExpensesValue(1500f);
             person2.setAddress(address2);
 
@@ -189,7 +189,7 @@ public class HomeActivity extends AppCompatActivity
             person3.setPhoneNumber("3333333333");
             person3.setBirthday(new Date());
             person3.setSex("feminino");
-            person3.setImage(0);
+            person3.setImage(User.IMAGE_WOMAN);
             person1.setExpectedExpensesValue(5000f);
             person3.setAddress(address3);
 
@@ -393,7 +393,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private int getUserIcon(int userImage) {
-        return R.drawable.ic_menu_share;
+        switch (userImage) {
+            case User.IMAGE_BABE: return R.drawable.ic_menu_babe;
+            case User.IMAGE_BOY: return R.drawable.ic_menu_boy;
+            case User.IMAGE_CAT: return R.drawable.ic_menu_cat;
+            case User.IMAGE_DOG: return R.drawable.ic_menu_dog;
+            case User.IMAGE_FATHER: return R.drawable.ic_menu_father;
+            case User.IMAGE_GIRL: return R.drawable.ic_menu_girl;
+            case User.IMAGE_OLD_MAN: return R.drawable.ic_menu_old_man;
+            case User.IMAGE_OLD_WOMAN: return R.drawable.ic_menu_old_woman;
+            default: return R.drawable.ic_menu_woman;
+        }
     }
 
     private void updateFloatButton() {
