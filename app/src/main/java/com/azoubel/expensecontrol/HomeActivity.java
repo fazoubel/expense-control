@@ -273,7 +273,7 @@ public class HomeActivity extends AppCompatActivity
 
             controller.addExpense(this, expense2);
 
-            List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId(), getStartDate(), getEndDate());
+            List<Expense> expenseList = controller.findExpenseByUser(this, users.get(0).getUserId());
 
             Payment payment1 = new Payment();
             payment1.setValue(expenseList.get(0).getInitialValue()/2);
@@ -287,7 +287,7 @@ public class HomeActivity extends AppCompatActivity
 
             CreditCard creditCard1 = new CreditCard();
             creditCard1.setFlag("visa");
-            creditCard1.setExpiration_date(new Date().toString());
+            creditCard1.setExpiration_date(new Date());
             creditCard1.setNumber("2222-3333-4444-5555");
             creditCard1.setUser(users.get(0));
 
@@ -305,7 +305,7 @@ public class HomeActivity extends AppCompatActivity
 
             CreditCard creditCard2 = new CreditCard();
             creditCard2.setFlag("mastercard");
-            creditCard2.setExpiration_date(new Date().toString());
+            creditCard2.setExpiration_date(new Date());
             creditCard2.setNumber("1111-3333-7777-5555");
             creditCard2.setUser(users.get(1));
 
@@ -313,13 +313,13 @@ public class HomeActivity extends AppCompatActivity
 
             CreditCard creditCard3 = new CreditCard();
             creditCard3.setFlag("visa");
-            creditCard3.setExpiration_date(new Date().toString());
+            creditCard3.setExpiration_date(new Date());
             creditCard3.setNumber("6666-3436-7444-5895");
             creditCard3.setUser(users.get(1));
 
             controller.addCreditCard(this, creditCard3);
 
-            List<Expense> expenseList2 = controller.findExpenseByUser(this, users.get(1).getUserId(), getStartDate(), getEndDate());
+            List<Expense> expenseList2 = controller.findExpenseByUser(this, users.get(1).getUserId());
 
             Payment payment3 = new Payment();
             payment3.setValue(expenseList2.get(0).getInitialValue()/3);
@@ -475,8 +475,7 @@ public class HomeActivity extends AppCompatActivity
             if(usersView.getVisibility() == View.VISIBLE) {
                 User selectedUser = usersView.getSelectedUser();
                 if(selectedUser != null) {
-                    List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, selectedUser.getUserId(),
-                            getStartDate(), getEndDate());
+                    List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, selectedUser.getUserId());
 
                     expensesView.setData(expenseList, HomeActivity.this);
                     changeView(SHOW_EXPENSES_VIEW);
@@ -532,8 +531,7 @@ public class HomeActivity extends AppCompatActivity
         else {
             for (User user : users) {
                 if(id == user.getUserId()) {
-                    List<Expense> expenseList = controller.findExpenseByUser(this, user.getUserId(),
-                            getStartDate(), getEndDate());
+                    List<Expense> expenseList = controller.findExpenseByUser(this, user.getUserId());
 
                     expensesView.setData(expenseList, this);
 
@@ -607,8 +605,7 @@ public class HomeActivity extends AppCompatActivity
         }
         else if(requestCode == EXPENSE_ACTIVITY) {
             long userId = expensesView.getSelectedExpense().getBuyer().getUserId();
-            List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, userId,
-                    getStartDate(), getEndDate());
+            List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, userId);
             expensesView.setData(expenseList, HomeActivity.this);
         }
         else if(requestCode == PAYMENT_ACTIVITY) {

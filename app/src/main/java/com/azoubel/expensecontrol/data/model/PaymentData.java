@@ -17,23 +17,20 @@ public class PaymentData {
     @ColumnInfo(name = "expense_id")
     private int expenseId;
 
-    @NonNull
     @ColumnInfo(name = "user_id")
     private long userId;
 
     @ColumnInfo(name = "payment_way")
     private String paymentWay;
 
-    @NonNull
     @ColumnInfo(name = "value")
     private float value;
 
     @ColumnInfo(name = "creditCardNumber")
     private String creditCardNumber;
 
-    @NonNull
     @ColumnInfo(name = "payment_date")
-    private Long paymentDate;
+    private Date paymentDate;
 
     public int getPaymentId() {
         return paymentId;
@@ -83,11 +80,11 @@ public class PaymentData {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public Long getPaymentDate() {
+    public Date getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Long paymentDate) {
+    public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
 }

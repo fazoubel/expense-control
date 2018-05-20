@@ -3,6 +3,7 @@ package com.azoubel.expensecontrol.data;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.azoubel.expensecontrol.data.dao.AddressDAO;
@@ -23,6 +24,7 @@ import com.azoubel.expensecontrol.data.model.UserData.UserData;
 import com.azoubel.expensecontrol.data.dao.StoreDAO;
 
 @Database(entities = {UserData.class, PersonData.class, PetData.class, CarData.class, HouseData.class, ExpenseData.class, StoreData.class, AddressData.class, CreditCardData.class, PaymentData.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

@@ -7,6 +7,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 /*@Entity(
         //indices = {@Index(value = "user_id", unique = true)},
         foreignKeys = {
@@ -25,12 +27,11 @@ public class PersonData {
     private long userId;
 
     @ColumnInfo(name = "birthday_date")
-    private long birthday;
+    private Date birthday;
 
     @ColumnInfo(name = "sex")
     private String sex;
 
-    @NonNull
     @ColumnInfo(name = "first_name")
     private String firstName;
 
@@ -51,11 +52,11 @@ public class PersonData {
         this.userId = userId;
     }
 
-    public long getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(long birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

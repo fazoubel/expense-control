@@ -37,7 +37,7 @@ public class UserActivity extends AbstractActivity {
     private ConstraintLayout userViewContainer;
 
     private EditText expenseLimitET;
-    private Button imageButton;
+    private Button changeImage;
     private ImageView userImage;
     private AddressView addressView;
 
@@ -52,6 +52,8 @@ public class UserActivity extends AbstractActivity {
 
     private User user;
 
+    private int userImageValue;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class UserActivity extends AbstractActivity {
             if(intent.hasExtra("id")) {
                 long userId = intent.getLongExtra("id", -1);
                 user = controller.getUser(this, userId);
+                userImageValue = user.getImage();
             }
         }
         init();
@@ -77,7 +80,14 @@ public class UserActivity extends AbstractActivity {
 
         userViewContainer = findViewById(R.id.userViewContainer);
         expenseLimitET = userViewContainer.findViewById(R.id.expenseLimit);
-        imageButton = userViewContainer.findViewById(R.id.imageButton);
+        changeImage = userViewContainer.findViewById(R.id.imageButton);
+        changeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userImageValue = (userImageValue + 1)%9;
+                userImage.setImageDrawable(getDrawable(getUserImage(userImageValue)));
+            }
+        });
         userImage = userViewContainer.findViewById(R.id.image);
         addressView = userViewContainer.findViewById(R.id.addressView);
         addressView.setIntentStarter(this);
@@ -183,7 +193,8 @@ public class UserActivity extends AbstractActivity {
             user.setExpectedExpensesValue(0);
         }
 
-        user.setImage(0);
+        user.setImage(userImageValue);
+
 
         Address address = addressView.getAddress();
         if(user.getAddress() != null) {

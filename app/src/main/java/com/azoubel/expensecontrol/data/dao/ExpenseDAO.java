@@ -28,6 +28,9 @@ public interface ExpenseDAO {
     @Query("SELECT * FROM ExpenseData WHERE user_id = :userId AND expiration_date >= :startDate AND expiration_date <= :endDate")
     List<ExpenseData> findByUser(long userId, long startDate, long endDate);
 
+    @Query("SELECT * FROM ExpenseData WHERE user_id = :userId")
+    List<ExpenseData> findByUser(long userId);
+
     @Delete
     void delete(ExpenseData ExpenseData);
 }

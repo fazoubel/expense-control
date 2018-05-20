@@ -13,6 +13,7 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Person;
+import com.azoubel.expensecontrol.ui.view.DateView;
 
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class ExpensesActivity extends AbstractActivity{
 
     private EditText nameET;
     private EditText descriptionET;
-    private EditText expirationDateET;
+    private DateView expirationDateDV;
     private EditText initialValueET;
     private EditText finalValueET;
     private EditText categoryET;
@@ -29,7 +30,7 @@ public class ExpensesActivity extends AbstractActivity{
     private Button storePickerBT;
     private EditText storeET;
     private EditText assessmentET;
-    private EditText expenseDateET;
+    private DateView expenseDateDV;
     private Button saveBT;
     private Expense expense;
     private Person buyer;
@@ -59,7 +60,7 @@ public class ExpensesActivity extends AbstractActivity{
     protected void init() {
         nameET = findViewById(R.id.expenseName);
         descriptionET = findViewById(R.id.description);
-        expirationDateET = findViewById(R.id.expirationDate);
+        expirationDateDV = findViewById(R.id.expirationDate);
         initialValueET = findViewById(R.id.initialValue);
         finalValueET = findViewById(R.id.finalValue);
         categoryET = findViewById(R.id.category);
@@ -68,7 +69,7 @@ public class ExpensesActivity extends AbstractActivity{
         storePickerBT = findViewById(R.id.storeButton);
         storeET = findViewById(R.id.store);
         assessmentET = findViewById(R.id.assessment);
-        expenseDateET = findViewById(R.id.expenseDate);
+        expenseDateDV = findViewById(R.id.expenseDate);
         saveBT = findViewById(R.id.save);
         saveBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +86,7 @@ public class ExpensesActivity extends AbstractActivity{
             nameET.setText(expense.getDescription());
             descriptionET.setText(expense.getDescription());
             if(expense.getExpenseDate() != null) {
-                expirationDateET.setText(expense.getExpirationDate().toString());
+                expirationDateDV.fillComponents(expense.getExpirationDate(), "Data de expiração da compra");
             }
             initialValueET.setText(""+expense.getInitialValue());
             finalValueET.setText(""+expense.getFinalValue());
@@ -106,7 +107,7 @@ public class ExpensesActivity extends AbstractActivity{
             });
             assessmentET.setText(""+expense.getAssessment());
             if(expense.getExpenseDate() != null) {
-                expenseDateET.setText(expense.getExpenseDate().toString());
+                expenseDateDV.fillComponents(expense.getExpenseDate(), "Data da compra:");
             }
             if(store != null) {
                 storeET.setText(store.getStoreName());
@@ -156,11 +157,11 @@ public class ExpensesActivity extends AbstractActivity{
             expense.setBuyer(buyer);
             expense.setStore(store);
             expense.setInitialValue(Float.parseFloat(initialValueET.getText().toString()));
-            expense.setExpirationDate(new Date());//Long.parseLong(expirationDateET.getText().toString()));
+            expense.setExpirationDate(expirationDateDV.buildDate());
             expense.setDescription(descriptionET.getText().toString());
             expense.setCategory(ExpenseCategory.valueOf(categoryET.getText().toString()));
             expense.setAssessment(Float.parseFloat(assessmentET.getText().toString()));
-            expense.setExpenseDate(new Date());//Long.parseLong(expenseDateET.getText().toString()))
+            expense.setExpenseDate(expenseDateDV.buildDate());
         }
 
     }

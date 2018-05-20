@@ -20,7 +20,7 @@ public class PersonView extends ConstraintLayout {
     private EditText lastNameET;
     private EditText nicknameET;
     private EditText phoneNumberET;
-    private EditText birthDateET;
+    private DateView birthDateView;
     private EditText sexET;
 
     public PersonView(Context context) {
@@ -39,7 +39,7 @@ public class PersonView extends ConstraintLayout {
         lastNameET = findViewById(R.id.personLastName);
         nicknameET = findViewById(R.id.nickname);
         phoneNumberET = findViewById(R.id.phoneNumber);
-        birthDateET = findViewById(R.id.birthDate);
+        birthDateView = findViewById(R.id.birthDate);
         sexET = findViewById(R.id.sex);
 
     }
@@ -51,7 +51,7 @@ public class PersonView extends ConstraintLayout {
             lastNameET.setText(person.getLastName());
             nicknameET.setText(person.getNickName());
             phoneNumberET.setText(person.getPhoneNumber());
-            birthDateET.setText("" + person.getBirthday());
+            birthDateView.fillComponents(person.getBirthday(), "Data de nascimento:");
         }
     }
 
@@ -63,7 +63,7 @@ public class PersonView extends ConstraintLayout {
         person.setLastName(lastNameET.getText().toString());
         person.setNickName(nicknameET.getText().toString());
         person.setPhoneNumber(phoneNumberET.getText().toString());
-        person.setBirthday(new Date());//birthDateET.getText().toString());
+        person.setBirthday(birthDateView.buildDate());
         person.setSex(sexET.getText().toString());
         return person;
     }

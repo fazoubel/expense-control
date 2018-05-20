@@ -72,9 +72,7 @@ public class Controller extends BuilderController{
             personData.setFirstName(person.getFirstName());
             personData.setLastName(person.getLastName());
             personData.setNickName(person.getNickName());
-            if(person.getBirthday() != null) {
-                personData.setBirthday(person.getBirthday().getTime());
-            }
+            personData.setBirthday(person.getBirthday());
             userData.setExpectedExpensesValue(person.getExpectedExpensesValue());
             personData.setPhoneNumber(person.getPhoneNumber());
             personData.setSex(person.getSex());
@@ -140,15 +138,13 @@ public class Controller extends BuilderController{
 
     public void updatePerson(Context context, Person person) {
         if(person != null) {
-            UserData userData = new UserData();
+            UserData userData = AppDatabase.getInstance(context).userDAO().getUser(person.getUserId());
             PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(person.getUserId());
             if(personData != null) {
                 personData.setFirstName(person.getFirstName());
                 personData.setLastName(person.getLastName());
                 personData.setNickName(person.getNickName());
-                if(person.getBirthday() != null) {
-                    personData.setBirthday(person.getBirthday().getTime());
-                }
+                personData.setBirthday(person.getBirthday());
                 userData.setExpectedExpensesValue(person.getExpectedExpensesValue());
                 personData.setPhoneNumber(person.getPhoneNumber());
                 personData.setSex(person.getSex());
@@ -538,9 +534,7 @@ public class Controller extends BuilderController{
                 expenseData.setUserId(person.getUserId());
                 expenseData.setStoreId(store.getStoreId());
                 expenseData.setInitialValue(expense.getInitialValue());
-                if(expense.getExpenseDate() != null) {
-                    expenseData.setExpirationDate(expense.getExpirationDate().getTime());
-                }
+                expenseData.setExpirationDate(expense.getExpirationDate());
 
                 expenseData.setAssessment(expense.getAssessment());
                 ExpenseCategory category = expense.getCategory();
@@ -548,9 +542,7 @@ public class Controller extends BuilderController{
                     expenseData.setCategory(category.name());
                 }
                 expenseData.setDescription(expense.getDescription());
-                if(expense.getExpenseDate() != null) {
-                    expenseData.setBuyingDate(expense.getExpenseDate().getTime());
-                }
+                expenseData.setBuyingDate(expense.getExpenseDate());
                 AppDatabase.getInstance(context).expenseDAO().insertAll(expenseData);
             }
         }
@@ -566,9 +558,7 @@ public class Controller extends BuilderController{
                 expenseData.setUserId(person.getUserId());
                 expenseData.setStoreId(store.getStoreId());
                 expenseData.setInitialValue(expense.getInitialValue());
-                if(expense.getExpenseDate() != null) {
-                    expenseData.setExpirationDate(expense.getExpirationDate().getTime());
-                }
+                expenseData.setExpirationDate(expense.getExpirationDate());
 
                 expenseData.setAssessment(expense.getAssessment());
                 ExpenseCategory category = expense.getCategory();
@@ -576,9 +566,7 @@ public class Controller extends BuilderController{
                     expenseData.setCategory(category.name());
                 }
                 expenseData.setDescription(expense.getDescription());
-                if(expense.getExpenseDate() != null) {
-                    expenseData.setBuyingDate(expense.getExpenseDate().getTime());
-                }
+                expenseData.setBuyingDate(expense.getExpenseDate());
 
                 AppDatabase.getInstance(context).expenseDAO().update(expenseData);
             }
@@ -589,7 +577,7 @@ public class Controller extends BuilderController{
     public void addPayment(Context context, Payment payment) {
         if(payment != null) {
             PaymentData paymentData = new PaymentData();
-            paymentData.setPaymentDate(new Date().getTime());
+            paymentData.setPaymentDate(payment.getPaymentDate());
             CreditCard creditCard = payment.getCreditCard();
             if(creditCard != null) {
                 paymentData.setCreditCardNumber(creditCard.getNumber());
@@ -609,7 +597,6 @@ public class Controller extends BuilderController{
 
                 AppDatabase.getInstance(context).paymentDAO().insertPayment(paymentData);
                 ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expense.getExpenseId());
-                expenseData.setLastPaymentDate(new Date().getTime());
                 AppDatabase.getInstance(context).expenseDAO().update(expenseData);
             }
 
@@ -619,7 +606,7 @@ public class Controller extends BuilderController{
     public void updatePayment(Context context, Payment payment) {
         if(payment != null) {
             PaymentData paymentData = AppDatabase.getInstance(context).paymentDAO().getPayment(payment.getPaymentId());
-            paymentData.setPaymentDate(new Date().getTime());
+            paymentData.setPaymentDate(payment.getPaymentDate());
             CreditCard creditCard = payment.getCreditCard();
             if(creditCard != null) {
                 paymentData.setCreditCardNumber(creditCard.getNumber());
@@ -639,7 +626,6 @@ public class Controller extends BuilderController{
 
                 AppDatabase.getInstance(context).paymentDAO().update(paymentData);
                 ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expense.getExpenseId());
-                expenseData.setLastPaymentDate(new Date().getTime());
                 AppDatabase.getInstance(context).expenseDAO().update(expenseData);
             }
 
@@ -654,6 +640,11 @@ public class Controller extends BuilderController{
 
     public List<Expense> findExpenseByUser(Context context, long userId, long startDate, long endDate) {
         List<ExpenseData> expenseDataList = AppDatabase.getInstance(context).expenseDAO().findByUser(userId, startDate, endDate);
+        return buildExpenses(context, expenseDataList);
+    }
+
+    public List<Expense> findExpenseByUser(Context context, long userId) {
+        List<ExpenseData> expenseDataList = AppDatabase.getInstance(context).expenseDAO().findByUser(userId);
         return buildExpenses(context, expenseDataList);
     }
 

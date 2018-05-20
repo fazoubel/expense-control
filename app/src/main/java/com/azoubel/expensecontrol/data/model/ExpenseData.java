@@ -5,25 +5,22 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 @Entity
 public class ExpenseData {
 
     @PrimaryKey(autoGenerate = true)
     private int expenseId;
 
-    @NonNull
     @ColumnInfo(name = "initial_value")
     private float initialValue;
 
     @ColumnInfo(name = "expiration_date")
-    private Long expirationDate;
+    private Date expirationDate;
 
-    @NonNull
     @ColumnInfo(name = "description")
     private String description;
-
-    @ColumnInfo(name = "last_payment_date")
-    private Long lastPaymentDate;
 
     @ColumnInfo(name = "assessment")
     private float assessment;
@@ -31,18 +28,15 @@ public class ExpenseData {
     @ColumnInfo(name = "final_value")
     private float finalValue;
 
-    @NonNull
     @ColumnInfo(name = "user_id")
     private long userId;
 
-    @NonNull
     @ColumnInfo(name = "buying_date")
-    private long buyingDate;
+    private Date buyingDate;
 
     @ColumnInfo(name = "store_id")
     private int storeId;
 
-    @NonNull
     @ColumnInfo(name = "category")
     private String category;
 
@@ -70,11 +64,11 @@ public class ExpenseData {
         this.initialValue = initialValue;
     }
 
-    public Long getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Long expirationDate) {
+    public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -102,14 +96,6 @@ public class ExpenseData {
         this.storeId = storeId;
     }
 
-    public Long getLastPaymentDate() {
-        return lastPaymentDate;
-    }
-
-    public void setLastPaymentDate(Long lastPaymentDate) {
-        this.lastPaymentDate = lastPaymentDate;
-    }
-
     public float getAssessment() {
         return assessment;
     }
@@ -127,11 +113,11 @@ public class ExpenseData {
     }
 
 
-    public Long getBuyingDate() {
+    public Date getBuyingDate() {
         return buyingDate;
     }
 
-    public void setBuyingDate(long buyingDate) {
+    public void setBuyingDate(Date buyingDate) {
         this.buyingDate = buyingDate;
     }
 }

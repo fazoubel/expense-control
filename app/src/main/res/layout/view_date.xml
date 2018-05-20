@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <EditText
+        android:id="@+id/dayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="dia:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/day"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/dayLabel"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/monthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="mês:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/day"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/month"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/monthLabel"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/yearLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:text="ano:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/month"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/year"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/yearLabel"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+</android.support.constraint.ConstraintLayout>

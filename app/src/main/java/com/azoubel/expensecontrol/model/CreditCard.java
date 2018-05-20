@@ -2,13 +2,15 @@ package com.azoubel.expensecontrol.model;
 
 import com.azoubel.expensecontrol.model.User.User;
 
+import java.util.Date;
+
 public class CreditCard {
 
     private String number;
 
     private User user;
 
-    private String expiration_date;
+    private Date expiration_date;
 
     private String flag;
 
@@ -28,11 +30,11 @@ public class CreditCard {
         this.user = user;
     }
 
-    public String getExpiration_date() {
+    public Date getExpiration_date() {
         return expiration_date;
     }
 
-    public void setExpiration_date(String expiration_date) {
+    public void setExpiration_date(Date expiration_date) {
         this.expiration_date = expiration_date;
     }
 

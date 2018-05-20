@@ -78,7 +78,7 @@ public class BuilderController {
 
         person.setUserId(personData.getUserId());
 
-        Date birthday = new Date(personData.getBirthday());
+        Date birthday = personData.getBirthday();
 
         person.setFirstName(personData.getFirstName());
         person.setLastName(personData.getLastName());
@@ -228,22 +228,17 @@ public class BuilderController {
 
         expense.setCategory(ExpenseCategory.valueOf(expenseData.getCategory()));
 
-        Date expirationDate = new Date(expenseData.getExpirationDate());
+        Date expirationDate = expenseData.getExpirationDate();
         expense.setExpirationDate(expirationDate);
 
         expense.setInitialValue(expenseData.getInitialValue());
 
         expense.setFinalValue(expenseData.getFinalValue());
 
-        if(expenseData.getLastPaymentDate() != null) {
-            Date lastPaymentDate = new Date(expenseData.getLastPaymentDate());
-            expense.setLastPaymentDate(lastPaymentDate);
-        }
-
         expense.setAssessment(expenseData.getAssessment());
 
         if(expenseData.getBuyingDate() != null) {
-            expense.setExpenseDate(new Date(expenseData.getBuyingDate()));
+            expense.setExpenseDate(expenseData.getBuyingDate());
         }
 
         return expense;
@@ -315,7 +310,7 @@ public class BuilderController {
         payment.setValue(paymentData.getValue());
 
         if(paymentData.getPaymentDate() != null) {
-            payment.setPaymentDate(new Date(paymentData.getPaymentDate()));
+            payment.setPaymentDate(paymentData.getPaymentDate());
         }
 
         PersonData personData = AppDatabase.getInstance(context).userDAO().getPerson(paymentData.getUserId());

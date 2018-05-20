@@ -14,6 +14,7 @@ import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.Payment;
 import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.User.Person;
+import com.azoubel.expensecontrol.ui.view.DateView;
 
 import java.util.Date;
 
@@ -23,7 +24,7 @@ public class PaymentsActivity extends AbstractActivity{
     private Button payerBT;
     private EditText payerET;
     private EditText paymentWayET;
-    private EditText paymentDateET;
+    private DateView paymentDateDV;
     private EditText paymentValueET;
     private Button creditCardBT;
     private EditText creditCardET;
@@ -71,7 +72,7 @@ public class PaymentsActivity extends AbstractActivity{
         });
         payerET = findViewById(R.id.payer);
         paymentWayET = findViewById(R.id.paymentWay);
-        paymentDateET = findViewById(R.id.paymentDate);
+        paymentDateDV = findViewById(R.id.paymentDate);
         paymentValueET = findViewById(R.id.paymentValue);
         creditCardBT = findViewById(R.id.creditCardButton);
         creditCardBT.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +105,7 @@ public class PaymentsActivity extends AbstractActivity{
             payer = payment.getPayer();
             payerET.setText(payer.getFirstName() + " " + payment.getPayer().getLastName());
             paymentWayET.setText(payment.getPaymentWay().toString());
-            paymentDateET.setText(payment.getPaymentDate().toString());
+            paymentDateDV.fillComponents(payment.getPaymentDate(), "Data do pagamento");
             paymentValueET.setText(""+payment.getValue());
             if(payment.getCreditCard() != null) {
                 creditCardET.setText(payment.getCreditCard().getNumber());
@@ -152,7 +153,7 @@ public class PaymentsActivity extends AbstractActivity{
             }
             payment.setExpense(expense);
             payment.setPayer(payer);
-            payment.setPaymentDate(new Date());//paymentDateET.getText().toString()
+            payment.setPaymentDate(paymentDateDV.buildDate());
             PaymentWay paymentWay = PaymentWay.valueOf(paymentWayET.getText().toString());
             if(paymentWay != null) {
                 payment.setPaymentWay(paymentWay);

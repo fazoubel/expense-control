@@ -11,15 +11,12 @@ public class AddressData {
     @PrimaryKey (autoGenerate = true)
     private int addressId;
 
-    @NonNull
     @ColumnInfo(name = "street")
     private String street;
 
-    @NonNull
     @ColumnInfo(name = "number")
     private int number;
 
-    @NonNull
     @ColumnInfo(name = "neighborhood")
     private String neighborhood;
 

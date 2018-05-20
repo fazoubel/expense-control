@@ -11,7 +11,6 @@ public class StoreData {
     @PrimaryKey(autoGenerate = true)
     private int storeId;
 
-    @NonNull
     @ColumnInfo(name = "store_name")
     private String storeName;
 
@@ -39,7 +38,6 @@ public class StoreData {
     @ColumnInfo(name = "manager_email")
     private String managerEmail;
 
-    @NonNull
     @ColumnInfo(name = "address_id")
     private int addressId;
 

@@ -71,8 +71,8 @@
             app:layout_constraintStart_toEndOf="@+id/descriptionLabel"
             app:layout_constraintTop_toBottomOf="@+id/expenseName" />
 
-        <EditText
-            android:id="@+id/paymentDateLabel"
+        <com.azoubel.expensecontrol.ui.view.DateView
+            android:id="@+id/expirationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -85,20 +85,6 @@
             app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
         <EditText
-            android:id="@+id/expirationDate"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.906"
-            app:layout_constraintStart_toEndOf="@+id/paymentDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
-
-
-        <EditText
             android:id="@+id/expenseValueLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +95,7 @@
             android:text="valor da compra:"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/paymentDateLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/expirationDate" />
 
         <EditText
             android:id="@+id/initialValue"
@@ -250,8 +236,8 @@
             app:layout_constraintStart_toEndOf="@+id/assessmentLabel"
             app:layout_constraintTop_toBottomOf="@+id/store" />
 
-        <EditText
-            android:id="@+id/expenseDateLabel"
+        <com.azoubel.expensecontrol.ui.view.DateView
+            android:id="@+id/expenseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -263,20 +249,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/assessmentLabel" />
 
-        <EditText
-            android:id="@+id/expenseDate"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:inputType="text"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="@+id/expenseDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/assessment" />
-
         <Button
             android:id="@+id/save"
             android:layout_width="wrap_content"
@@ -285,7 +257,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="salvar"
-            android:inputType="text" app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/expenseDate" />
 

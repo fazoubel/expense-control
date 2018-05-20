@@ -6,6 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 @Entity
 public class CreditCardData {
 
@@ -13,12 +15,11 @@ public class CreditCardData {
     @NonNull
     private String number;
 
-    @NonNull
     @ColumnInfo(name = "user_id")
     private long userId;
 
     @ColumnInfo(name = "expiration_date")
-    private String expiration_date;
+    private Date expiration_date;
 
     @ColumnInfo(name = "flag")
     private String flag;
@@ -40,11 +41,11 @@ public class CreditCardData {
         this.userId = userId;
     }
 
-    public String getExpiration_date() {
+    public Date getExpiration_date() {
         return expiration_date;
     }
 
-    public void setExpiration_date(String expiration_date) {
+    public void setExpiration_date(Date expiration_date) {
         this.expiration_date = expiration_date;
     }
 
