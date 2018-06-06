@@ -16,9 +16,7 @@ import com.azoubel.expensecontrol.data.AppDatabase;
 import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
-import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
-import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Car;
 import com.azoubel.expensecontrol.model.User.House;
@@ -530,17 +528,18 @@ public class Controller extends BuilderController{
             ExpenseData expenseData = new ExpenseData();
             Person person = expense.getBuyer();
             Store store = expense.getStore();
-            if(person != null && store != null) {
+            if(person != null) {
                 expenseData.setUserId(person.getUserId());
-                expenseData.setStoreId(store.getStoreId());
+                if(store != null) {
+                    expenseData.setStoreId(store.getStoreId());
+                }
+
                 expenseData.setInitialValue(expense.getInitialValue());
                 expenseData.setExpirationDate(expense.getExpirationDate());
 
                 expenseData.setAssessment(expense.getAssessment());
-                ExpenseCategory category = expense.getCategory();
-                if(category != null) {
-                    expenseData.setCategory(category.name());
-                }
+                expenseData.setCategory(expense.getCategory());
+
                 expenseData.setDescription(expense.getDescription());
                 expenseData.setBuyingDate(expense.getExpenseDate());
                 AppDatabase.getInstance(context).expenseDAO().insertAll(expenseData);
@@ -561,10 +560,7 @@ public class Controller extends BuilderController{
                 expenseData.setExpirationDate(expense.getExpirationDate());
 
                 expenseData.setAssessment(expense.getAssessment());
-                ExpenseCategory category = expense.getCategory();
-                if(category != null) {
-                    expenseData.setCategory(category.name());
-                }
+                expenseData.setCategory(expense.getCategory());
                 expenseData.setDescription(expense.getDescription());
                 expenseData.setBuyingDate(expense.getExpenseDate());
 
@@ -590,10 +586,7 @@ public class Controller extends BuilderController{
                     paymentData.setUserId(payer.getUserId());
                 }
                 paymentData.setValue(payment.getValue());
-                PaymentWay paymentWay = payment.getPaymentWay();
-                if(paymentWay != null) {
-                    paymentData.setPaymentWay(paymentWay.name());
-                }
+                paymentData.setPaymentWay(payment.getPaymentWay());
 
                 AppDatabase.getInstance(context).paymentDAO().insertPayment(paymentData);
                 ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expense.getExpenseId());
@@ -619,10 +612,7 @@ public class Controller extends BuilderController{
                     paymentData.setUserId(payer.getUserId());
                 }
                 paymentData.setValue(payment.getValue());
-                PaymentWay paymentWay = payment.getPaymentWay();
-                if(paymentWay != null) {
-                    paymentData.setPaymentWay(paymentWay.name());
-                }
+                paymentData.setPaymentWay(payment.getPaymentWay());
 
                 AppDatabase.getInstance(context).paymentDAO().update(paymentData);
                 ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(expense.getExpenseId());

@@ -16,15 +16,12 @@ import com.azoubel.expensecontrol.data.model.UserData.UserData;
 import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
-import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
-import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Car;
 import com.azoubel.expensecontrol.model.User.House;
 import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.Pet;
-import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -223,10 +220,14 @@ public class BuilderController {
         expense.setDescription(expenseData.getDescription());
 
         StoreData storeData = AppDatabase.getInstance(context).storeDAO().getStore(expenseData.getStoreId());
-        Store store = buildStore(context, storeData);
-        expense.setStore(store);
+        if(storeData != null) {
+            Store store = buildStore(context, storeData);
+            expense.setStore(store);
+        }
 
-        expense.setCategory(ExpenseCategory.valueOf(expenseData.getCategory()));
+        if(expenseData.getCategory() != null) {
+            expense.setCategory(expenseData.getCategory());
+        }
 
         Date expirationDate = expenseData.getExpirationDate();
         expense.setExpirationDate(expirationDate);
@@ -305,7 +306,9 @@ public class BuilderController {
         Expense expense = buildExpense(context, expenseData);
         payment.setExpense(expense);
 
-        payment.setPaymentWay(PaymentWay.valueOf(paymentData.getPaymentWay()));
+        if(paymentData.getPaymentWay() != null) {
+            payment.setPaymentWay(paymentData.getPaymentWay());
+        }
 
         payment.setValue(paymentData.getValue());
 

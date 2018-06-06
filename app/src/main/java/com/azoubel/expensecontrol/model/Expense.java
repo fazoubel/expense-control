@@ -27,7 +27,7 @@ public class Expense{
 
     private Person buyer;
 
-    private ExpenseCategory category;
+    private String category;
 
     public int getExpenseId() {
         return expenseId;
@@ -69,11 +69,11 @@ public class Expense{
         this.description = description;
     }
 
-    public ExpenseCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(ExpenseCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -121,8 +121,6 @@ public class Expense{
     public String toString() {
         return String.format(this.description + "\n"
                 + "comprador: " + this.buyer.getFirstName() + " " + buyer.getLastName() + "\n"
-                + "loja: " + this.store.getStoreName() + "\n"
-                + "categoria: " + this.getCategory().name() + "\n"
                 + "valor da compra: R$ " + this.initialValue + "\n"
                 + "data de vencimento: " + this.expirationDate + "\n");
     }

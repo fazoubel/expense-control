@@ -13,7 +13,7 @@ public class Payment {
 
     private Person payer;
 
-    private PaymentWay paymentWay;
+    private String paymentWay;
 
     private float value;
 
@@ -45,11 +45,11 @@ public class Payment {
         this.payer = payer;
     }
 
-    public PaymentWay getPaymentWay() {
+    public String getPaymentWay() {
         return paymentWay;
     }
 
-    public void setPaymentWay(PaymentWay paymentWay) {
+    public void setPaymentWay(String paymentWay) {
         this.paymentWay = paymentWay;
     }
 

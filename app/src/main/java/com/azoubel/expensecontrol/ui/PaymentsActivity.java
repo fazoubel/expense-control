@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,6 @@ import com.azoubel.expensecontrol.R;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.Payment;
-import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.ui.view.DateView;
 
@@ -104,7 +104,7 @@ public class PaymentsActivity extends AbstractActivity{
             expenseNameET.setText(payment.getExpense().getDescription());
             payer = payment.getPayer();
             payerET.setText(payer.getFirstName() + " " + payment.getPayer().getLastName());
-            paymentWayET.setText(payment.getPaymentWay().toString());
+            paymentWayET.setText(payment.getPaymentWay());
             paymentDateDV.fillComponents(payment.getPaymentDate(), "Data do pagamento");
             paymentValueET.setText(""+payment.getValue());
             if(payment.getCreditCard() != null) {
@@ -154,14 +154,17 @@ public class PaymentsActivity extends AbstractActivity{
             payment.setExpense(expense);
             payment.setPayer(payer);
             payment.setPaymentDate(paymentDateDV.buildDate());
-            PaymentWay paymentWay = PaymentWay.valueOf(paymentWayET.getText().toString());
-            if(paymentWay != null) {
-                payment.setPaymentWay(paymentWay);
+            if(!TextUtils.isEmpty(paymentWayET.getText().toString())) {
+                payment.setPaymentWay(paymentWayET.getText().toString());
             }
-            payment.setValue(Float.parseFloat(paymentValueET.getText().toString()));
-            CreditCard creditCard = controller.getCreditCard(this, creditCardET.getText().toString());
-            if(creditCard != null) {
-                payment.setCreditCard(creditCard);
+            if(!TextUtils.isEmpty(paymentValueET.getText().toString())) {
+                payment.setValue(Float.parseFloat(paymentValueET.getText().toString()));
+            }
+            if(!TextUtils.isEmpty(creditCardET.getText().toString())) {
+                CreditCard creditCard = controller.getCreditCard(this, creditCardET.getText().toString());
+                if(creditCard != null) {
+                    payment.setCreditCard(creditCard);
+                }
             }
         }
     }

@@ -18,9 +18,7 @@ import com.azoubel.expensecontrol.controller.Controller;
 import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
-import com.azoubel.expensecontrol.model.ExpenseCategory;
 import com.azoubel.expensecontrol.model.Payment;
-import com.azoubel.expensecontrol.model.PaymentWay;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
@@ -251,7 +249,7 @@ public class HomeActivity extends AppCompatActivity
             expense1.setInitialValue(55.04f);
             expense1.setExpenseDate(expirationDate);
             expense1.setExpirationDate(expirationDate);
-            expense1.setCategory(ExpenseCategory.compra);
+            expense1.setCategory("compra");
             expense1.setDescription("compra de tartaruga");
             expense1.setAssessment(0);
 
@@ -267,7 +265,7 @@ public class HomeActivity extends AppCompatActivity
             expense2.setInitialValue(105.00f);
             expense2.setExpenseDate(expirationDate2);
             expense2.setExpirationDate(expirationDate2);
-            expense2.setCategory(ExpenseCategory.compra);
+            expense2.setCategory("compra");
             expense2.setDescription("compra de cágado");
             expense2.setAssessment(5.5f);
 
@@ -279,7 +277,7 @@ public class HomeActivity extends AppCompatActivity
             payment1.setValue(expenseList.get(0).getInitialValue()/2);
             payment1.setExpense(expenseList.get(0));
             payment1.setPayer((Person)users.get(0));
-            payment1.setPaymentWay(PaymentWay.dinheiro);
+            payment1.setPaymentWay("dinheiro");
             //payment1.setPaymentDate();
             //payment1.setCreditCard("");
 
@@ -297,7 +295,7 @@ public class HomeActivity extends AppCompatActivity
             payment2.setValue(expenseList.get(0).getInitialValue()/2);
             payment2.setExpense(expenseList.get(0));
             payment2.setPayer((Person)users.get(0));
-            payment2.setPaymentWay(PaymentWay.cartão_de_crédito);
+            payment2.setPaymentWay("credito");
             //payment2.setPaymentDate();
             payment2.setCreditCard(creditCard1);
 
@@ -325,7 +323,7 @@ public class HomeActivity extends AppCompatActivity
             payment3.setValue(expenseList2.get(0).getInitialValue()/3);
             payment3.setExpense(expenseList2.get(0));
             payment3.setPayer((Person)users.get(0));
-            payment3.setPaymentWay(PaymentWay.cartão_de_crédito);
+            payment3.setPaymentWay("credito");
             //payment3.setPaymentDate();
             payment3.setCreditCard(creditCard1);
 
@@ -335,7 +333,7 @@ public class HomeActivity extends AppCompatActivity
             payment4.setValue(expenseList2.get(0).getInitialValue()/3);
             payment4.setExpense(expenseList2.get(0));
             payment4.setPayer((Person)users.get(1));
-            payment4.setPaymentWay(PaymentWay.cartão_de_crédito);
+            payment4.setPaymentWay("credito");
             //payment4.setPaymentDate();
             payment4.setCreditCard(creditCard2);
 
@@ -345,7 +343,7 @@ public class HomeActivity extends AppCompatActivity
             payment5.setValue(expenseList2.get(0).getInitialValue()/3);
             payment5.setExpense(expenseList2.get(0));
             payment5.setPayer((Person)users.get(1));
-            payment5.setPaymentWay(PaymentWay.cartão_de_crédito);
+            payment5.setPaymentWay("credito");
             //payment5.setPaymentDate();
             payment5.setCreditCard(creditCard3);
 
@@ -416,6 +414,7 @@ public class HomeActivity extends AppCompatActivity
                 }
                 else if(expensesView.getVisibility() == View.VISIBLE) {
                     Intent startExpensesActivityIntent = new Intent(HomeActivity.this, ExpensesActivity.class);
+                    startExpensesActivityIntent.putExtra("buyer", usersView.getSelectedUser().getUserId());
                     startActivityForResult(startExpensesActivityIntent, EXPENSE_ACTIVITY);
                 }
                 else if(paymentsView.getVisibility() == View.VISIBLE){
@@ -604,7 +603,7 @@ public class HomeActivity extends AppCompatActivity
             usersView.setData(users, this);
         }
         else if(requestCode == EXPENSE_ACTIVITY) {
-            long userId = expensesView.getSelectedExpense().getBuyer().getUserId();
+            long userId = usersView.getSelectedUser().getUserId();
             List<Expense> expenseList = controller.findExpenseByUser(HomeActivity.this, userId);
             expensesView.setData(expenseList, HomeActivity.this);
         }
