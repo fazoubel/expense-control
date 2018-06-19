@@ -69,6 +69,17 @@
 
         </com.azoubel.expensecontrol.ui.view.StoreView>
 
+        <com.azoubel.expensecontrol.ui.view.PromotionsView
+            android:id="@+id/promotions_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            android:visibility="gone">
+
+        </com.azoubel.expensecontrol.ui.view.PromotionsView>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_button"
             android:layout_width="70dp"

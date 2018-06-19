@@ -11,7 +11,7 @@ import java.util.Date;
 public class ExpenseData {
 
     @PrimaryKey(autoGenerate = true)
-    private int expenseId;
+    private long expenseId;
 
     @ColumnInfo(name = "initial_value")
     private float initialValue;
@@ -40,11 +40,11 @@ public class ExpenseData {
     @ColumnInfo(name = "category")
     private String category;
 
-    public int getExpenseId() {
+    public long getExpenseId() {
         return expenseId;
     }
 
-    public void setExpenseId(int expenseId) {
+    public void setExpenseId(long expenseId) {
         this.expenseId = expenseId;
     }
 

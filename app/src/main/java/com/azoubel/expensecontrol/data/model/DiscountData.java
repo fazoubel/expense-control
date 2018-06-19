@@ -1,22 +1,23 @@
 package com.azoubel.expensecontrol.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
+@Entity(primaryKeys = {"expenseId", "promotionId"})
 public class DiscountData {
 
-    @PrimaryKey
-    private int expenseId;
+    @ColumnInfo(name = "expenseId")
+    private long expenseId;
 
-    @PrimaryKey
+    @ColumnInfo(name = "promotionId")
     private int promotionId;
 
-    public int getExpenseId() {
+    public long getExpenseId() {
         return expenseId;
     }
 
-    public void setExpenseId(int expenseId) {
+    public void setExpenseId(long expenseId) {
         this.expenseId = expenseId;
     }
 

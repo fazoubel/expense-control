@@ -16,7 +16,7 @@ public class Promotion {
 
     private Date endDate;
 
-    private int storeId;
+    private Store store;
 
     private String paymentWayRestriction;
 
@@ -25,8 +25,6 @@ public class Promotion {
     private Date prizeLotteryDate;
 
     private String phoneNumber;
-
-    private String brand;
 
     public int getPromotionId() {
         return promotionId;
@@ -76,12 +74,12 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public int getStoreId() {
-        return storeId;
+    public Store getStore() {
+        return store;
     }
 
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     public String getPaymentWayRestriction() {
@@ -116,11 +114,8 @@ public class Promotion {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
+    @Override
+    public String toString() {
+        return description;
     }
 }

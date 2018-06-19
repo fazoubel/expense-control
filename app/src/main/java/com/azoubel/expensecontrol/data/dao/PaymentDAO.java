@@ -26,7 +26,7 @@ public interface PaymentDAO {
     PaymentData getPayment(int paymentId);
 
     @Query("SELECT * FROM PaymentData WHERE expense_id = :expenseId")
-    List<PaymentData> findPaymentsByExpense(int expenseId);
+    List<PaymentData> findPaymentsByExpense(long expenseId);
 
     @Delete
     void delete(PaymentData paymentData);

@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.azoubel.expensecontrol.data.model.AddressData;
 import com.azoubel.expensecontrol.data.model.CreditCardData;
+import com.azoubel.expensecontrol.data.model.DiscountData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
 import com.azoubel.expensecontrol.data.model.PaymentData;
+import com.azoubel.expensecontrol.data.model.PromotionData;
 import com.azoubel.expensecontrol.data.model.StoreData;
 import com.azoubel.expensecontrol.data.model.UserData.CarData;
 import com.azoubel.expensecontrol.data.model.UserData.HouseData;
@@ -17,6 +19,7 @@ import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.Payment;
+import com.azoubel.expensecontrol.model.Promotion;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Car;
 import com.azoubel.expensecontrol.model.User.House;
@@ -25,6 +28,7 @@ import com.azoubel.expensecontrol.model.User.Pet;
 import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -456,19 +460,6 @@ public class Controller extends BuilderController{
             }
         }
 
-        /*List<UserData> userDataList= new ArrayList<>();
-        if(personDataList != null && !personDataList.isEmpty()) {
-            userDataList.addAll(personDataList);
-        }*/
-        /*List<UserData> personDataList = new ArrayList<>();
-        if(userDataList != null && !userDataList.isEmpty()) {
-            for (UserData userData : userDataList) {
-                if(userData instanceof PersonData) {
-                    personDataList.add(userData);
-                }
-            }
-        }*/
-
         return personList;
     }
 
@@ -478,23 +469,7 @@ public class Controller extends BuilderController{
         List<CarData> carDataList = AppDatabase.getInstance(context).userDAO().getAllCars();
         List<HouseData> houseDataList = AppDatabase.getInstance(context).userDAO().getAllHouses();
         List<User> users = new ArrayList<>();
-        /*if(userDataList != null && !userDataList.isEmpty()) {
-            for (UserData userData: userDataList) {
-                if(userData instanceof PersonData) {
-                    users.add(buildPerson(context, (PersonData) userData));
-                }
-                else if(userData instanceof PetData) {
-                    users.add(buildPet(context, (PetData) userData));
-                }
-                else if(userData instanceof HouseData) {
-                    users.add(buildHouse(context, (HouseData) userData));
-                }
-                else if(userData instanceof CarData) {
-                    users.add(buildCar(context, (CarData) userData));
-                }
 
-            }
-        }*/
         if(personDataList != null && !personDataList.isEmpty()) {
             for (PersonData personData: personDataList) {
                 UserData userData= AppDatabase.getInstance(context).userDAO().getUser(personData.getUserId());
@@ -540,9 +515,23 @@ public class Controller extends BuilderController{
                 expenseData.setAssessment(expense.getAssessment());
                 expenseData.setCategory(expense.getCategory());
 
+                expenseData.setFinalValue(expense.getFinalValue());
+
                 expenseData.setDescription(expense.getDescription());
                 expenseData.setBuyingDate(expense.getExpenseDate());
-                AppDatabase.getInstance(context).expenseDAO().insertAll(expenseData);
+
+                long id = AppDatabase.getInstance(context).expenseDAO().insert(expenseData);
+
+                List<Promotion> discounts = expense.getDiscountList();
+
+                if(discounts != null && !discounts.isEmpty()) {
+                    for (Promotion discount : discounts) {
+                        DiscountData discountData = new DiscountData();
+                        discountData.setExpenseId(id);
+                        discountData.setPromotionId(discount.getPromotionId());
+                        AppDatabase.getInstance(context).discountDAO().insertAll(discountData);
+                    }
+                }
             }
         }
     }
@@ -563,6 +552,21 @@ public class Controller extends BuilderController{
                 expenseData.setCategory(expense.getCategory());
                 expenseData.setDescription(expense.getDescription());
                 expenseData.setBuyingDate(expense.getExpenseDate());
+
+                expenseData.setFinalValue(expense.getFinalValue());
+
+                AppDatabase.getInstance(context).discountDAO().deleteDiscounts(expense.getExpenseId());
+
+                List<Promotion> discounts = expense.getDiscountList();
+
+                if(discounts != null && !discounts.isEmpty()) {
+                    for (Promotion discount : discounts) {
+                        DiscountData discountData = new DiscountData();
+                        discountData.setExpenseId(expense.getExpenseId());
+                        discountData.setPromotionId(discount.getPromotionId());
+                        AppDatabase.getInstance(context).discountDAO().insertAll(discountData);
+                    }
+                }
 
                 AppDatabase.getInstance(context).expenseDAO().update(expenseData);
             }
@@ -622,7 +626,7 @@ public class Controller extends BuilderController{
         }
     }
 
-    public List<Payment> findPaymentsByExpense(Context context, int expenseId) {
+    public List<Payment> findPaymentsByExpense(Context context, long expenseId) {
         List<PaymentData> paymentDataList = AppDatabase.getInstance(context).paymentDAO().findPaymentsByExpense(expenseId);
         List<Payment> payments = buildPayments(context, paymentDataList);
         return payments;
@@ -638,7 +642,7 @@ public class Controller extends BuilderController{
         return buildExpenses(context, expenseDataList);
     }
 
-    public Expense getExpense(Context context, int id) {
+    public Expense getExpense(Context context, long id) {
         Expense expense = null;
         ExpenseData expenseData = AppDatabase.getInstance(context).expenseDAO().getExpense(id);
         if(expenseData != null) {
@@ -794,6 +798,362 @@ public class Controller extends BuilderController{
             creditCard = buildCreditCard(context, creditCardData);
         }
         return creditCard;
+    }
+
+    public void addPromotion(Context context, Promotion promotion) {
+        if(promotion != null) {
+            PromotionData promotionData = new PromotionData();
+            promotionData.setDescription(promotion.getDescription());
+            promotionData.setDiscountInPercent(promotion.getDiscountInPercent());
+            promotionData.setStartDate(promotion.getStartDate());
+            promotionData.setName(promotion.getName());
+            promotionData.setEndDate(promotion.getEndDate());
+            promotionData.setPaymentWayRestriction(promotion.getPaymentWayRestriction());
+            promotionData.setPrize(promotion.getPrize());
+            promotionData.setPrizeLotteryDate(promotion.getPrizeLotteryDate());
+            promotionData.setPhoneNumber(promotion.getPhoneNumber());
+            if(promotion.getStore() != null) {
+                promotionData.setStoreId(promotion.getStore().getStoreId());
+            }
+
+            AppDatabase.getInstance(context).promotionDAO().insertAll(promotionData);
+        }
+
+    }
+
+
+    public void updatePromotion(Context context, Promotion promotion) {
+        if(promotion != null) {
+            PromotionData promotionData = AppDatabase.getInstance(context).promotionDAO().getPromotion(promotion.getPromotionId());
+            if(promotionData != null) {
+                promotionData.setDescription(promotion.getDescription());
+                promotionData.setDiscountInPercent(promotion.getDiscountInPercent());
+                promotionData.setStartDate(promotion.getStartDate());
+                promotionData.setName(promotion.getName());
+                promotionData.setEndDate(promotion.getEndDate());
+                promotionData.setPaymentWayRestriction(promotion.getPaymentWayRestriction());
+                promotionData.setPrize(promotion.getPrize());
+                promotionData.setPrizeLotteryDate(promotion.getPrizeLotteryDate());
+                promotionData.setPhoneNumber(promotion.getPhoneNumber());
+                if(promotion.getStore() != null) {
+                    promotionData.setStoreId(promotion.getStore().getStoreId());
+                }
+                AppDatabase.getInstance(context).promotionDAO().update(promotionData);
+            }
+        }
+    }
+
+    public Promotion getPromotion(Context context, int promotionId) {
+        Promotion promotion = null;
+        PromotionData promotionData = AppDatabase.getInstance(context).promotionDAO().getPromotion(promotionId);
+        if(promotionData != null) {
+            promotion = buildPromotion(context, promotionData);
+        }
+        return  promotion;
+    }
+
+    public List<Promotion> getAllPromotionsByStore(Context context, Store store) {
+        List<Promotion> allPromotions = new ArrayList<>();
+        List<PromotionData> allPromotionByStore = AppDatabase.getInstance(context).promotionDAO().getAllPromotionByStore(store.getStoreId());
+        if(allPromotionByStore != null && !allPromotionByStore.isEmpty()) {
+            for (PromotionData promotionData : allPromotionByStore) {
+                allPromotions.add(buildPromotion(context, promotionData));
+            }
+        }
+        return allPromotions;
+    }
+
+    public List<Promotion> getAllPromotions(Context context) {
+        List<Promotion> allPromotions = new ArrayList<>();
+        List<PromotionData> allPromotionData = AppDatabase.getInstance(context).promotionDAO().getAllPromotions();
+        if(allPromotionData != null && !allPromotionData.isEmpty()) {
+            for (PromotionData promotionData : allPromotionData) {
+                allPromotions.add(buildPromotion(context, promotionData));
+            }
+        }
+        return allPromotions;
+    }
+    
+    public void populateDatabase(Context context) {
+        Address address1 = new Address();
+        address1.setStreet("rua alemanha");
+        address1.setNumber(102);
+        address1.setNeighborhood("rio doce");
+        address1.setCity("olinda");
+        address1.setState("pernambuco");
+        address1.setCountry("brazil");
+        address1.setZipCode("11111-111");
+        //address1.setReference();
+        //address1.setApartment();
+        //address1.setApartmentBlock();
+
+        addAddress(context, address1);
+
+        Address address2 = new Address();
+        address2.setStreet("rua chicago");
+        address2.setNumber(2052);
+        address2.setNeighborhood("Graças");
+        address2.setCity("Recife");
+        address2.setState("pernambuco");
+        address2.setCountry("brazil");
+        address2.setZipCode("22222-222");
+        address2.setReference("perto do longe");
+        address2.setApartment(1345);
+        address2.setApartmentBlock("D");
+
+        addAddress(context, address2);
+
+        Address address3 = new Address();
+        address3.setStreet("rua Mexico");
+        address3.setNumber(119);
+        address3.setNeighborhood("Paris");
+        address3.setCity("Paulista");
+        address3.setState("pernambuco");
+        address3.setCountry("brazil");
+        address3.setZipCode("33333-333");
+        address3.setApartment(236);
+        address3.setApartmentBlock("Norte");
+
+        addAddress(context, address3);
+
+        //addAddress(this, "avenida mexico", 102, "rio doce","paulista", "pernambuco", "brazil", "33333-333");
+
+        address1 = findAddress(context, "rua alemanha", 102, "rio doce");
+
+        address2 = findAddress(context, "rua chicago", 2052, "Graças");
+
+        address3 = findAddress(context, "rua Mexico", 119, "Paris");
+
+        Person person1 = new Person();
+        person1.setFirstName("fernando");
+        person1.setLastName("oliveira");
+        person1.setNickName("nando");
+        person1.setPhoneNumber("111111111111");
+        person1.setBirthday(new Date());
+        person1.setSex("masculino");
+        person1.setImage(User.IMAGE_BOY);
+        person1.setExpectedExpensesValue(500f);
+        person1.setAddress(address1);
+
+        addPerson(context, person1);
+
+        Person person2 = new Person();
+        person2.setFirstName("thiago");
+        person2.setLastName("lopes");
+        person2.setNickName("txubaca");
+        person2.setPhoneNumber("222222222222");
+        person2.setBirthday(new Date());
+        person2.setSex("masculino");
+        person2.setImage(User.IMAGE_OLD_MAN);
+        person2.setExpectedExpensesValue(1500f);
+        person2.setAddress(address2);
+
+        addPerson(context, person2);
+
+        Person person3 = new Person();
+        person3.setFirstName("caliane");
+        person3.setLastName("figueredo");
+        person3.setNickName("iemanja");
+        person3.setPhoneNumber("3333333333");
+        person3.setBirthday(new Date());
+        person3.setSex("feminino");
+        person3.setImage(User.IMAGE_WOMAN);
+        person1.setExpectedExpensesValue(5000f);
+        person3.setAddress(address3);
+
+        addPerson(context, person3);
+
+        List<User> users = loadAllUsers(context);
+
+        Store store1 = new Store();
+        store1.setStoreName("loja tartaruga");
+        store1.setSite("tartarugas.com.br");
+        store1.setDescription("loja de tartarugas");
+        store1.setProductType("animais");
+        store1.setPhoneNumber("12321312312");
+        store1.setEmail("lojatartaruga@gmail.com");
+        store1.setManagerName("Olavo");
+        store1.setManagerPhoneNumber("123123123");
+        store1.setManagerEmail("olavogerente@gmail.com");
+        store1.setAddress(address1);
+
+        addStore(context, store1);
+
+        Store store2 = new Store();
+        store2.setStoreName("loja abobrinha");
+        store2.setSite("abobrinhas.com.br");
+        store2.setDescription("loja de abobrinha");
+        store2.setProductType("abobrinhas");
+        store2.setPhoneNumber("9999999999999");
+        store2.setEmail("lojaabobrinhas@gmail.com");
+        store2.setManagerName("Gilmar");
+        store2.setManagerPhoneNumber("44444444444");
+        store2.setManagerEmail("gilmargerente@gmail.com");
+        store2.setAddress(address2);
+
+        addStore(context, store2);
+
+        Calendar calendar = Calendar.getInstance();
+
+        //calendar.add(Calendar.DATE, 2);
+
+        Date expirationDate = calendar.getTime();
+
+        List<Store> stores = getAllStores(context);
+
+        store1=null;
+        store2=null;
+
+        if(!stores.isEmpty() && stores.size() >=2) {
+            store1 = stores.get(0);
+            store2 = stores.get(1);
+        }
+
+        Expense expense1 = new Expense();
+        expense1.setBuyer((Person)users.get(0));
+        expense1.setStore(store1);
+        expense1.setInitialValue(55.04f);
+        expense1.setExpenseDate(expirationDate);
+        expense1.setExpirationDate(expirationDate);
+        expense1.setCategory("compra");
+        expense1.setDescription("compra de tartaruga");
+        expense1.setAssessment(0);
+
+        Promotion promotion1 = new Promotion();
+        promotion1.setDescription("compre uma tartaruga pela metade do preço!");
+        promotion1.setDiscountInPercent(50f);
+        promotion1.setStartDate(calendar.getTime());
+        promotion1.setName("compra de tartaruga");
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
+        promotion1.setEndDate(calendar.getTime());
+        promotion1.setPaymentWayRestriction("dinheiro");
+        promotion1.setPrize("sem prêmio");
+        promotion1.setPhoneNumber("(51)988990077");
+        promotion1.setStore(store1);
+
+        addPromotion(context, promotion1);
+
+        promotion1 = getPromotion(context ,1);
+
+        Promotion promotion2 = new Promotion();
+        promotion2.setDescription("compre uma abobrinha com 20% de desconto!");
+        promotion2.setDiscountInPercent(20f);
+        calendar = Calendar.getInstance();
+        promotion2.setStartDate(calendar.getTime());
+        promotion2.setName("compra de abobrinha");
+        calendar.add(Calendar.DATE, 10);
+        promotion2.setEndDate(calendar.getTime());
+        promotion2.setPrize("uma paçoca");
+        promotion2.setPhoneNumber("(51)988728631");
+        promotion2.setStore(store2);
+
+        addPromotion(context, promotion2);
+
+        promotion2 = getPromotion(context ,2);
+
+        List<Promotion> discountsList = new ArrayList<>();
+        discountsList.add(promotion1);
+        discountsList.add(promotion2);
+
+        expense1.setDiscountList(discountsList);
+
+        addExpense(context, expense1);
+
+        Date expirationDate2 = calendar.getTime();
+
+        Expense expense2 = new Expense();
+        expense2.setBuyer((Person)users.get(1));
+        expense2.setStore(store2);
+        expense2.setInitialValue(105.00f);
+        expense2.setExpenseDate(expirationDate2);
+        expense2.setExpirationDate(expirationDate2);
+        expense2.setCategory("compra");
+        expense2.setDescription("compra de cágado");
+        expense2.setAssessment(5.5f);
+
+        addExpense(context, expense2);
+
+        List<Expense> expenseList = findExpenseByUser(context, users.get(0).getUserId());
+
+        Payment payment1 = new Payment();
+        payment1.setValue(expenseList.get(0).getInitialValue()/2);
+        payment1.setExpense(expenseList.get(0));
+        payment1.setPayer((Person)users.get(0));
+        payment1.setPaymentWay("dinheiro");
+        //payment1.setPaymentDate();
+        //payment1.setCreditCard("");
+
+        addPayment(context, payment1);
+
+        CreditCard creditCard1 = new CreditCard();
+        creditCard1.setFlag("visa");
+        creditCard1.setExpiration_date(new Date());
+        creditCard1.setNumber("2222-3333-4444-5555");
+        creditCard1.setUser(users.get(0));
+
+        addCreditCard(context, creditCard1);
+
+        Payment payment2 = new Payment();
+        payment2.setValue(expenseList.get(0).getInitialValue()/2);
+        payment2.setExpense(expenseList.get(0));
+        payment2.setPayer((Person)users.get(0));
+        payment2.setPaymentWay("credito");
+        //payment2.setPaymentDate();
+        payment2.setCreditCard(creditCard1);
+
+        addPayment(context, payment2);
+
+        CreditCard creditCard2 = new CreditCard();
+        creditCard2.setFlag("mastercard");
+        creditCard2.setExpiration_date(new Date());
+        creditCard2.setNumber("1111-3333-7777-5555");
+        creditCard2.setUser(users.get(1));
+
+        addCreditCard(context, creditCard2);
+
+        CreditCard creditCard3 = new CreditCard();
+        creditCard3.setFlag("visa");
+        creditCard3.setExpiration_date(new Date());
+        creditCard3.setNumber("6666-3436-7444-5895");
+        creditCard3.setUser(users.get(1));
+
+        addCreditCard(context, creditCard3);
+
+        List<Expense> expenseList2 = findExpenseByUser(context, users.get(1).getUserId());
+
+        Payment payment3 = new Payment();
+        payment3.setValue(expenseList2.get(0).getInitialValue()/3);
+        payment3.setExpense(expenseList2.get(0));
+        payment3.setPayer((Person)users.get(0));
+        payment3.setPaymentWay("credito");
+        //payment3.setPaymentDate();
+        payment3.setCreditCard(creditCard1);
+
+        addPayment(context, payment3);
+
+        Payment payment4 = new Payment();
+        payment4.setValue(expenseList2.get(0).getInitialValue()/3);
+        payment4.setExpense(expenseList2.get(0));
+        payment4.setPayer((Person)users.get(1));
+        payment4.setPaymentWay("credito");
+        //payment4.setPaymentDate();
+        payment4.setCreditCard(creditCard2);
+
+        addPayment(context, payment4);
+
+        Payment payment5 = new Payment();
+        payment5.setValue(expenseList2.get(0).getInitialValue()/3);
+        payment5.setExpense(expenseList2.get(0));
+        payment5.setPayer((Person)users.get(1));
+        payment5.setPaymentWay("credito");
+        //payment5.setPaymentDate();
+        payment5.setCreditCard(creditCard3);
+
+        addPayment(context, payment5);
+
+
+
     }
 
 }

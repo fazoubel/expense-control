@@ -47,7 +47,7 @@ public class PaymentsActivity extends AbstractActivity{
                 expense = payment.getExpense();
             }
             else if(intent.hasExtra("expense_id")) {
-                expense = controller.getExpense(this, intent.getIntExtra("expense_id", -1));
+                expense = controller.getExpense(this, intent.getLongExtra("expense_id", -1));
             }
         }
 

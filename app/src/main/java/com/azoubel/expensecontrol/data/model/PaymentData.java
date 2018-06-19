@@ -15,7 +15,7 @@ public class PaymentData {
 
     @NonNull
     @ColumnInfo(name = "expense_id")
-    private int expenseId;
+    private long expenseId;
 
     @ColumnInfo(name = "user_id")
     private long userId;
@@ -40,11 +40,11 @@ public class PaymentData {
         this.paymentId = paymentId;
     }
 
-    public int getExpenseId() {
+    public long getExpenseId() {
         return expenseId;
     }
 
-    public void setExpenseId(int expenseId) {
+    public void setExpenseId(long expenseId) {
         this.expenseId = expenseId;
     }
 

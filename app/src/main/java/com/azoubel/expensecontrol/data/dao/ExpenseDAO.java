@@ -14,16 +14,13 @@ import java.util.List;
 public interface ExpenseDAO {
 
     @Insert
-    void insertAll(ExpenseData... expens);
+    long insert(ExpenseData expenseData);
 
     @Update
     void update(ExpenseData expenseData);
 
     @Query("SELECT * FROM ExpenseData WHERE expenseId = :expenseId")
-    ExpenseData getExpense(int expenseId);
-
-    @Query("SELECT * FROM ExpenseData WHERE user_id = :userId")
-    List<ExpenseData> findByUser(int userId);
+    ExpenseData getExpense(long expenseId);
 
     @Query("SELECT * FROM ExpenseData WHERE user_id = :userId AND expiration_date >= :startDate AND expiration_date <= :endDate")
     List<ExpenseData> findByUser(long userId, long startDate, long endDate);

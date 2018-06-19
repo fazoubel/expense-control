@@ -13,23 +13,20 @@ public class PromotionData {
     @PrimaryKey(autoGenerate = true)
     private int promotionId;
 
-    @NonNull
     @ColumnInfo(name = "name")
     private String name;
 
     @ColumnInfo(name = "description")
     private String description;
 
-    @NonNull
     @ColumnInfo(name = "discount_in_percent")
     private float discountInPercent;
 
-    @NonNull
     @ColumnInfo(name = "start_date")
-    private Long startDate;
+    private Date startDate;
 
     @ColumnInfo(name = "end_date")
-    private Long endDate;
+    private Date endDate;
 
     @ColumnInfo(name = "store_id")
     private int storeId;
@@ -41,13 +38,10 @@ public class PromotionData {
     private String prize;
 
     @ColumnInfo(name = "prize_lottery_date")
-    private Long prizeLotteryDate;
+    private Date prizeLotteryDate;
 
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
-
-    @ColumnInfo(name = "brand")
-    private String brand;
 
     public int getPromotionId() {
         return promotionId;
@@ -81,19 +75,19 @@ public class PromotionData {
         this.discountInPercent = discountInPercent;
     }
 
-    public Long getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Long startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Long getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Long endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -121,11 +115,11 @@ public class PromotionData {
         this.prize = prize;
     }
 
-    public Long getPrizeLotteryDate() {
+    public Date getPrizeLotteryDate() {
         return prizeLotteryDate;
     }
 
-    public void setPrizeLotteryDate(Long prizeLotteryDate) {
+    public void setPrizeLotteryDate(Date prizeLotteryDate) {
         this.prizeLotteryDate = prizeLotteryDate;
     }
 
@@ -135,14 +129,6 @@ public class PromotionData {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
 }

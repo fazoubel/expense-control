@@ -18,7 +18,7 @@ public class User {
     public static final int IMAGE_WOMAN = 8;
 
 
-    private long userId;
+    protected long userId;
 
     private int image;
 

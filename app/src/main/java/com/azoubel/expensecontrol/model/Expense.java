@@ -4,10 +4,11 @@ import com.azoubel.expensecontrol.model.User.Person;
 import com.azoubel.expensecontrol.model.User.User;
 
 import java.util.Date;
+import java.util.List;
 
 public class Expense{
 
-    private int expenseId;
+    private long expenseId;
 
     private float initialValue;
 
@@ -29,11 +30,13 @@ public class Expense{
 
     private String category;
 
-    public int getExpenseId() {
+    private List<Promotion> discountList;
+
+    public long getExpenseId() {
         return expenseId;
     }
 
-    public void setExpenseId(int expenseId) {
+    public void setExpenseId(long expenseId) {
         this.expenseId = expenseId;
     }
 
@@ -117,11 +120,20 @@ public class Expense{
         this.expenseDate = expenseDate;
     }
 
+    public List<Promotion> getDiscountList() {
+        return discountList;
+    }
+
+    public void setDiscountList(List<Promotion> discountList) {
+        this.discountList = discountList;
+    }
+
     @Override
     public String toString() {
         return String.format(this.description + "\n"
                 + "comprador: " + this.buyer.getFirstName() + " " + buyer.getLastName() + "\n"
                 + "valor da compra: R$ " + this.initialValue + "\n"
+                + "valor à pagar: R$ " + this.finalValue + "\n"
                 + "data de vencimento: " + this.expirationDate + "\n");
     }
 }

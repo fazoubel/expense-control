@@ -5,8 +5,10 @@ import android.content.Context;
 import com.azoubel.expensecontrol.data.AppDatabase;
 import com.azoubel.expensecontrol.data.model.AddressData;
 import com.azoubel.expensecontrol.data.model.CreditCardData;
+import com.azoubel.expensecontrol.data.model.DiscountData;
 import com.azoubel.expensecontrol.data.model.ExpenseData;
 import com.azoubel.expensecontrol.data.model.PaymentData;
+import com.azoubel.expensecontrol.data.model.PromotionData;
 import com.azoubel.expensecontrol.data.model.StoreData;
 import com.azoubel.expensecontrol.data.model.UserData.CarData;
 import com.azoubel.expensecontrol.data.model.UserData.HouseData;
@@ -17,6 +19,7 @@ import com.azoubel.expensecontrol.model.Address;
 import com.azoubel.expensecontrol.model.CreditCard;
 import com.azoubel.expensecontrol.model.Expense;
 import com.azoubel.expensecontrol.model.Payment;
+import com.azoubel.expensecontrol.model.Promotion;
 import com.azoubel.expensecontrol.model.Store;
 import com.azoubel.expensecontrol.model.User.Car;
 import com.azoubel.expensecontrol.model.User.House;
@@ -28,46 +31,6 @@ import java.util.Date;
 import java.util.List;
 
 public class BuilderController {
-
-    /*protected List<User> buildUsers(Context context, List<UserData> userDataList) {
-        List<User> userList = new ArrayList<>();
-        for (UserData userData : userDataList) {
-            User user = buildUser(context, userData);
-            userList.add(user);
-        }
-        return userList;
-    }*/
-
-    /*protected User buildUser(Context context, UserData userData) {
-
-        User user = new User();
-
-        *//*if(userData instanceof PersonData) {
-            user = buildPerson(context, (PersonData) userData);
-        }
-        else  if(userData instanceof PetData) {
-            user = buildPet(context, (PetData) userData);
-        }
-        else if(userData instanceof CarData) {
-            user = buildCar(context, (CarData) userData);
-        }
-        else {
-            user = buildHouse(context, (HouseData) userData);
-        }*//*
-
-        user.setUserId(userData.getId());
-
-        user.setImage(userData.getImage());
-
-        user.setExpectedExpensesValue(userData.getExpectedExpensesValue());
-
-        AddressData addressData = AppDatabase.getInstance(context).addressDAO().getAddress(userData.getAddressId());
-        if(addressData != null) {
-            user.setAddress(buildAddress(addressData));
-        }
-
-        return user;
-    }*/
 
     protected Person buildPerson(Context context, PersonData personData, UserData userData) {
 
@@ -242,6 +205,20 @@ public class BuilderController {
             expense.setExpenseDate(expenseData.getBuyingDate());
         }
 
+        List<Promotion> discounts = new ArrayList<>();
+
+        List<DiscountData> discountDataList = AppDatabase.getInstance(context).discountDAO().getDiscounts(expenseData.getExpenseId());
+
+        if(discountDataList != null && !discountDataList.isEmpty()) {
+            for (DiscountData discountData : discountDataList) {
+                PromotionData promotionData = AppDatabase.getInstance(context).promotionDAO().getPromotion(discountData.getPromotionId());
+                discounts.add(buildPromotion(context, promotionData));
+            }
+
+        }
+
+        expense.setDiscountList(discounts);
+
         return expense;
     }
 
@@ -337,5 +314,28 @@ public class BuilderController {
         creditCard.setFlag(creditCardData.getFlag());
         return creditCard;
     }
+
+    protected Promotion buildPromotion(Context context, PromotionData promotionData) {
+        Promotion promotion = new Promotion();
+        promotion.setPromotionId(promotionData.getPromotionId());
+        promotion.setDescription(promotionData.getDescription());
+        promotion.setDiscountInPercent(promotionData.getDiscountInPercent());
+        promotion.setStartDate(promotionData.getStartDate());
+        promotion.setName(promotionData.getName());
+        promotion.setEndDate(promotionData.getEndDate());
+        promotion.setPaymentWayRestriction(promotionData.getPaymentWayRestriction());
+        promotion.setPrize(promotionData.getPrize());
+        promotion.setPrizeLotteryDate(promotionData.getPrizeLotteryDate());
+        promotion.setPhoneNumber(promotionData.getPhoneNumber());
+
+        StoreData storeData  = AppDatabase.getInstance(context).storeDAO().getStore(promotionData.getStoreId());
+        if(storeData != null) {
+            Store store = buildStore(context, storeData);
+            promotion.setStore(store);
+        }
+        return promotion;
+
+    }
+
 
 }

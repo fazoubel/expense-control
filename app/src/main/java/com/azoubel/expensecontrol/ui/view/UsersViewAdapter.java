@@ -79,6 +79,10 @@ public class UsersViewAdapter extends BaseAdapter {
         return selectedUser;
     }
 
+    public void setSelectedUser(User user) {
+        this.selectedUser = user;
+    }
+
     public void clearSelected() {
         selectedUser = null;
         if(selectedView != null) {
