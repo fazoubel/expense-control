@@ -8,16 +8,16 @@ import android.arch.persistence.room.PrimaryKey;
 public class UserData {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    protected long id;
 
     @ColumnInfo(name = "image")
-    private int image;
+    protected int image;
 
     @ColumnInfo(name = "expected_expenses_value")
-    private float expectedExpensesValue;
+    protected float expectedExpensesValue;
 
     @ColumnInfo(name = "address_id")
-    private int addressId;
+    protected int addressId;
 
     public long getId() {
         return id;

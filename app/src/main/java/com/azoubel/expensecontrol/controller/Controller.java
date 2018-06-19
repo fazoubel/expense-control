@@ -925,9 +925,9 @@ public class Controller extends BuilderController{
         address3 = findAddress(context, "rua Mexico", 119, "Paris");
 
         Person person1 = new Person();
-        person1.setFirstName("fernando");
-        person1.setLastName("oliveira");
-        person1.setNickName("nando");
+        person1.setFirstName("Fabio");
+        person1.setLastName("Azoubel");
+        person1.setNickName("Fabinho");
         person1.setPhoneNumber("111111111111");
         person1.setBirthday(new Date());
         person1.setSex("masculino");
@@ -938,9 +938,9 @@ public class Controller extends BuilderController{
         addPerson(context, person1);
 
         Person person2 = new Person();
-        person2.setFirstName("thiago");
-        person2.setLastName("lopes");
-        person2.setNickName("txubaca");
+        person2.setFirstName("João");
+        person2.setLastName("Silva");
+        person2.setNickName("Joãozinho");
         person2.setPhoneNumber("222222222222");
         person2.setBirthday(new Date());
         person2.setSex("masculino");
@@ -951,9 +951,9 @@ public class Controller extends BuilderController{
         addPerson(context, person2);
 
         Person person3 = new Person();
-        person3.setFirstName("caliane");
-        person3.setLastName("figueredo");
-        person3.setNickName("iemanja");
+        person3.setFirstName("Maria");
+        person3.setLastName("Pereira");
+        person3.setNickName("Mari");
         person3.setPhoneNumber("3333333333");
         person3.setBirthday(new Date());
         person3.setSex("feminino");
@@ -966,12 +966,12 @@ public class Controller extends BuilderController{
         List<User> users = loadAllUsers(context);
 
         Store store1 = new Store();
-        store1.setStoreName("loja tartaruga");
-        store1.setSite("tartarugas.com.br");
-        store1.setDescription("loja de tartarugas");
-        store1.setProductType("animais");
+        store1.setStoreName("Loja da Casa");
+        store1.setSite("lojadacasa.com.br");
+        store1.setDescription("Loja de Artigos para Casa");
+        store1.setProductType("Casa");
         store1.setPhoneNumber("12321312312");
-        store1.setEmail("lojatartaruga@gmail.com");
+        store1.setEmail("lojadacasa@gmail.com");
         store1.setManagerName("Olavo");
         store1.setManagerPhoneNumber("123123123");
         store1.setManagerEmail("olavogerente@gmail.com");
@@ -980,12 +980,12 @@ public class Controller extends BuilderController{
         addStore(context, store1);
 
         Store store2 = new Store();
-        store2.setStoreName("loja abobrinha");
-        store2.setSite("abobrinhas.com.br");
-        store2.setDescription("loja de abobrinha");
-        store2.setProductType("abobrinhas");
+        store2.setStoreName("Bompreço");
+        store2.setSite("bompreco.com.br");
+        store2.setDescription("Mercado");
+        store2.setProductType("Comida");
         store2.setPhoneNumber("9999999999999");
-        store2.setEmail("lojaabobrinhas@gmail.com");
+        store2.setEmail("bompreco@gmail.com");
         store2.setManagerName("Gilmar");
         store2.setManagerPhoneNumber("44444444444");
         store2.setManagerEmail("gilmargerente@gmail.com");
@@ -1016,20 +1016,20 @@ public class Controller extends BuilderController{
         expense1.setExpenseDate(expirationDate);
         expense1.setExpirationDate(expirationDate);
         expense1.setCategory("compra");
-        expense1.setDescription("compra de tartaruga");
+        expense1.setDescription("compra de feijão");
         expense1.setAssessment(0);
 
         Promotion promotion1 = new Promotion();
-        promotion1.setDescription("compre uma tartaruga pela metade do preço!");
+        promotion1.setDescription("compre feijão pela metade do preço!");
         promotion1.setDiscountInPercent(50f);
         promotion1.setStartDate(calendar.getTime());
-        promotion1.setName("compra de tartaruga");
+        promotion1.setName("compra de feijão");
         calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, 1);
         promotion1.setEndDate(calendar.getTime());
         promotion1.setPaymentWayRestriction("dinheiro");
         promotion1.setPrize("sem prêmio");
-        promotion1.setPhoneNumber("(51)988990077");
+        promotion1.setPhoneNumber("(51)000000000");
         promotion1.setStore(store1);
 
         addPromotion(context, promotion1);
